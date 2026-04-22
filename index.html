@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KNEURALABS Brand Guidelines — v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ─── SKIP LINK ─── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    background: var(--kn-cyan);
+    color: var(--kn-near-black);
+    padding: 8px 16px;
+    border-radius: 0 0 var(--kn-r-md) var(--kn-r-md);
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 9999;
+    transition: top 0.2s;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ─── TOKENS ─── */
+  :root {
+    /* Primary palette */
+    --kn-cyan: #00F0FF;
+    --kn-near-black: #0A141F;
+    --kn-navy: #204376;
+    --kn-charcoal: #141414;
+    /* Logo art colours */
+    --kn-teal: #468DA3;
+    --kn-crimson: #C5062A;
+    --kn-electric: #0A98D9;
+    /* Supporting */
+    --kn-cyan-dim: #00B8C9;
+    --kn-cyan-ghost: #D6FBFF;
+    --kn-teal-light: #5BAEC6;
+    --kn-teal-ghost: #EAF5F9;
+    --kn-steel: #8A9BB5;
+    --kn-smoke: #EEF1F5;
+    --kn-off-white: #FAFBFC;
+    --kn-white: #FFFFFF;
+    /* Semantic */
+    --kn-emerald: #00B871;
+    --kn-alert: #E53E3E;
+    --kn-amber: #F6A623;
+    /* Code block colours */
+    --kn-code-text: #C8D3E0;
+    --kn-code-val: #90C8F0;
+    --kn-code-comment: #4A6070;
+    /* Typography */
+    --kn-font: 'Inter', 'Arial', sans-serif;
+    --kn-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --kn-base: 16px;
+    --kn-leading: 1.6;
+    /* Type scale — 6 stops */
+    --kn-text-xs:      11px;
+    --kn-text-sm:      13px;
+    --kn-text-base:    15px;
+    --kn-text-md:      18px;
+    --kn-text-lg:      36px;
+    --kn-text-display: clamp(40px, 5vw, 64px);
+    /* Logo sizing */
+    --kn-logo-height-nav: 36px;
+    --kn-logo-height-mobile: 28px;
+    --kn-logo-height-hero: 96px;
+    --kn-logo-height-footer: 32px;
+    /* Spacing — 8pt grid */
+    --kn-4: 4px;   --kn-8: 8px;
+    --kn-16: 16px; --kn-24: 24px;
+    --kn-32: 32px; --kn-48: 48px;
+    --kn-64: 64px; --kn-96: 96px;
+    --kn-128: 128px;
+    /* Radii */
+    --kn-r-sm: 4px; --kn-r-md: 8px; --kn-r-lg: 16px;
+    /* Shadows */
+    --kn-shadow-sm: 0 1px 4px rgba(10,20,31,0.06);
+    --kn-shadow-md: 0 4px 16px rgba(10,20,31,0.10);
+    --kn-shadow-lg: 0 12px 48px rgba(10,20,31,0.16);
+    /* Layout */
+    --nav-width: 260px;
+    /* Transition easing */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--kn-font);
+    font-size: var(--kn-base);
+    line-height: var(--kn-leading);
+    color: var(--kn-charcoal);
+    background: var(--kn-white);
+    display: flex;
+    opacity: 0;
+    animation: pageLoad 0.5s var(--ease-out) 0.1s forwards;
+  }
+
+  /* ─── PAGE LOAD ─── */
+  @keyframes pageLoad {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── PRINT ─── */
+  @media print {
+    .kn-sidebar, .kn-hamburger { display: none !important; }
+    .kn-main { margin-left: 0 !important; }
+    .kn-hero { background: white !important; padding: 32px !important; }
+    .kn-hero h1, .kn-hero-eyebrow, .kn-hero-sub { color: var(--kn-charcoal) !important; }
+    .kn-hero::after { display: none; }
+    .kn-section { padding: 32px !important; page-break-inside: avoid; }
+  }
+
+  /* ─── SIDEBAR NAV ─── */
+  .kn-sidebar {
+    width: var(--nav-width);
+    min-height: 100vh;
+    background: var(--kn-near-black);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0 0 var(--kn-48) 0;
+    transform: translateX(0);
+    transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+  }
+
+  .kn-sidebar::-webkit-scrollbar { width: 4px; }
+  .kn-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .kn-sidebar::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.15); border-radius: 4px; }
+
+  .kn-sidebar-brand {
+    padding: var(--kn-32) var(--kn-24);
+    border-bottom: 1px solid rgba(0,240,255,0.12);
+    margin-bottom: var(--kn-16);
+  }
+
+  .kn-sidebar-brand .mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--kn-8);
+  }
+
+  /* Logo SVG in sidebar — decorative, labelled by adjacent wordmark */
+  .kn-sidebar-brand .mark svg {
+    flex-shrink: 0;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .kn-sidebar-brand .mark:hover svg { transform: rotate(15deg) scale(1.05); }
+
+  .kn-sidebar-brand .wordmark {
+    font-size: var(--kn-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--kn-white);
+  }
+
+  .kn-sidebar-brand .tagline {
+    font-size: 10px;
+    color: var(--kn-cyan-dim);
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+
+  .kn-nav-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--kn-steel);
+    padding: var(--kn-16) var(--kn-24) var(--kn-8);
+    text-transform: uppercase;
+  }
+
+  .kn-nav-item {
+    display: block;
+    padding: 10px var(--kn-24);
+    font-size: var(--kn-text-sm) - 0.5;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--kn-steel);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s, border-left-color 0.2s, padding-left 0.2s;
+    border-left: 2px solid transparent;
+    position: relative;
+  }
+
+  .kn-nav-item:hover {
+    color: var(--kn-white);
+    background: rgba(0,240,255,0.04);
+    border-left-color: rgba(0,240,255,0.4);
+    padding-left: 28px;
+  }
+
+  .kn-nav-item.active {
+    color: var(--kn-white);
+    background: rgba(0,240,255,0.06);
+    border-left-color: var(--kn-cyan);
+    padding-left: 28px;
+  }
+
+  .kn-nav-item:focus-visible {
+    outline: 2px solid var(--kn-cyan);
+    outline-offset: -2px;
+    color: var(--kn-white);
+  }
+
+  .kn-nav-item .num {
+    font-family: var(--kn-mono);
+    font-size: 10px;
+    color: var(--kn-cyan);
+    margin-right: 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .kn-nav-item:hover .num,
+  .kn-nav-item.active .num { opacity: 1; }
+
+  /* ─── HAMBURGER (mobile) ─── */
+  .kn-hamburger {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    width: 40px; height: 40px;
+    background: var(--kn-near-black);
+    border: 1px solid rgba(0,240,255,0.2);
+    border-radius: var(--kn-r-md);
+    z-index: 200;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+    transition: background 0.2s;
+  }
+  .kn-hamburger:focus-visible { outline: 2px solid var(--kn-cyan); }
+  .kn-hamburger span {
+    display: block;
+    width: 16px; height: 1.5px;
+    background: var(--kn-white);
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease-out), opacity 0.2s;
+  }
+  .kn-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .kn-hamburger.open span:nth-child(2) { opacity: 0; }
+  .kn-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .kn-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 90;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .kn-overlay.visible { opacity: 1; }
+
+  /* ─── MAIN CONTENT ─── */
+  .kn-main {
+    margin-left: var(--nav-width);
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ─── HERO ─── */
+  .kn-hero {
+    background: var(--kn-near-black);
+    padding: var(--kn-96) var(--kn-64);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated orb */
+  .kn-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,240,255,0.055) 0%, transparent 70%);
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+
+  .kn-hero-orb2 {
+    position: absolute;
+    bottom: -120px; left: 10%;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(32,67,118,0.3) 0%, transparent 70%);
+    animation: orbFloat 11s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+
+  @keyframes orbFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%  { transform: translate(-20px, 15px) scale(1.04); }
+    66%  { transform: translate(15px,-10px) scale(0.97); }
+  }
+
+  .kn-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--kn-cyan) 30%, var(--kn-cyan) 70%, transparent 100%);
+    animation: lineShimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes lineShimmer {
+    0%,100% { opacity: 0.6; }
+    50%      { opacity: 1; }
+  }
+
+  .kn-hero-eyebrow {
+    font-family: var(--kn-mono);
+    font-size: var(--kn-text-xs);
+    color: var(--kn-cyan-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: var(--kn-32);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: heroReveal 0.6s var(--ease-out) 0.3s forwards;
+  }
+
+  .kn-hero h1 {
+    font-size: var(--kn-text-display);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--kn-white);
+    line-height: 1.0;
+    margin-bottom: var(--kn-16);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroReveal 0.7s var(--ease-out) 0.45s forwards;
+  }
+
+  .kn-hero-sub {
+    font-size: var(--kn-text-base);
+    color: var(--kn-steel);
+    margin-bottom: var(--kn-32);
+    max-width: 560px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: heroReveal 0.6s var(--ease-out) 0.6s forwards;
+  }
+
+  .kn-hero-meta {
+    display: flex;
+    gap: var(--kn-32);
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: heroReveal 0.6s var(--ease-out) 0.75s forwards;
+  }
+
+  @keyframes heroReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .kn-hero-meta-item { font-size: 12px; color: var(--kn-steel); }
+  .kn-hero-meta-item dt {
+    color: var(--kn-white);
+    font-weight: 600;
+    font-size: var(--kn-text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    display: block;
+  }
+  .kn-hero-meta-item dd { display: block; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .kn-section {
+    padding: var(--kn-64);
+    border-bottom: 1px solid var(--kn-smoke);
+    scroll-margin-top: 32px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+  }
+
+  .kn-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .kn-section:nth-child(even) { background: var(--kn-off-white); }
+
+  .kn-section-num {
+    font-family: var(--kn-mono);
+    font-size: var(--kn-text-xs);
+    color: var(--kn-cyan-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: var(--kn-16);
+    display: flex;
+    align-items: center;
+    gap: var(--kn-8);
+  }
+
+  .kn-section-num::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,184,201,0.25);
+    max-width: 60px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-out) 0.2s;
+  }
+
+  .kn-section.visible .kn-section-num::after { transform: scaleX(1); }
+
+  .kn-section > h2 {
+    font-size: var(--kn-text-lg);
+    font-weight: 800;
+    color: var(--kn-navy);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--kn-8);
+  }
+
+  .kn-section-lead {
+    font-size: var(--kn-text-base);
+    color: var(--kn-steel);
+    max-width: 640px;
+    margin-bottom: var(--kn-48);
+    line-height: 1.7;
+  }
+
+  /* ─── SUBSECTION HEADERS ─── */
+  .kn-h3 {
+    font-size: var(--kn-text-md);
+    font-weight: 700;
+    color: var(--kn-navy);
+    margin-bottom: var(--kn-16);
+    margin-top: var(--kn-48);
+  }
+
+  .kn-h4 {
+    font-size: var(--kn-text-xs);
+    font-weight: 700;
+    color: var(--kn-teal-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--kn-8);
+    margin-top: var(--kn-32);
+  }
+
+  /* ─── POSITIONING GRID ─── */
+  .kn-position-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    border: 1px solid var(--kn-smoke);
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  .kn-position-grid .row-label {
+    background: var(--kn-smoke);
+    padding: 14px 20px;
+    font-weight: 600;
+    color: var(--kn-near-black);
+    font-size: 12px;
+    border-bottom: 1px solid var(--kn-smoke);
+    display: flex;
+    align-items: center;
+  }
+
+  .kn-position-grid .row-val {
+    padding: 14px 20px;
+    color: var(--kn-charcoal);
+    border-bottom: 1px solid var(--kn-smoke);
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .kn-position-grid .row-val:hover { background: var(--kn-off-white); }
+
+  .kn-position-grid .row-label:last-of-type,
+  .kn-position-grid .row-val:last-child { border-bottom: none; }
+
+  /* ─── VOICE TABLE ─── */
+  .kn-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--kn-text-sm);
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    box-shadow: var(--kn-shadow-sm);
+  }
+
+  .kn-table thead tr { background: var(--kn-near-black); }
+
+  .kn-table thead th {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: var(--kn-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--kn-cyan);
+    font-family: var(--kn-mono);
+  }
+
+  .kn-table tbody tr:nth-child(odd)  { background: var(--kn-white); }
+  .kn-table tbody tr:nth-child(even) { background: var(--kn-smoke); }
+
+  .kn-table tbody tr {
+    transition: background 0.15s;
+  }
+
+  .kn-table tbody tr:hover { background: var(--kn-cyan-ghost) !important; }
+
+  .kn-table tbody td {
+    padding: 13px 20px;
+    color: var(--kn-charcoal);
+    border-bottom: 1px solid var(--kn-smoke);
+    vertical-align: top;
+  }
+
+  .kn-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--kn-navy);
+    white-space: nowrap;
+  }
+
+  .kn-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ─── COLOUR PALETTE ─── */
+  .kn-palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--kn-16);
+    margin-bottom: var(--kn-32);
+  }
+
+  .kn-swatch {
+    border-radius: var(--kn-r-md);
+    overflow: hidden;
+    box-shadow: var(--kn-shadow-sm);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  }
+
+  .kn-swatch:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--kn-shadow-md);
+  }
+
+  .kn-swatch-color {
+    height: 96px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kn-swatch-color::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .kn-swatch:hover .kn-swatch-color::after { opacity: 1; }
+
+  .kn-swatch-info {
+    padding: 12px 14px;
+    background: var(--kn-white);
+  }
+
+  .kn-swatch-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--kn-charcoal);
+    margin-bottom: 2px;
+  }
+
+  .kn-swatch-hex {
+    font-family: var(--kn-mono);
+    font-size: var(--kn-text-xs);
+    color: var(--kn-steel);
+  }
+
+  .kn-swatch-usage {
+    font-size: var(--kn-text-xs);
+    color: var(--kn-steel);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .kn-palette-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--kn-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--kn-steel);
+    margin-top: 4px;
+  }
+
+  /* ─── CODE BLOCK ─── */
+  .kn-code {
+    background: var(--kn-near-black);
+    border-radius: var(--kn-r-lg);
+    padding: var(--kn-32);
+    margin: var(--kn-32) 0;
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid rgba(0,240,255,0.08);
+  }
+
+  .kn-code-label {
+    font-family: var(--kn-mono);
+    font-size: 10px;
+    color: var(--kn-cyan-dim);
+    letter-spacing: 0.14em;
+    margin-bottom: var(--kn-16);
+    display: block;
+  }
+
+  .kn-code pre {
+    font-family: var(--kn-mono);
+    font-size: 12px;
+    color: var(--kn-code-text);
+    line-height: 1.8;
+    white-space: pre;
+  }
+
+  .kn-code .c-cyan  { color: var(--kn-cyan); }
+  .kn-code .c-blue  { color: var(--kn-electric); }
+  .kn-code .c-steel { color: var(--kn-steel); }
+  .kn-code .c-green { color: var(--kn-emerald); }
+
+  /* ─── CALLOUT BOX ─── */
+  .kn-callout {
+    background: var(--kn-cyan-ghost);
+    border-left: 4px solid var(--kn-cyan-dim);
+    border-radius: 0 var(--kn-r-md) var(--kn-r-md) 0;
+    padding: var(--kn-16) var(--kn-24);
+    margin: var(--kn-24) 0;
+    font-size: var(--kn-text-sm);
+    color: var(--kn-near-black);
+    line-height: 1.65;
+    transform: translateX(-8px);
+    opacity: 0;
+    transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
+  }
+
+  .kn-section.visible .kn-callout {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .kn-callout strong {
+    font-family: var(--kn-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--kn-navy);
+    display: block;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ─── RULE TAGS ─── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: var(--kn-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .tag-do   { background: rgba(0,184,113,0.12); color: #00845A; }
+  .tag-dont { background: rgba(229,62,62,0.10);  color: #C53030; }
+  .tag-warn { background: rgba(246,166,35,0.12); color: #B7690A; }
+  .tag-ai   { background: rgba(10,152,217,0.12); color: #0A6FA8; }
+
+  /* ─── RULE TABLE ─── */
+  .kn-rules {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--kn-text-sm);
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    margin-bottom: var(--kn-32);
+  }
+
+  .kn-rules tr:nth-child(odd)  { background: var(--kn-white); }
+  .kn-rules tr:nth-child(even) { background: var(--kn-smoke); }
+  .kn-rules tr { transition: background 0.15s; }
+  .kn-rules tr:hover { background: var(--kn-teal-ghost) !important; }
+
+  .kn-rules td {
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--kn-smoke);
+    vertical-align: middle;
+    color: var(--kn-charcoal);
+    line-height: 1.55;
+  }
+
+  .kn-rules td:first-child { width: 80px; }
+  .kn-rules tr:last-child td { border-bottom: none; }
+
+  /* ─── TYPE SCALE ─── */
+  .kn-type-demos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--kn-16);
+    margin-bottom: var(--kn-48);
+  }
+
+  .kn-type-demo {
+    display: grid;
+    grid-template-columns: 140px 1fr 200px;
+    align-items: center;
+    gap: var(--kn-16);
+    padding: var(--kn-16) var(--kn-24);
+    background: var(--kn-white);
+    border: 1px solid var(--kn-smoke);
+    border-radius: var(--kn-r-md);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .kn-type-demo:hover {
+    border-color: var(--kn-teal-light);
+    box-shadow: var(--kn-shadow-sm);
+  }
+
+  .kn-type-meta .level { font-weight: 700; color: var(--kn-charcoal); margin-bottom: 2px; font-size: var(--kn-text-xs); }
+  .kn-type-meta .spec  { font-family: var(--kn-mono); font-size: 10px; color: var(--kn-steel); }
+
+  .kn-type-usage { font-size: var(--kn-text-xs); color: var(--kn-steel); text-align: right; }
+
+  /* ─── LOGO VARIANTS ─── */
+  .kn-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--kn-16);
+    margin-bottom: var(--kn-32);
+  }
+
+  .kn-logo-card {
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    box-shadow: var(--kn-shadow-sm);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  }
+
+  .kn-logo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--kn-shadow-md);
+  }
+
+  .kn-logo-display {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kn-logo-caption {
+    padding: 12px 16px;
+    background: var(--kn-white);
+    border-top: 1px solid var(--kn-smoke);
+  }
+
+  .kn-logo-caption .bg-name   { font-family: var(--kn-mono); font-size: 10px; color: var(--kn-navy); font-weight: 600; }
+  .kn-logo-caption .bg-status { font-size: var(--kn-text-xs); color: var(--kn-steel); margin-top: 2px; }
+
+  /* ─── SIZING TABLE ─── */
+  .kn-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--kn-text-sm);
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    box-shadow: var(--kn-shadow-sm);
+  }
+
+  .kn-spec-table thead tr { background: var(--kn-navy); }
+  .kn-spec-table thead th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--kn-cyan);
+    text-transform: uppercase;
+  }
+
+  .kn-spec-table tbody tr:nth-child(odd)  { background: var(--kn-white); }
+  .kn-spec-table tbody tr:nth-child(even) { background: var(--kn-smoke); }
+  .kn-spec-table tbody tr { transition: background 0.15s; }
+  .kn-spec-table tbody tr:hover { background: var(--kn-teal-ghost) !important; }
+  .kn-spec-table tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--kn-smoke);
+    font-size: var(--kn-text-sm);
+    color: var(--kn-charcoal);
+    font-family: var(--kn-mono);
+  }
+
+  .kn-spec-table tbody td:first-child { font-family: var(--kn-font); font-weight: 500; }
+  .kn-spec-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ─── NAMING CONVENTION ─── */
+  .kn-naming-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: var(--kn-16);
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--kn-smoke);
+    font-size: var(--kn-text-sm);
+    transition: background 0.15s;
+  }
+
+  .kn-naming-row:nth-child(odd)  { background: var(--kn-white); }
+  .kn-naming-row:nth-child(even) { background: var(--kn-smoke); }
+  .kn-naming-row:hover { background: var(--kn-teal-ghost) !important; }
+  .kn-naming-row:last-child { border-bottom: none; }
+
+  .kn-naming-row .doc-type { font-weight: 600; color: var(--kn-navy); }
+  .kn-naming-row .format   { font-family: var(--kn-mono); font-size: var(--kn-text-xs); color: var(--kn-steel); }
+  .kn-naming-row .example  { font-family: var(--kn-mono); font-size: var(--kn-text-xs); color: var(--kn-electric); }
+
+  /* ─── AI MASTER BLOCK ─── */
+  .kn-master-block {
+    background: var(--kn-near-black);
+    border: 1px solid rgba(0,240,255,0.15);
+    border-radius: var(--kn-r-lg);
+    padding: var(--kn-32);
+    margin: var(--kn-32) 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kn-master-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,240,255,0.4), transparent);
+    animation: lineShimmer 3s ease-in-out infinite;
+  }
+
+  .kn-master-block pre {
+    font-family: var(--kn-mono);
+    font-size: var(--kn-text-xs);
+    color: var(--kn-code-text);
+    line-height: 1.85;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .kn-master-block .kw      { color: var(--kn-cyan); font-weight: 600; }
+  .kn-master-block .val     { color: var(--kn-code-val); }
+  .kn-master-block .comment { color: var(--kn-code-comment); }
+
+  /* ─── VERSIONING ─── */
+  .kn-version-table {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border: 1px solid var(--kn-smoke);
+    border-radius: var(--kn-r-lg);
+    overflow: hidden;
+    font-size: 14px;
+    max-width: 560px;
+  }
+
+  .kn-version-table .vk {
+    padding: 14px 20px;
+    font-weight: 600;
+    color: var(--kn-near-black);
+    background: var(--kn-smoke);
+    border-bottom: 1px solid var(--kn-smoke);
+    font-size: 12px;
+  }
+
+  .kn-version-table .vv {
+    padding: 14px 20px;
+    color: var(--kn-charcoal);
+    border-bottom: 1px solid var(--kn-smoke);
+  }
+
+  .kn-version-table .vk:last-of-type,
+  .kn-version-table .vv:last-child { border-bottom: none; }
+
+  /* ─── FOOTER ─── */
+  .kn-footer {
+    background: var(--kn-near-black);
+    padding: var(--kn-48) var(--kn-64);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--kn-24);
+  }
+
+  .kn-footer-copy     { font-size: 12px; color: var(--kn-steel); }
+  .kn-footer-wordmark { font-size: 12px; font-weight: 800; letter-spacing: 0.2em; color: var(--kn-white); }
+
+  /* ─── STATUS BADGES ─── */
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: var(--kn-text-xs);
+    font-weight: 600;
+  }
+
+  .status-compliant   { background: rgba(0,184,113,0.12);  color: #00845A; }
+  .status-noncompliant{ background: rgba(229,62,62,0.10);  color: #C53030; }
+  .status-pending     { background: rgba(246,166,35,0.12); color: #A0620A; }
+  .status-active      { background: rgba(10,152,217,0.10); color: #0A6FA8; }
+
+  /* ─── HELPERS ─── */
+  .mt-8  { margin-top: var(--kn-8); }
+  .mt-16 { margin-top: var(--kn-16); }
+  .mt-24 { margin-top: var(--kn-24); }
+  .mt-32 { margin-top: var(--kn-32); }
+  .mt-48 { margin-top: var(--kn-48); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--kn-24); }
+  .divider { height: 1px; background: var(--kn-smoke); margin: var(--kn-48) 0; }
+
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: var(--kn-text-xs);
+    font-weight: 600;
+    background: var(--kn-cyan-ghost);
+    color: var(--kn-navy);
+    margin-right: 6px;
+    margin-bottom: 6px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .pill:hover { transform: scale(1.04); background: #b8f5ff; }
+
+  /* ─── TITLE CASE TABLE ─── */
+  .tc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--kn-text-sm);
+    margin-top: var(--kn-16);
+  }
+
+  .tc-table thead tr { background: var(--kn-near-black); }
+  .tc-table thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--kn-cyan);
+  }
+
+  .tc-table tbody tr:nth-child(odd)  { background: var(--kn-white); }
+  .tc-table tbody tr:nth-child(even) { background: var(--kn-smoke); }
+  .tc-table tbody tr { transition: background 0.15s; }
+  .tc-table tbody tr:hover { background: var(--kn-teal-ghost) !important; }
+
+  .tc-table tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--kn-smoke);
+    color: var(--kn-charcoal);
+  }
+
+  .tc-table tbody td:first-child  { font-weight: 600; color: var(--kn-navy); }
+  .tc-table tbody td:last-child   { font-family: var(--kn-mono); font-size: var(--kn-text-xs); color: var(--kn-steel); }
+  .tc-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ─── FOCUS VISIBLE (global) ─── */
+  :focus-visible {
+    outline: 2px solid var(--kn-cyan-dim);
+    outline-offset: 2px;
+  }
+
+  /* ─── REDUCE MOTION ─── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-delay: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    body { opacity: 1; }
+    .kn-hero-eyebrow, .kn-hero h1, .kn-hero-sub, .kn-hero-meta {
+      opacity: 1 !important; transform: none !important;
+    }
+    .kn-section { opacity: 1 !important; transform: none !important; }
+    .kn-callout { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .kn-hamburger { display: flex; }
+
+    .kn-sidebar {
+      transform: translateX(-100%);
+      box-shadow: none;
+      width: min(var(--nav-width), 85vw);
+    }
+
+    .kn-sidebar.open {
+      transform: translateX(0);
+      box-shadow: 4px 0 32px rgba(0,0,0,0.3);
+    }
+
+    .kn-main { margin-left: 0; }
+
+    .kn-hero { padding: 84px var(--kn-32) var(--kn-48); }
+    .kn-section { padding: var(--kn-48) var(--kn-32); scroll-margin-top: 24px; }
+    .kn-footer { padding: var(--kn-32); flex-direction: column; gap: var(--kn-16); }
+
+    .kn-type-demo { grid-template-columns: 100px 1fr; }
+    .kn-type-usage { display: none; }
+
+    .kn-naming-row { grid-template-columns: 1fr; gap: 4px; }
+    .kn-naming-row .doc-type { font-size: 12px; }
+  }
+
+  @media (max-width: 600px) {
+    .kn-hero { padding: 80px var(--kn-24) var(--kn-32); }
+    .kn-section { padding: var(--kn-32) var(--kn-24); }
+    .kn-hero-meta { gap: var(--kn-16); }
+    .kn-palette-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .two-col { grid-template-columns: 1fr; }
+    .kn-type-demo { grid-template-columns: 1fr; gap: 8px; }
+    .kn-version-table { max-width: 100%; }
+    .kn-section > h2 { font-size: 26px; }
+    .kn-code { padding: var(--kn-24) var(--kn-16); }
+    .kn-code pre { font-size: 11px; }
+    .kn-master-block { padding: var(--kn-24) var(--kn-16); }
+    .kn-master-block pre { font-size: 10px; }
+  }
+
+  /* ─── VERY SMALL MOBILE (≤ 480px) ─── */
+  @media (max-width: 480px) {
+    .kn-position-grid { grid-template-columns: 1fr; }
+    .kn-position-grid .row-label {
+      background: rgba(0,240,255,0.04);
+      color: var(--kn-cyan-dim);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: none;
+      padding-bottom: 4px;
+    }
+    .kn-position-grid .row-val { padding-top: 4px; }
+    .kn-version-table { grid-template-columns: 100px 1fr; }
+    .kn-hero-meta { flex-direction: column; gap: var(--kn-8); }
+    .kn-hero-meta-item { display: flex; gap: var(--kn-8); align-items: baseline; flex-wrap: wrap; }
+    .kn-hero-meta-item dt { margin-bottom: 0; }
+    .kn-naming-row .format,
+    .kn-naming-row .example { word-break: break-all; font-size: 9px; }
+    .kn-back-top { bottom: 16px; right: 16px;
+    }
+  }
+
+  .kn-table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--kn-r-lg);
+    margin-bottom: var(--kn-32);
+  }
+  .kn-table-scroll .kn-table,
+  .kn-table-scroll .kn-spec-table,
+  .kn-table-scroll .kn-rules,
+  .kn-table-scroll .tc-table {
+    margin-bottom: 0;
+    min-width: 420px;
+  }
+  /* Preserve margin-top utilities on wrapped tables */
+  .mt-16 + .kn-table-scroll,
+  .kn-table-scroll.mt-16 { margin-top: var(--kn-16); }
+
+  /* ─── BACK TO TOP ─── */
+  .kn-back-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background: var(--kn-near-black);
+    border: 1px solid rgba(0,240,255,0.25);
+    border-radius: var(--kn-r-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background 0.2s, border-color 0.2s;
+    z-index: 150;
+    color: var(--kn-cyan);
+    padding: 0;
+  }
+  .kn-back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .kn-back-top:hover { background: rgba(0,240,255,0.08); border-color: rgba(0,240,255,0.5); }
+  .kn-back-top:focus-visible { outline: 2px solid var(--kn-cyan); outline-offset: 2px; }
+
+  /* ─── SEMANTIC SWATCH GRID ─── */
+  .kn-semantic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--kn-16);
+    margin-bottom: var(--kn-32);
+  }
+
+  /* ─── TABLET (601px – 900px) ─── */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .kn-type-demo { grid-template-columns: 100px 1fr; }
+    .kn-hero-meta { gap: var(--kn-24); }
+  }
+
+  /* ─── WIDE SCREENS (> 1440px) ─── */
+  @media (min-width: 1440px) {
+    .kn-main { max-width: 1180px; }
+  }
+
+</style>
+</head>
+<body>
+
+<a href="#brand-identity" class="skip-link">Skip to content</a>
+
+<!-- ─── HAMBURGER ─── -->
+<button class="kn-hamburger" aria-label="Open navigation menu" aria-expanded="false" id="hamburger">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- ─── OVERLAY ─── -->
+<div class="kn-overlay" id="overlay" aria-hidden="true"></div>
+
+<!-- ─── SIDEBAR ─── -->
+<nav class="kn-sidebar" id="sidebar" aria-label="Brand sections">
+  <div class="kn-sidebar-brand">
+    <div class="mark">
+      <!-- Art mark shown inline in this guidelines doc for reference. In production: use logo-art.png -->
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-label="KNEURALABS art mark">
+        <title>KNEURALABS art mark</title>
+        <circle cx="50" cy="50" r="50" fill="#468DA3"/>
+        <path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/>
+        <path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/>
+      </svg>
+      <span class="wordmark">KNEURALABS</span>
+    </div>
+    <div class="tagline">BRAND GUIDELINES — V1.0</div>
+  </div>
+  <div class="kn-nav-label">Sections</div>
+  <a href="#brand-identity"  class="kn-nav-item"><span class="num">01</span>Brand Identity</a>
+  <a href="#colour-palette"  class="kn-nav-item"><span class="num">02</span>Colour Palette</a>
+  <a href="#logo"            class="kn-nav-item"><span class="num">03</span>Logo and Brand Mark</a>
+  <a href="#typography"      class="kn-nav-item"><span class="num">04</span>Typography</a>
+  <a href="#document-rules"  class="kn-nav-item"><span class="num">05</span>Document Application</a>
+  <a href="#ai-master"       class="kn-nav-item"><span class="num">06</span>AI Master Block</a>
+  <a href="#writing-style"   class="kn-nav-item"><span class="num">07</span>Writing Style Guide</a>
+  <a href="#version-control" class="kn-nav-item"><span class="num">08</span>Version Control</a>
+</nav>
+
+<!-- ─── BACK TO TOP ─── -->
+<button class="kn-back-top" id="back-top" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- ─── MAIN ─── -->
+<main class="kn-main" id="main-content">
+
+  <!-- HERO -->
+  <div class="kn-hero" role="banner">
+    <div class="kn-hero-orb2" aria-hidden="true"></div>
+    <p class="kn-hero-eyebrow">KNEURALABS LLC — STRUCTURAL AI GOVERNANCE</p>
+    <h1>Brand<br>Guidelines</h1>
+    <p class="kn-hero-sub">The single source of truth for all KNEURALABS brand expression — across documents, web, and AI-generated content.</p>
+    <dl class="kn-hero-meta">
+      <div class="kn-hero-meta-item"><dt>Version</dt><dd>1.0</dd></div>
+      <div class="kn-hero-meta-item"><dt>Effective</dt><dd>20 March 2026</dd></div>
+      <div class="kn-hero-meta-item"><dt>Status</dt><dd>Active</dd></div>
+      <div class="kn-hero-meta-item"><dt>Owner</dt><dd>Kneuralabs Brand Team</dd></div>
+    </dl>
+  </div>
+
+  <!-- SECTION 01 — BRAND IDENTITY -->
+  <section class="kn-section" id="brand-identity">
+    <div class="kn-section-num">01</div>
+    <h2>Brand Identity</h2>
+    <p class="kn-section-lead">Kneuralabs LLC is an AI governance consulting firm empowering U.S. mid-market enterprises with structural alignment and regulatory compliance. We operate at the intersection of technology, policy, and business strategy.</p>
+
+    <h3 class="kn-h3">Brand Positioning</h3>
+    <div class="kn-position-grid">
+      <div class="row-label">Mission</div>
+      <div class="row-val">To make AI governance accessible, precise, and commercially valuable for enterprise organisations worldwide.</div>
+      <div class="row-label">Vision</div>
+      <div class="row-val">A world where AI is deployed responsibly by default — compliance built in, not bolted on.</div>
+      <div class="row-label">Promise</div>
+      <div class="row-val">Safety is not a feature you add later. It is the foundation upon which intelligence is built.</div>
+      <div class="row-label">Tagline</div>
+      <div class="row-val" style="font-weight:600;color:var(--kn-navy);">Structural AI Governance.</div>
+      <div class="row-label">Audience</div>
+      <div class="row-val">U.S. mid-market enterprises — CROs, CTOs, General Counsel, AI programme leads.</div>
+      <div class="row-label">Standards</div>
+      <div class="row-val">
+        <span class="pill">NIST AI RMF</span>
+        <span class="pill">ISO/IEC 42001</span>
+        <span class="pill">EU AI Act</span>
+        <span class="pill">SOC 2</span>
+        <span class="pill">UK AI Management Essentials</span>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Voice and Tone</h3>
+    <p style="font-size:14px;color:var(--kn-steel);margin-bottom:var(--kn-24);">Every word Kneuralabs publishes must reinforce trust, precision, and authority. We do not hedge. We do not hype.</p>
+    <table class="kn-table">
+      <thead><tr><th>Trait</th><th>Instruction</th></tr></thead>
+      <tbody>
+        <tr><td>Authoritative</td><td>State positions directly. We are the expert in the room.</td></tr>
+        <tr><td>Precise</td><td>Use specific numbers, frameworks, and examples. No vague generalisations.</td></tr>
+        <tr><td>Clear</td><td>Plain English. Remove jargon unless addressing a technical audience.</td></tr>
+        <tr><td>Confident</td><td>Remove hedging words entirely: <span style="font-family:var(--kn-mono);font-size:12px;color:var(--kn-steel);">might, perhaps, kind of, sort of, basically.</span></td></tr>
+        <tr><td>Active</td><td>Active voice only. We delivered X — not X was delivered by us.</td></tr>
+        <tr><td>Structural</td><td>Organised and logical. Every paragraph earns its place.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 02 — COLOUR PALETTE -->
+  <section class="kn-section" id="colour-palette">
+    <div class="kn-section-num">02</div>
+    <h2>Colour Palette</h2>
+    <p class="kn-section-lead">The KNEURALABS colour system is unified across brand identity and logo art. Seven core colours form the complete brand palette.</p>
+
+    <div class="kn-callout">
+      <strong>Unified Brand Palette — 7 Core Colours</strong>
+      From palette: <span style="font-family:var(--kn-mono);font-size:12px;">#00F0FF &nbsp; #0A141F &nbsp; #204376 &nbsp; #141414</span><br>
+      From logo art: <span style="font-family:var(--kn-mono);font-size:12px;">#468DA3 &nbsp; #C5062A &nbsp; #0A98D9</span>
+    </div>
+
+    <h3 class="kn-h3">Primary Palette</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#00F0FF;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Electric Cyan</div>
+          <div class="kn-swatch-hex">#00F0FF — rgb(0, 240, 255)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Primary accent. CTAs, rule lines, section labels, active states.</div>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#0A141F;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Near Black</div>
+          <div class="kn-swatch-hex">#0A141F — rgb(10, 20, 31)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Deepest authority. Table headers, dark UI backgrounds.</div>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#204376;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Deep Navy</div>
+          <div class="kn-swatch-hex">#204376 — rgb(32, 67, 118)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Structural. H2 headings, borders, secondary backgrounds.</div>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#141414;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Charcoal</div>
+          <div class="kn-swatch-hex">#141414 — rgb(20, 20, 20)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Typography. H1, display type, primary wordmark, body text.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Logo Art Palette</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#468DA3;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Steel Teal</div>
+          <div class="kn-swatch-hex">#468DA3 — rgb(70, 141, 163)</div>
+          <div class="kn-palette-label" style="background:rgba(70,141,163,0.1);color:#2A6070;border-radius:4px;padding:2px 6px;">LOGO — LEFT HALF</div>
+          <div class="kn-swatch-usage">Chart series 1, data visualisations, divider fills.</div>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#C5062A;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Crimson</div>
+          <div class="kn-swatch-hex">#C5062A — rgb(197, 6, 42)</div>
+          <div class="kn-palette-label" style="background:rgba(197,6,42,0.08);color:#8B0018;border-radius:4px;padding:2px 6px;">LOGO — TOP RIGHT</div>
+          <div class="kn-swatch-usage">Logo accent. Chart series 3, risk categorisation. Not for errors.</div>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#0A98D9;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Electric Blue</div>
+          <div class="kn-swatch-hex">#0A98D9 — rgb(10, 152, 217)</div>
+          <div class="kn-palette-label" style="background:rgba(10,152,217,0.1);color:#0A5A8A;border-radius:4px;padding:2px 6px;">LOGO — BOTTOM RIGHT</div>
+          <div class="kn-swatch-usage">Logo accent. Chart series 2, technology-layer diagrams.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Supporting Colours</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#00B8C9;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Cyan Dim</div><div class="kn-swatch-hex">#00B8C9</div><div class="kn-swatch-usage">Muted accent. Hover states, secondary borders.</div></div></div>
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#D6FBFF;border:1px solid #C0EFF5;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Cyan Ghost</div><div class="kn-swatch-hex">#D6FBFF</div><div class="kn-swatch-usage">Callout fills, section highlight backgrounds.</div></div></div>
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#5BAEC6;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Teal Light</div><div class="kn-swatch-hex">#5BAEC6</div><div class="kn-swatch-usage">H3 headings, tertiary UI elements.</div></div></div>
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#EAF5F9;border:1px solid #CCE8F0;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Teal Ghost</div><div class="kn-swatch-hex">#EAF5F9</div><div class="kn-swatch-usage">Subtle section fills, alternating blocks.</div></div></div>
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#8A9BB5;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Steel</div><div class="kn-swatch-hex">#8A9BB5</div><div class="kn-swatch-usage">Captions, footer text, metadata, placeholder text.</div></div></div>
+      <div class="kn-swatch"><div class="kn-swatch-color" style="background:#EEF1F5;border:1px solid #DDE1E8;"></div><div class="kn-swatch-info"><div class="kn-swatch-name">Smoke</div><div class="kn-swatch-hex">#EEF1F5</div><div class="kn-swatch-usage">Alternating table rows, code block backgrounds.</div></div></div>
+    </div>
+
+    <h3 class="kn-h3">Semantic Colours — Status Only</h3>
+    <p style="font-size:var(--kn-text-sm);color:var(--kn-steel);margin-bottom:var(--kn-16);">Never for decoration. Used exclusively for compliance and system status indicators.</p>
+    <div class="kn-semantic-grid">
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#00B871;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Emerald</div>
+          <div class="kn-swatch-hex">#00B871</div>
+          <div class="kn-swatch-usage">Compliant, approved, active, success.</div>
+          <span class="status-badge status-compliant" style="margin-top:6px;">Compliant</span>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#E53E3E;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Alert Red</div>
+          <div class="kn-swatch-hex">#E53E3E</div>
+          <div class="kn-swatch-usage">Non-compliant, rejected, error. Distinct from brand Crimson.</div>
+          <span class="status-badge status-noncompliant" style="margin-top:6px;">Non-compliant</span>
+        </div>
+      </div>
+      <div class="kn-swatch">
+        <div class="kn-swatch-color" style="background:#F6A623;"></div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Amber</div>
+          <div class="kn-swatch-hex">#F6A623</div>
+          <div class="kn-swatch-usage">Pending review, under assessment, caution.</div>
+          <span class="status-badge status-pending" style="margin-top:6px;">Pending</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Colour Rules</h3>
+    <table class="kn-rules">
+      <tbody>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use Electric Cyan (#00F0FF) as the sole accent colour for CTAs, rule lines, and active states.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use Charcoal (#141414) for H1 headings and all primary display text.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use Deep Navy (#204376) for H2, borders, and structural document elements.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Keep page backgrounds White. Smoke (#EEF1F5) for alternating rows only.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use Logo Art colours (Teal, Crimson, Electric Blue) only in charts and diagrams.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Ensure WCAG AA contrast: 4.5:1 for body text, 3:1 for large display text.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use more than 3 colours on any single page or slide.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use any blue, teal, or cyan not defined in this palette.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use brand Crimson (#C5062A) to indicate errors — use Alert Red (#E53E3E) instead.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Place Electric Cyan text on white backgrounds for body copy — insufficient contrast.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use Semantic colours (Emerald, Alert Red, Amber) for decoration or branding.</td></tr>
+        <tr><td><span class="tag tag-warn">W A R N</span></td><td>Cyan (#00F0FF) is accent only. It fails WCAG AA at small sizes on white. Always pair with dark text for legibility.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 03 — LOGO -->
+  <section class="kn-section" id="logo">
+    <div class="kn-section-num">03</div>
+    <h2>Logo and Brand Mark</h2>
+    <p class="kn-section-lead">The KNEURALABS brand mark is a system of two components. The Art Mark and the Text Logo always work together as a defined system.</p>
+
+    <h3 class="kn-h3">Logo Anatomy</h3>
+    <table class="kn-table mt-16">
+      <thead><tr><th>Component</th><th>Description</th><th>Reference</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Art Mark</td>
+          <td>A geometric circle composed of four quadrants: Steel Teal (left half), Crimson (top-right), Electric Blue (bottom-right). Communicates governance, structure, and multidimensional thinking.</td>
+          <td style="font-family:var(--kn-mono);font-size:11px;color:var(--kn-steel);">logo-art.png</td>
+        </tr>
+        <tr>
+          <td>Text Logo</td>
+          <td>The wordmark KNEURALABS — always ALL CAPS, no exceptions. Set in Inter Bold. White on dark backgrounds, Near Black on white. Never standalone in primary contexts.</td>
+          <td style="font-family:var(--kn-mono);font-size:11px;color:var(--kn-steel);">logo-text-white.png</td>
+        </tr>
+        <tr>
+          <td>Lockup (Art + Text)</td>
+          <td>The complete brand mark: Art Mark left-aligned, KNEURALABS text logo to the right, vertically centred. This is the PRIMARY logo.</td>
+          <td style="font-family:var(--kn-mono);font-size:11px;color:var(--kn-steel);">logo-lockup.png</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="kn-callout mt-32">
+      <strong>KNEURALABS — Always ALL CAPS</strong>
+      The brand name KNEURALABS is always written in ALL CAPS wherever it appears as a logo text element — in headings, in the lockup, in the text-only logo, in slide titles, and in document headers. This rule has no exceptions.<br><br>
+      <span style="font-family:var(--kn-mono);font-size:11px;">Correct: KNEURALABS — KNEURALABS LLC — KNEURALABS Brand Guidelines</span><br>
+      <span style="font-family:var(--kn-mono);font-size:11px;color:var(--kn-alert);">Incorrect: Kneuralabs — KneuraLabs — kneuralabs</span>
+    </div>
+
+    <h3 class="kn-h3">Logo Variants</h3>
+    <h4 class="kn-h4">Variant 1 — Art Mark Only</h4>
+    <div class="kn-logo-grid">
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#0A141F;">
+          <svg width="60" height="60" viewBox="0 0 100 100" role="img" aria-label="Art mark on Near Black"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#0A141F Near Black</div><div class="bg-status">PRIMARY — Art Mark</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#204376;">
+          <svg width="60" height="60" viewBox="0 0 100 100" role="img" aria-label="Art mark on Deep Navy"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#204376 Deep Navy</div><div class="bg-status">APPROVED — Art Mark</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#FFFFFF;border:1px solid var(--kn-smoke);">
+          <svg width="60" height="60" viewBox="0 0 100 100" role="img" aria-label="Art mark on White"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#FFFFFF White</div><div class="bg-status">APPROVED — Art Mark</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#141414;">
+          <svg width="60" height="60" viewBox="0 0 100 100" role="img" aria-label="Art mark on Charcoal"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#141414 Charcoal</div><div class="bg-status">APPROVED — Art Mark</div></div>
+      </div>
+    </div>
+
+    <h4 class="kn-h4">Variant 2 — Art + Text Lockup (Primary)</h4>
+    <div class="kn-logo-grid">
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#0A141F;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+            <div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.12em;color:#fff;">KNEURALABS</div><div style="font-size:8px;letter-spacing:0.14em;color:#8A9BB5;font-weight:500;">LLC</div></div>
+          </div>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#0A141F Near Black</div><div class="bg-status">PRIMARY — Full Lockup</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#204376;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+            <div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.12em;color:#fff;">KNEURALABS</div><div style="font-size:8px;letter-spacing:0.14em;color:rgba(255,255,255,0.5);font-weight:500;">LLC</div></div>
+          </div>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#204376 Deep Navy</div><div class="bg-status">APPROVED — Full Lockup</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#FFFFFF;border:1px solid var(--kn-smoke);">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+            <div><div style="font-family:'Inter',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.12em;color:#0A141F;">KNEURALABS</div><div style="font-size:8px;letter-spacing:0.14em;color:#8A9BB5;font-weight:500;">LLC</div></div>
+          </div>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">#FFFFFF White</div><div class="bg-status">APPROVED — Near Black text</div></div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3 mt-48">Logo Sizing — Hardcoded Specifications</h3>
+    <table class="kn-spec-table">
+      <thead>
+        <tr><th>Application</th><th>Art Mark Size</th><th>Lockup Total Width</th><th>Minimum Permitted</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Word document header</td><td>22 × 22 px</td><td>N/A — art mark only</td><td>20px art mark</td></tr>
+        <tr><td>Word document body</td><td>80 × 80 px</td><td>240px wide lockup</td><td>60px art mark</td></tr>
+        <tr><td>PowerPoint title slide</td><td>120 × 120 px</td><td>360px wide lockup</td><td>100px art mark</td></tr>
+        <tr><td>PowerPoint slide header</td><td>40 × 40 px</td><td>160px wide lockup</td><td>32px art mark</td></tr>
+        <tr><td>HTML — desktop navbar</td><td>36px height</td><td>180px wide lockup</td><td>28px height</td></tr>
+        <tr><td>HTML — mobile navbar</td><td>28px height</td><td>120px wide lockup</td><td>24px height</td></tr>
+        <tr><td>HTML — hero section</td><td>96px height</td><td>400px wide lockup</td><td>64px height</td></tr>
+        <tr><td>Email signature</td><td>48 × 48 px</td><td>200px wide lockup</td><td>40px art mark</td></tr>
+        <tr><td>Social profile image</td><td>400 × 400 px</td><td>Art mark only — square crop</td><td>200px square</td></tr>
+        <tr><td>Favicon</td><td>32 × 32 px</td><td>Art mark only</td><td>16px square</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">AI Tool Instructions — Logo Handling</h3>
+    <table class="kn-rules">
+      <tbody>
+        <tr><td><span class="tag tag-ai">A I</span></td><td>Logo file must always have a transparent background (PNG with alpha channel). Never place a white, black, or coloured rectangle behind the art mark.</td></tr>
+        <tr><td><span class="tag tag-ai">A I</span></td><td>Word document header: set to 22 × 22 px. Set text wrapping to In Line With Text. No floating placement.</td></tr>
+        <tr><td><span class="tag tag-ai">A I</span></td><td>PowerPoint title slide: 120 × 120 px. Art mark top-left. Text logo (KNEURALABS in Inter Bold White) sits to the right, vertically centred.</td></tr>
+        <tr><td><span class="tag tag-ai">A I</span></td><td>HTML: use an <span style="font-family:var(--kn-mono);font-size:11px;">&lt;img&gt;</span> tag with <span style="font-family:var(--kn-mono);font-size:11px;">alt='Kneuralabs logo'</span>. Set height via <span style="font-family:var(--kn-mono);font-size:11px;">var(--kn-logo-height-*)</span>. Width must be auto. Never fix both dimensions.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Preserve the 1:1 aspect ratio of the art mark at all times.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use PNG format for all digital logo files. Use EPS or SVG for print applications.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Recreate the art mark geometry by hand — use the approved logo file only.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Crop, mask, rotate, flip, or apply any visual effect to the art mark.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Add drop shadows, glows, outlines, or any effects to any logo component.</td></tr>
+        <tr><td><span class="tag tag-warn">W A R N</span></td><td>A JPEG logo always carries a visible background rectangle. JPEG has no transparency support. Reject any JPEG logo file and request the PNG version.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 04 — TYPOGRAPHY -->
+  <section class="kn-section" id="typography">
+    <div class="kn-section-num">04</div>
+    <h2>Typography</h2>
+    <p class="kn-section-lead">Inter is the sole typeface across all KNEURALABS documents and digital surfaces. Its geometric precision and exceptional screen legibility make it the right choice for professional enterprise communication. JetBrains Mono is used exclusively for code and technical tokens.</p>
+
+    <div class="kn-callout">
+      <strong>Font Stack</strong>
+      Primary: <span style="font-family:var(--kn-mono);">Inter (Google Fonts), fallback: Arial, sans-serif</span><br>
+      Mono: <span style="font-family:var(--kn-mono);">JetBrains Mono (Google Fonts), fallback: Courier New, monospace</span>
+    </div>
+
+    <h3 class="kn-h3">Type Scale</h3>
+    <div class="kn-type-demos">
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Cover / Display</div><div class="spec">Inter 900 · 60pt · #141414</div></div>
+        <div style="font-size:36px;font-weight:900;color:#141414;letter-spacing:-0.02em;line-height:1;">KNEURALABS</div>
+        <div class="kn-type-usage">Document cover and title page only</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H1</div><div class="spec">Inter 800 · 32pt · #141414</div></div>
+        <div style="font-size:26px;font-weight:800;color:#141414;letter-spacing:-0.01em;">Section Openers and Major Headings</div>
+        <div class="kn-type-usage">Section openers, major headings</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H2</div><div class="spec">Inter 700 · 20pt · #204376</div></div>
+        <div style="font-size:20px;font-weight:700;color:#204376;">Sub-Section Headers and Structural Dividers</div>
+        <div class="kn-type-usage">Sub-section headers</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H3</div><div class="spec">Inter 600 · 13pt · #5BAEC6</div></div>
+        <div style="font-size:15px;font-weight:600;color:#5BAEC6;">Tertiary Headings and Named Subsections</div>
+        <div class="kn-type-usage">Tertiary headings, named subsections</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H4 / Label</div><div class="spec">Inter 600 · 11pt · #0A141F</div></div>
+        <div style="font-size:13px;font-weight:600;color:#0A141F;letter-spacing:0.06em;text-transform:uppercase;">Field Labels and Callout Titles</div>
+        <div class="kn-type-usage">Field labels, callout titles</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Body</div><div class="spec">Inter 400 · 10pt · #0A141F</div></div>
+        <div style="font-size:14px;font-weight:400;color:#0A141F;line-height:1.6;">All paragraph and list content. Clear, readable, and structured for sustained attention.</div>
+        <div class="kn-type-usage">All paragraph content</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Caption</div><div class="spec">Inter 400 · 9pt · #8A9BB5</div></div>
+        <div style="font-size:12px;font-weight:400;color:#8A9BB5;">Footnotes, image captions, and metadata labels</div>
+        <div class="kn-type-usage">Footnotes, captions, metadata</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Table Header</div><div class="spec">Inter 700 · 9pt · #00F0FF</div></div>
+        <div style="font-size:11px;font-weight:700;color:#00F0FF;letter-spacing:0.14em;text-transform:uppercase;background:#0A141F;padding:6px 10px;border-radius:4px;display:inline-block;">Column Headers on Near Black</div>
+        <div class="kn-type-usage">Table column headers</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Mono / Code</div><div class="spec">JetBrains Mono 400 · 9pt · #204376</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#204376;">#00F0FF &nbsp; filename_v2.docx &nbsp; v1.0</div>
+        <div class="kn-type-usage">Hex codes, file names, tokens</div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Typography Rules</h3>
+    <table class="kn-rules">
+      <tbody>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use Inter as the primary font. Arial is the fallback when Inter is unavailable.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Use JetBrains Mono exclusively for hex codes, file names, version numbers, and code.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Set body font to 10pt in Word and Excel. 18pt minimum in PowerPoint.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Sentence case for all body paragraphs. Title case for all headings H1 through H4.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>KNEURALABS is always written in ALL CAPS in every heading, logo context, document header, slide title, and text logo application — no exceptions.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Line spacing 1.15 for body. 6pt space after each paragraph.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Bold reserved for headings and key terms only — never whole paragraphs.</td></tr>
+        <tr><td><span class="tag tag-do">D O</span></td><td>Underline reserved for hyperlinks only.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use more than 2 font families in any single document.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Apply italics — restructure the sentence to carry emphasis instead.</td></tr>
+        <tr><td><span class="tag tag-dont">D O N T</span></td><td>Use ALL CAPS in body copy — reserved for the wordmark only.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">Title Case Rules for Headings</h3>
+    <p style="font-size:var(--kn-text-sm);color:var(--kn-steel);margin-bottom:var(--kn-16);">All headings (H1 through H4) use standard English title case. These rules apply without exception.</p>
+    <table class="tc-table">
+      <thead>
+        <tr><th>Word Type</th><th>Rule</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>First word of heading</td><td>Always capitalise</td><td>The, A, An at the start — always capitalised</td></tr>
+        <tr><td>Last word of heading</td><td>Always capitalise</td><td>...and, ...of, ...a — always capitalised at end</td></tr>
+        <tr><td>Nouns, verbs, adjectives</td><td>Always capitalise</td><td>Governance, Build, Structural, Trusted</td></tr>
+        <tr><td>Adverbs</td><td>Always capitalise</td><td>Always, Never, Fully, Directly</td></tr>
+        <tr><td>Words of 5+ letters</td><td>Always capitalise</td><td>Every, Which, Their, Where, Using</td></tr>
+        <tr><td>Articles</td><td>Lowercase</td><td>a, an, the (unless first or last)</td></tr>
+        <tr><td>Conjunctions</td><td>Lowercase</td><td>and, but, or, nor, for, yet, so</td></tr>
+        <tr><td>Short prepositions (≤4)</td><td>Lowercase</td><td>in, on, at, to, by, of, up, as, via, per, from, with</td></tr>
+        <tr><td>Two-letter function words</td><td>Lowercase</td><td>is, be, do, go, if, it, he, we, no, vs</td></tr>
+        <tr><td>KNEURALABS brand name</td><td>Always ALL CAPS — exception to all other rules</td><td>KNEURALABS — never Kneuralabs in any heading</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 05 — DOCUMENT RULES -->
+  <section class="kn-section" id="document-rules">
+    <div class="kn-section-num">05</div>
+    <h2>Document Application Rules</h2>
+    <p class="kn-section-lead">Hardcoded rules for Microsoft Word, Excel, PowerPoint, and HTML. These apply to every document produced under the KNEURALABS brand — by any human or AI system.</p>
+
+    <h3 class="kn-h3">Microsoft Word</h3>
+    <table class="kn-table mt-16">
+      <thead><tr><th>Element</th><th>Specification</th></tr></thead>
+      <tbody>
+        <tr><td>Page size</td><td>A4 (210mm × 297mm). US Letter only with client written approval.</td></tr>
+        <tr><td>Margins</td><td>Top 2cm | Bottom 2cm | Left 2.5cm | Right 2.5cm</td></tr>
+        <tr><td>Logo in header</td><td>Art mark PNG (transparent bg) at 22 × 22 px. In-line placement. KNEURALABS text in Inter Bold 11pt Near Black to its right.</td></tr>
+        <tr><td>Header rule</td><td>Cyan (#00F0FF) bottom border, 1pt, below header content.</td></tr>
+        <tr><td>Footer</td><td>Copyright line Steel left. Page X / Y Steel right. Smoke top border.</td></tr>
+        <tr><td>H1</td><td>Inter Bold 24pt Charcoal. Title case. Space before 0pt. Space after 10pt.</td></tr>
+        <tr><td>H2</td><td>Inter Bold 18pt Deep Navy. Title case. Space before 24pt. Space after 8pt.</td></tr>
+        <tr><td>H3</td><td>Inter Bold 12pt Teal Light. Title case. Space before 16pt. Space after 6pt.</td></tr>
+        <tr><td>Body</td><td>Inter Regular 10pt Near Black. Sentence case. Line spacing 1.15. Space after 6pt.</td></tr>
+        <tr><td>Table header row</td><td>Inter Bold 9pt Cyan on Near Black (#0A141F) background. Cyan bottom border.</td></tr>
+        <tr><td>Table body rows</td><td>Inter Regular 9pt Near Black. Alternating White and Smoke. Smoke borders.</td></tr>
+        <tr><td>Callout box</td><td>Cyan Ghost (#D6FBFF) fill. Cyan (#00F0FF) left border 3pt.</td></tr>
+        <tr><td>Hyperlinks</td><td>Deep Navy (#204376), underlined. No other colour for links.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">Microsoft Excel</h3>
+    <table class="kn-table mt-16">
+      <thead><tr><th>Element</th><th>Specification</th></tr></thead>
+      <tbody>
+        <tr><td>Sheet tab names</td><td>Title case. Examples: AI Risk Register, Compliance Tracker. Never: Sheet1.</td></tr>
+        <tr><td>Logo placement</td><td>Header/footer only. Art mark PNG at 22px height. Do not place logo inside cells.</td></tr>
+        <tr><td>Header row</td><td>Row 1 frozen. Near Black fill. Cyan Inter Bold 9pt text. Minimum row height 22px.</td></tr>
+        <tr><td>Body rows</td><td>Inter Regular 9pt Near Black. Alternating White and Smoke. Smoke cell borders.</td></tr>
+        <tr><td>Column width</td><td>Minimum 80px. Text wrap enabled. No content truncated by default.</td></tr>
+        <tr><td>Number format</td><td>Currency: 2 decimal places. Percentages: 1 decimal. Dates: DD-MMM-YYYY.</td></tr>
+        <tr><td>Status cells</td><td>Emerald for compliant. Alert Red for non-compliant. Amber for pending. No other colours.</td></tr>
+        <tr><td>Charts</td><td>Steel Teal (#468DA3) series 1. Electric Blue (#0A98D9) series 2. Crimson (#C5062A) series 3. White chart background.</td></tr>
+        <tr><td>Merged cells</td><td>NEVER merge cells in data tables. Breaks sorting, filtering, and accessibility.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">Microsoft PowerPoint</h3>
+    <table class="kn-table mt-16">
+      <thead><tr><th>Element</th><th>Specification</th></tr></thead>
+      <tbody>
+        <tr><td>Slide size</td><td>16:9 widescreen (33.87cm × 19.05cm). Never 4:3.</td></tr>
+        <tr><td>Background</td><td>White (#FFFFFF) for content slides. Smoke (#EEF1F5) for section dividers.</td></tr>
+        <tr><td>Title slide logo</td><td>Art mark at 120 × 120 px, top-left. Text logo KNEURALABS in Inter Bold 36pt White, vertically centred to the right. Background: Near Black or Deep Navy.</td></tr>
+        <tr><td>Slide logo</td><td>Art mark at 40 × 40 px in top-left corner of each slide. Clear space maintained.</td></tr>
+        <tr><td>Slide title</td><td>Inter Bold 28pt Charcoal. Title case. Top-left, below 2pt Cyan rule.</td></tr>
+        <tr><td>Body text</td><td>Inter Regular 18pt Near Black for primary. 14pt for sub-points. Sentence case.</td></tr>
+        <tr><td>Bullets</td><td>En-dash only (–). No icons, arrows, or decorative bullet characters.</td></tr>
+        <tr><td>Content per slide</td><td>One idea per slide. Maximum 5 bullet points. Maximum 8 words per bullet.</td></tr>
+        <tr><td>Animation</td><td>None by default. Fade only if motion is required. No fly-in, bounce, or spin.</td></tr>
+        <tr><td>Slide numbers</td><td>Bottom-right. JetBrains Mono 9pt Steel. Excluded from title slide.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">HTML Pages — CSS Token System</h3>
+    <p style="font-size:var(--kn-text-sm);color:var(--kn-steel);margin-bottom:var(--kn-16);">Every KNEURALABS HTML page must implement these CSS custom properties as the non-negotiable source of truth for all web styling and logo sizing.</p>
+
+    <div class="kn-code">
+      <span class="kn-code-label">CSS CUSTOM PROPERTIES — :root block</span>
+      <pre>:root {
+  <span class="c-steel">/* Primary Four — from brand palette */</span>
+  <span class="c-cyan">--kn-cyan</span>:         <span class="c-blue">#00F0FF</span>;
+  <span class="c-cyan">--kn-near-black</span>:   <span class="c-blue">#0A141F</span>;
+  <span class="c-cyan">--kn-navy</span>:         <span class="c-blue">#204376</span>;
+  <span class="c-cyan">--kn-charcoal</span>:     <span class="c-blue">#141414</span>;
+
+  <span class="c-steel">/* Logo art colours — from the mark */</span>
+  <span class="c-cyan">--kn-teal</span>:         <span class="c-blue">#468DA3</span>;
+  <span class="c-cyan">--kn-crimson</span>:      <span class="c-blue">#C5062A</span>;
+  <span class="c-cyan">--kn-electric</span>:     <span class="c-blue">#0A98D9</span>;
+
+  <span class="c-steel">/* Supporting */</span>
+  <span class="c-cyan">--kn-cyan-ghost</span>:   <span class="c-blue">#D6FBFF</span>;
+  <span class="c-cyan">--kn-steel</span>:        <span class="c-blue">#8A9BB5</span>;
+  <span class="c-cyan">--kn-smoke</span>:        <span class="c-blue">#EEF1F5</span>;
+  <span class="c-cyan">--kn-off-white</span>:    <span class="c-blue">#FAFBFC</span>;
+  <span class="c-cyan">--kn-white</span>:        <span class="c-blue">#FFFFFF</span>;
+
+  <span class="c-steel">/* Semantic */</span>
+  <span class="c-cyan">--kn-emerald</span>:      <span class="c-blue">#00B871</span>;
+  <span class="c-cyan">--kn-alert</span>:        <span class="c-blue">#E53E3E</span>;
+  <span class="c-cyan">--kn-amber</span>:        <span class="c-blue">#F6A623</span>;
+
+  <span class="c-steel">/* Typography */</span>
+  <span class="c-cyan">--kn-font</span>:         <span class="c-green">'Inter', 'Arial', sans-serif</span>;
+  <span class="c-cyan">--kn-mono</span>:         <span class="c-green">'JetBrains Mono', 'Courier New', monospace</span>;
+
+  <span class="c-steel">/* Type scale — 6 stops */</span>
+  <span class="c-cyan">--kn-text-xs</span>:      <span class="c-blue">11px</span>;
+  <span class="c-cyan">--kn-text-sm</span>:      <span class="c-blue">13px</span>;
+  <span class="c-cyan">--kn-text-base</span>:    <span class="c-blue">15px</span>;
+  <span class="c-cyan">--kn-text-md</span>:      <span class="c-blue">18px</span>;
+  <span class="c-cyan">--kn-text-lg</span>:      <span class="c-blue">36px</span>;
+  <span class="c-cyan">--kn-text-display</span>: <span class="c-blue">clamp(40px, 5vw, 64px)</span>;
+
+  <span class="c-steel">/* Logo sizing — always set height, width: auto */</span>
+  <span class="c-cyan">--kn-logo-height-nav</span>:    <span class="c-blue">36px</span>;
+  <span class="c-cyan">--kn-logo-height-mobile</span>: <span class="c-blue">28px</span>;
+  <span class="c-cyan">--kn-logo-height-hero</span>:   <span class="c-blue">96px</span>;
+  <span class="c-cyan">--kn-logo-height-footer</span>: <span class="c-blue">32px</span>;
+
+  <span class="c-steel">/* Spacing — 8pt grid */</span>
+  <span class="c-cyan">--kn-4</span>: 4px;  <span class="c-cyan">--kn-8</span>: 8px;
+  <span class="c-cyan">--kn-16</span>: 16px; <span class="c-cyan">--kn-24</span>: 24px;
+  <span class="c-cyan">--kn-32</span>: 32px; <span class="c-cyan">--kn-48</span>: 48px;
+  <span class="c-cyan">--kn-64</span>: 64px; <span class="c-cyan">--kn-96</span>: 96px;
+}</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 06 — AI MASTER BLOCK -->
+  <section class="kn-section" id="ai-master">
+    <div class="kn-section-num">06</div>
+    <h2>AI Master Instruction Block</h2>
+    <p class="kn-section-lead">Copy the entire block below into the system prompt of any AI session — ChatGPT, Claude, Gemini, or Microsoft Copilot — before generating any KNEURALABS content, documents, or placing the logo.</p>
+
+    <div class="kn-master-block">
+      <pre><span class="kw">You are a brand-compliant content assistant for Kneuralabs LLC,</span>
+<span class="kw">a Structural AI Governance consulting firm serving U.S. mid-market enterprises.</span>
+Apply every rule below to ALL content you generate for Kneuralabs.
+
+<span class="kw">IDENTITY</span>
+  Company:    <span class="val">Kneuralabs LLC</span>
+  Industry:   <span class="val">AI Governance Consulting — Structural Alignment</span>
+  Tagline:    <span class="val">Structural AI Governance.</span>
+  Audience:   <span class="val">U.S. mid-market — CROs, CTOs, General Counsel, AI leads</span>
+  Standards:  <span class="val">NIST AI RMF | ISO/IEC 42001 | EU AI Act | SOC 2 | UK AI Mgmt Essentials</span>
+
+<span class="kw">VOICE AND TONE</span>
+  ALWAYS: <span class="val">Authoritative, precise, clear, confident, structured, active voice.</span>
+  NEVER:  <span class="val">Casual, hedging, hyperbolic, passive voice, slangy.</span>
+  REMOVE: <span class="val">might, perhaps, kind of, sort of, basically, very, just.</span>
+  Headings: Title case (H1-H4). Body paragraphs: sentence case.
+  No italics anywhere. Restructure sentences to carry emphasis.
+
+<span class="kw">COLOUR SYSTEM — 7 CORE COLOURS</span>
+  FROM PALETTE:
+    Cyan:       <span class="val">#00F0FF</span> — accent only: CTAs, rule lines, section labels
+    Near Black: <span class="val">#0A141F</span> — table headers, dark UI, deepest authority
+    Deep Navy:  <span class="val">#204376</span> — H2, structural borders, secondary elements
+    Charcoal:   <span class="val">#141414</span> — H1, display type, primary wordmark
+  FROM LOGO ART:
+    Steel Teal: <span class="val">#468DA3</span> — chart series 1, data visualisations
+    Crimson:    <span class="val">#C5062A</span> — chart series 3, risk callouts (not for errors)
+    Electric Bl:<span class="val">#0A98D9</span> — chart series 2, technology diagrams
+  SEMANTIC (status only):
+    Emerald: <span class="val">#00B871</span> | Alert Red: <span class="val">#E53E3E</span> | Amber: <span class="val">#F6A623</span>
+  RULES: Max 3 colours per page. No colours outside this palette.
+
+<span class="kw">LOGO — HARDCODED AI RULES</span>
+  Logo = Art Mark + Text Logo (KNEURALABS in Inter Bold White).
+  File format: ALWAYS PNG with transparent background. NEVER JPEG.
+  WHEN TO USE:
+    Art + Text Lockup: all formal client-facing contexts (DEFAULT).
+    Art Mark Only: icons, favicons, narrow headers, square formats.
+    Text Logo Only: footer lines only, after art mark has appeared.
+  SIZING (height only — width always auto):
+    Word header: 22px | Word body: 80px | PPT title: 120px
+    PPT slide: 40px  | HTML nav: 36px  | HTML mobile: 28px
+    HTML hero: 96px  | Email: 48px     | Favicon: 32px
+  Clear space = 25% of logo height on all four sides.
+  PROHIBITED:
+    No background rectangle behind the logo.
+    No crop, rotate, flip, or visual effects on the art mark.
+    No manual recreation of the art mark geometry.
+
+<span class="kw">FONTS</span>
+  Primary: Inter (fallback: Arial) | Mono: JetBrains Mono
+  Word/Excel body: 10pt | PowerPoint body: 18pt minimum
+  Bold: headings and key terms only. Underline: hyperlinks only.
+  No italics. No decorative fonts.
+
+<span class="kw">REFUSE TO:</span>
+  - Use colours outside the defined 7-colour brand palette.
+  - Use JPEG for logo files.
+  - Set both width and height on the logo simultaneously.
+  - Use italics anywhere in any output.
+  - Use passive voice, hedging language, or casual tone.
+  - Use Crimson (#C5062A) to indicate errors — use Alert Red instead.
+  DEFAULT: White bg | Charcoal H1 | Navy H2 | Near Black body | Cyan accent.</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 07 — WRITING STYLE GUIDE -->
+  <section class="kn-section" id="writing-style">
+    <div class="kn-section-num">07</div>
+    <h2>Writing Style Guide</h2>
+
+    <h3 class="kn-h3">Terminology Standards</h3>
+    <table class="kn-table mt-16">
+      <thead>
+        <tr><th>Use This</th><th>Not This</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Kneuralabs LLC</td><td style="font-weight:400;">KneuraLabs / kneuralabs / KNEURALABS in body text</td></tr>
+        <tr><td>AI governance</td><td style="font-weight:400;">AI Governance — not title case in body paragraphs</td></tr>
+        <tr><td>AI system</td><td style="font-weight:400;">A.I. system — first mention: spell out Artificial Intelligence in full</td></tr>
+        <tr><td>organisation</td><td style="font-weight:400;">organization — UK English is the default</td></tr>
+        <tr><td>practise (verb)</td><td style="font-weight:400;">practice as a verb — UK English rule</td></tr>
+        <tr><td>compliance</td><td style="font-weight:400;">compliancy</td></tr>
+        <tr><td>structural alignment</td><td style="font-weight:400;">Structural Alignment — sentence case in body</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3 mt-48">Document Naming Convention</h3>
+    <div style="border:1px solid var(--kn-smoke);border-radius:var(--kn-r-lg);overflow:hidden;margin-top:var(--kn-16);">
+      <div class="kn-naming-row" style="background:var(--kn-near-black);">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">TYPE</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">FORMAT</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">EXAMPLE</div>
+      </div>
+      <div class="kn-naming-row"><div class="doc-type">Reports</div><div class="format">KN_[Client]_[DocType]_[YYYYMM].docx</div><div class="example">KN_AcmeCorp_AIRiskReport_202504.docx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Proposals</div><div class="format">KN_[Client]_Proposal_[YYYYMM].docx</div><div class="example">KN_AcmeCorp_Proposal_202504.docx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Presentations</div><div class="format">KN_[Client]_[Topic]_[YYYYMM].pptx</div><div class="example">KN_AcmeCorp_GovernanceFramework_202504.pptx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Spreadsheets</div><div class="format">KN_[Client]_[DataType]_[YYYYMM].xlsx</div><div class="example">KN_AcmeCorp_AIInventory_202504.xlsx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Internal</div><div class="format">KN_INT_[Description]_[YYYYMM].[ext]</div><div class="example">KN_INT_BrandGuidelines_202604.html</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 08 — VERSION CONTROL -->
+  <section class="kn-section" id="version-control">
+    <div class="kn-section-num">08</div>
+    <h2>Approvals and Version Control</h2>
+    <p class="kn-section-lead">Any deviation from these guidelines requires written approval from the KNEURALABS Brand Team. All AI-generated content must be reviewed against this document before external distribution.</p>
+
+    <div class="kn-version-table mt-32">
+      <div class="vk">Version</div><div class="vv">1.0</div>
+      <div class="vk">Status</div><div class="vv"><span class="status-badge status-active">Active</span></div>
+      <div class="vk">Entity</div><div class="vv">Kneuralabs LLC</div>
+      <div class="vk">Owner</div><div class="vv">Kneuralabs Brand Team</div>
+      <div class="vk">Effective</div><div class="vv">20 March 2026</div>
+      <div class="vk">Review Cycle</div><div class="vv">Annual, or upon any significant brand change</div>
+      <div class="vk">Approved By</div><div class="vv">Kneuralabs Leadership</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="kn-footer">
+    <div>
+      <div class="kn-footer-wordmark">KNEURALABS LLC</div>
+      <div class="kn-footer-copy" style="margin-top:6px;">Structural AI Governance</div>
+    </div>
+    <div class="kn-footer-copy">© 2026 Kneuralabs LLC. All rights reserved.<br>Brand Guidelines — v1.0 — 20 March 2026</div>
+  </footer>
+
+</main>
+
+<script>
+  /* ─── MOBILE NAV ─── */
+  const hamburger = document.getElementById('hamburger');
+  const sidebar   = document.getElementById('sidebar');
+  const overlay   = document.getElementById('overlay');
+
+  function openNav() {
+    sidebar.classList.add('open');
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close navigation menu');
+  }
+
+  function closeNav() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('visible');
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+  }
+
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeNav() : openNav();
+  });
+
+  overlay.addEventListener('click', closeNav);
+
+  /* Close on nav link click (mobile) */
+  document.querySelectorAll('.kn-nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 900) closeNav();
+    });
+  });
+
+  /* ─── ACTIVE NAV (IntersectionObserver) ─── */
+  const navItems = document.querySelectorAll('.kn-nav-item');
+  const sections = document.querySelectorAll('.kn-section');
+
+  /* Improved: track which section is nearest viewport centre */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.kn-nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -65% 0px', threshold: [0, 0.1, 0.5] });
+
+  sections.forEach(s => obs.observe(s));
+
+  /* ─── SCROLL REVEAL ─── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+
+  sections.forEach(s => revealObs.observe(s));
+
+  /* ─── ESCAPE KEY closes mobile nav ─── */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeNav();
+  });
+
+  /* ─── AUTO TABLE SCROLL WRAPPERS ─── */
+  document.querySelectorAll('.kn-table, .kn-spec-table, .kn-rules, .tc-table').forEach(table => {
+    if (!table.closest('.kn-table-scroll')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'kn-table-scroll';
+      if (table.classList.contains('mt-16')) {
+        wrap.classList.add('mt-16');
+        table.classList.remove('mt-16');
+      }
+      table.parentNode.insertBefore(wrap, table);
+      wrap.appendChild(table);
+    }
+  });
+
+  /* ─── BACK TO TOP ─── */
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+  backTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
