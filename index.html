@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KNEURALABS Brand Guidelines — v1.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --kn-cyan: #00F0FF;
+  --kn-near-black: #0A141F;
+  --kn-navy: #204376;
+  --kn-charcoal: #141414;
+  --kn-teal: #468DA3;
+  --kn-crimson: #C5062A;
+  --kn-electric: #0A98D9;
+  --kn-cyan-dim: #00B8C9;
+  --kn-cyan-ghost: #D6FBFF;
+  --kn-teal-light: #5BAEC6;
+  --kn-teal-ghost: #EAF5F9;
+  --kn-steel: #8A9BB5;
+  --kn-smoke: #EEF1F5;
+  --kn-off-white: #FAFBFC;
+  --kn-white: #FFFFFF;
+  --kn-emerald: #00B871;
+  --kn-alert: #E53E3E;
+  --kn-amber: #F6A623;
+  --kn-code-text: #C8D3E0;
+  --kn-font: 'Inter', 'Arial', sans-serif;
+  --kn-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --kn-leading: 1.6;
+  --nav-width: 272px;
+  --progress-h: 3px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; height: 100%; }
+
+body {
+  font-family: var(--kn-font);
+  font-size: 15px;
+  line-height: var(--kn-leading);
+  color: var(--kn-charcoal);
+  background: var(--kn-white);
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  opacity: 0;
+  animation: pageLoad 0.5s var(--ease-out) 0.08s forwards;
+}
+
+@keyframes pageLoad { to { opacity: 1; } }
+
+/* ─── SKIP LINK ─── */
+.skip-link {
+  position: absolute; top: -100%; left: 16px;
+  background: var(--kn-cyan); color: var(--kn-near-black);
+  padding: 8px 16px; border-radius: 0 0 6px 6px;
+  font-size: 13px; font-weight: 700; z-index: 9999;
+  transition: top 0.2s; text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── READING PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: var(--nav-width); right: 0;
+  height: var(--progress-h); background: var(--kn-near-black);
+  z-index: 500; pointer-events: none;
+}
+#progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--kn-cyan-dim), var(--kn-cyan), var(--kn-electric));
+  background-size: 200%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(0,240,255,0.6);
+  animation: shimmerBg 3s linear infinite;
+}
+@keyframes shimmerBg {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ─── TOAST ─── */
+.kn-toast {
+  position: fixed; bottom: 80px; right: 24px;
+  background: var(--kn-near-black);
+  color: var(--kn-cyan);
+  border: 1px solid rgba(0,240,255,0.25);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: var(--kn-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  z-index: 9000;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  pointer-events: none;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,240,255,0.08);
+  display: flex; align-items: center; gap: 8px;
+}
+.kn-toast.show { opacity: 1; transform: translateY(0); }
+.kn-toast svg { flex-shrink: 0; }
+
+/* ─── SIDEBAR ─── */
+.kn-sidebar {
+  width: var(--nav-width);
+  min-height: 100vh;
+  height: 100vh;
+  background: var(--kn-near-black);
+  position: fixed;
+  top: 0; left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s;
+}
+
+.kn-sidebar::-webkit-scrollbar { width: 4px; }
+.kn-sidebar::-webkit-scrollbar-track { background: transparent; }
+.kn-sidebar::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.12); border-radius: 4px; }
+
+.kn-sidebar-brand {
+  padding: 28px 22px 20px;
+  border-bottom: 1px solid rgba(0,240,255,0.10);
+  flex-shrink: 0;
+}
+
+.kn-sidebar-brand .mark {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px; text-decoration: none;
+}
+
+.kn-sidebar-brand .mark svg {
+  flex-shrink: 0;
+  transition: transform 0.5s var(--ease-out), filter 0.3s;
+}
+.kn-sidebar-brand .mark:hover svg {
+  transform: rotate(20deg) scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(0,240,255,0.35));
+}
+
+.kn-sidebar-brand .wordmark {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.18em; color: var(--kn-white);
+}
+.kn-sidebar-brand .tagline {
+  font-size: 9.5px; color: var(--kn-cyan-dim);
+  letter-spacing: 0.12em; font-weight: 500;
+}
+
+/* ─── SIDEBAR SEARCH ─── */
+.kn-search-wrap {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,240,255,0.07);
+  flex-shrink: 0;
+}
+.kn-search {
+  width: 100%;
+  background: rgba(0,240,255,0.04);
+  border: 1px solid rgba(0,240,255,0.12);
+  border-radius: 6px;
+  padding: 7px 10px 7px 32px;
+  color: var(--kn-white);
+  font-family: var(--kn-font);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+.kn-search::placeholder { color: rgba(138,155,181,0.6); }
+.kn-search:focus {
+  border-color: rgba(0,240,255,0.4);
+  background: rgba(0,240,255,0.07);
+}
+.kn-search-icon {
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--kn-steel);
+  pointer-events: none;
+}
+.kn-search-wrap { position: relative; }
+
+/* ─── NAV ─── */
+.kn-nav-scroll { flex: 1; overflow-y: auto; padding-bottom: 24px; }
+.kn-nav-scroll::-webkit-scrollbar { display: none; }
+
+.kn-nav-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; color: var(--kn-steel);
+  padding: 16px 22px 8px; text-transform: uppercase;
+}
+
+.kn-nav-item {
+  display: flex; align-items: center;
+  padding: 9px 22px;
+  font-size: 12.5px; font-weight: 500;
+  color: var(--kn-steel);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s, border-left-color 0.2s, padding-left 0.2s;
+  border-left: 2px solid transparent;
+  gap: 10px;
+}
+.kn-nav-item:hover {
+  color: var(--kn-white);
+  background: rgba(0,240,255,0.04);
+  border-left-color: rgba(0,240,255,0.35);
+  padding-left: 28px;
+}
+.kn-nav-item.active {
+  color: var(--kn-white);
+  background: rgba(0,240,255,0.06);
+  border-left-color: var(--kn-cyan);
+  padding-left: 28px;
+}
+.kn-nav-item:focus-visible { outline: 2px solid var(--kn-cyan); outline-offset: -2px; }
+.kn-nav-item.hidden-search { display: none; }
+
+.kn-nav-item .num {
+  font-family: var(--kn-mono); font-size: 10px;
+  color: var(--kn-cyan); opacity: 0.55;
+  transition: opacity 0.2s; flex-shrink: 0; min-width: 20px;
+}
+.kn-nav-item:hover .num, .kn-nav-item.active .num { opacity: 1; }
+
+.kn-nav-item .nav-label-text { flex: 1; }
+
+.kn-nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(138,155,181,0.3);
+  flex-shrink: 0;
+  transition: background 0.3s, border-color 0.3s;
+}
+.kn-nav-item.visited .kn-nav-dot {
+  background: var(--kn-emerald);
+  border-color: var(--kn-emerald);
+}
+.kn-nav-item.active .kn-nav-dot {
+  background: var(--kn-cyan);
+  border-color: var(--kn-cyan);
+  box-shadow: 0 0 6px rgba(0,240,255,0.5);
+}
+
+/* ─── SIDEBAR FOOTER ─── */
+.kn-sidebar-footer {
+  flex-shrink: 0;
+  padding: 14px 22px;
+  border-top: 1px solid rgba(0,240,255,0.08);
+  font-family: var(--kn-mono); font-size: 10px;
+  color: rgba(138,155,181,0.5);
+  letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 8px;
+}
+.kn-sidebar-footer .ver-badge {
+  background: rgba(0,240,255,0.08);
+  color: var(--kn-cyan-dim);
+  border-radius: 4px; padding: 2px 7px;
+  border: 1px solid rgba(0,240,255,0.12);
+}
+
+/* ─── HAMBURGER ─── */
+.kn-hamburger {
+  display: none;
+  position: fixed; top: 14px; left: 14px;
+  width: 40px; height: 40px;
+  background: var(--kn-near-black);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 8px; z-index: 200;
+  cursor: pointer; align-items: center;
+  justify-content: center; flex-direction: column;
+  gap: 5px; padding: 0;
+  transition: background 0.2s;
+}
+.kn-hamburger:focus-visible { outline: 2px solid var(--kn-cyan); }
+.kn-hamburger span {
+  display: block; width: 16px; height: 1.5px;
+  background: var(--kn-white); border-radius: 2px;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s;
+}
+.kn-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.kn-hamburger.open span:nth-child(2) { opacity: 0; }
+.kn-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.kn-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 90;
+  opacity: 0; transition: opacity 0.3s;
+}
+.kn-overlay.visible { opacity: 1; }
+
+/* ─── MAIN ─── */
+.kn-main {
+  margin-left: var(--nav-width);
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+}
+
+/* ─── HERO ─── */
+.kn-hero {
+  background: var(--kn-near-black);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 96px 72px;
+  position: relative; overflow: hidden;
+}
+
+/* Grid lines background */
+.kn-hero-grid {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 70% 50%, black 30%, transparent 100%);
+}
+
+/* Animated orbs */
+.kn-hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 65%);
+  animation: orbFloat 9s ease-in-out infinite;
+}
+.kn-hero-orb2 {
+  position: absolute; bottom: -140px; left: 5%;
+  width: 440px; height: 440px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(32,67,118,0.35) 0%, transparent 70%);
+  animation: orbFloat 13s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+.kn-hero-orb3 {
+  position: absolute; top: 20%; left: 40%;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(10,152,217,0.06) 0%, transparent 70%);
+  animation: orbFloat 7s ease-in-out infinite 2s;
+  pointer-events: none;
+}
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%  { transform: translate(-25px,18px) scale(1.04); }
+  66%  { transform: translate(18px,-12px) scale(0.97); }
+}
+
+/* Scan line */
+.kn-hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--kn-cyan) 35%, var(--kn-cyan) 65%, transparent 100%);
+  animation: lineShimmer 3.5s ease-in-out infinite;
+}
+@keyframes lineShimmer { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+.kn-hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+.kn-hero-eyebrow {
+  font-family: var(--kn-mono); font-size: 11px;
+  color: var(--kn-cyan-dim); letter-spacing: 0.22em;
+  margin-bottom: 32px;
+  opacity: 0; transform: translateY(14px);
+  animation: heroReveal 0.7s var(--ease-out) 0.3s forwards;
+  display: flex; align-items: center; gap: 14px;
+}
+.kn-hero-eyebrow::before {
+  content: '';
+  display: block; width: 32px; height: 1px;
+  background: var(--kn-cyan-dim); opacity: 0.6;
+}
+
+.kn-hero h1 {
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 900; letter-spacing: -0.03em;
+  color: var(--kn-white); line-height: 0.95;
+  margin-bottom: 28px;
+  opacity: 0; transform: translateY(20px);
+  animation: heroReveal 0.8s var(--ease-out) 0.45s forwards;
+}
+
+.kn-hero h1 .accent { color: var(--kn-cyan); }
+
+.kn-hero-sub {
+  font-size: 16px; color: var(--kn-steel);
+  margin-bottom: 48px; max-width: 520px; line-height: 1.7;
+  opacity: 0; transform: translateY(14px);
+  animation: heroReveal 0.7s var(--ease-out) 0.6s forwards;
+}
+
+.kn-hero-meta {
+  display: flex; gap: 0; flex-wrap: wrap;
+  opacity: 0; transform: translateY(12px);
+  animation: heroReveal 0.7s var(--ease-out) 0.75s forwards;
+  border: 1px solid rgba(0,240,255,0.12);
+  border-radius: 10px; overflow: hidden;
+  width: fit-content;
+}
+
+.kn-hero-meta-item {
+  padding: 14px 24px;
+  border-right: 1px solid rgba(0,240,255,0.1);
+}
+.kn-hero-meta-item:last-child { border-right: none; }
+.kn-hero-meta-item dt {
+  font-size: 9px; color: var(--kn-steel);
+  font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 4px;
+  display: block;
+}
+.kn-hero-meta-item dd {
+  font-size: 13px; font-weight: 600; color: var(--kn-white);
+  font-family: var(--kn-mono); letter-spacing: 0.04em;
+  display: block;
+}
+
+.kn-hero-scroll-hint {
+  position: absolute; bottom: 32px; left: 72px;
+  display: flex; align-items: center; gap: 10px;
+  opacity: 0; animation: heroReveal 0.6s var(--ease-out) 1.2s forwards;
+  color: var(--kn-steel); font-size: 11px;
+  font-family: var(--kn-mono); letter-spacing: 0.1em;
+}
+.kn-hero-scroll-hint .scroll-arrow {
+  width: 20px; height: 20px; border: 1px solid rgba(138,155,181,0.35);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  animation: arrowBounce 2s ease-in-out infinite 1.5s;
+}
+@keyframes arrowBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
+
+/* ─── SECTIONS ─── */
+.kn-section {
+  padding: 72px;
+  border-bottom: 1px solid var(--kn-smoke);
+  scroll-margin-top: 24px;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  width: 100%;
+}
+.kn-section.visible { opacity: 1; transform: translateY(0); }
+.kn-section:nth-child(even) { background: var(--kn-off-white); }
+
+.kn-section-num {
+  font-family: var(--kn-mono); font-size: 11px;
+  color: var(--kn-cyan-dim); letter-spacing: 0.15em;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.kn-section-num::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(0,184,201,0.3), transparent);
+  max-width: 80px; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.7s var(--ease-out) 0.15s;
+}
+.kn-section.visible .kn-section-num::after { transform: scaleX(1); }
+
+.kn-section > h2 {
+  font-size: 34px; font-weight: 800;
+  color: var(--kn-navy); letter-spacing: -0.025em;
+  margin-bottom: 10px; line-height: 1.1;
+}
+
+.kn-section-lead {
+  font-size: 15px; color: var(--kn-steel);
+  max-width: 680px; margin-bottom: 48px; line-height: 1.75;
+}
+
+.kn-h3 {
+  font-size: 18px; font-weight: 700;
+  color: var(--kn-navy); margin-bottom: 16px; margin-top: 48px;
+}
+.kn-h4 {
+  font-size: 11px; font-weight: 700;
+  color: var(--kn-teal-light); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 10px; margin-top: 32px;
+}
+
+/* ─── POSITION GRID ─── */
+.kn-position-grid {
+  display: grid; grid-template-columns: 150px 1fr;
+  border: 1px solid var(--kn-smoke);
+  border-radius: 12px; overflow: hidden; font-size: 14px;
+}
+.kn-position-grid .row-label {
+  background: var(--kn-smoke); padding: 15px 20px;
+  font-weight: 600; color: var(--kn-near-black); font-size: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  display: flex; align-items: center;
+}
+.kn-position-grid .row-val {
+  padding: 15px 20px; color: var(--kn-charcoal);
+  border-bottom: 1px solid var(--kn-smoke);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  transition: background 0.2s;
+}
+.kn-position-grid .row-val:hover { background: var(--kn-teal-ghost); }
+.kn-position-grid .row-label:last-of-type,
+.kn-position-grid .row-val:last-child { border-bottom: none; }
+
+/* ─── PILLS ─── */
+.pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(32,67,118,0.08);
+  color: var(--kn-navy); font-size: 11px; font-weight: 600;
+  border: 1px solid rgba(32,67,118,0.15); white-space: nowrap;
+}
+
+/* ─── VOICE TABLE ─── */
+.kn-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; border-radius: 10px;
+  overflow: hidden; box-shadow: 0 1px 6px rgba(10,20,31,0.06);
+}
+.kn-table thead tr { background: var(--kn-near-black); }
+.kn-table thead th {
+  padding: 13px 20px; text-align: left;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--kn-cyan); font-family: var(--kn-mono);
+}
+.kn-table tbody tr:nth-child(odd)  { background: var(--kn-white); }
+.kn-table tbody tr:nth-child(even) { background: var(--kn-smoke); }
+.kn-table tbody tr { transition: background 0.15s; }
+.kn-table tbody tr:hover { background: var(--kn-cyan-ghost) !important; }
+.kn-table tbody td {
+  padding: 13px 20px; color: var(--kn-charcoal);
+  border-bottom: 1px solid var(--kn-smoke); vertical-align: top;
+}
+.kn-table tbody td:first-child {
+  font-weight: 600; color: var(--kn-navy); white-space: nowrap;
+}
+.kn-table tbody tr:last-child td { border-bottom: none; }
+.kn-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.kn-table-scroll.mt-16 { margin-top: 16px; }
+
+/* ─── COLOUR PALETTE ─── */
+.kn-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px; margin-bottom: 32px;
+}
+
+.kn-swatch {
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(10,20,31,0.07);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  cursor: pointer;
+  position: relative;
+}
+.kn-swatch:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(10,20,31,0.14);
+}
+.kn-swatch-color { height: 96px; position: relative; overflow: hidden; }
+.kn-swatch-color::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.kn-swatch:hover .kn-swatch-color::after { opacity: 1; }
+
+/* Copy overlay on swatch */
+.kn-swatch-copy-hint {
+  position: absolute; inset: 0;
+  background: rgba(10,20,31,0.55);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  color: var(--kn-white); font-family: var(--kn-mono);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  gap: 6px;
+}
+.kn-swatch:hover .kn-swatch-copy-hint { opacity: 1; }
+
+.kn-swatch-info { padding: 12px 14px; background: var(--kn-white); }
+.kn-swatch-name { font-size: 12px; font-weight: 700; color: var(--kn-charcoal); margin-bottom: 3px; }
+.kn-swatch-hex { font-family: var(--kn-mono); font-size: 11px; color: var(--kn-steel); }
+.kn-swatch-usage { font-size: 11px; color: var(--kn-steel); margin-top: 5px; line-height: 1.4; }
+
+.kn-palette-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--kn-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; color: var(--kn-steel); margin-top: 5px;
+}
+
+/* ─── RULE TABLE with FILTER ─── */
+.kn-rules-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; flex-wrap: wrap; gap: 10px;
+}
+.kn-filter-btns {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.kn-filter-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--kn-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.2s;
+  background: var(--kn-smoke); color: var(--kn-steel);
+}
+.kn-filter-btn:hover { border-color: var(--kn-steel); color: var(--kn-charcoal); }
+.kn-filter-btn.active-filter { background: var(--kn-near-black); color: var(--kn-white); border-color: var(--kn-near-black); }
+.kn-filter-btn[data-filter="do"].active-filter { background: #00845A; border-color: #00845A; }
+.kn-filter-btn[data-filter="dont"].active-filter { background: #C53030; border-color: #C53030; }
+.kn-filter-btn[data-filter="warn"].active-filter { background: #B7690A; border-color: #B7690A; }
+
+.kn-rules {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; border-radius: 10px;
+  overflow: hidden; margin-bottom: 32px;
+  box-shadow: 0 1px 6px rgba(10,20,31,0.06);
+}
+.kn-rules tr:nth-child(odd)  { background: var(--kn-white); }
+.kn-rules tr:nth-child(even) { background: var(--kn-smoke); }
+.kn-rules tr { transition: background 0.15s; }
+.kn-rules tr:hover { background: var(--kn-teal-ghost) !important; }
+.kn-rules tr.hidden-rule { display: none; }
+.kn-rules td {
+  padding: 13px 20px; border-bottom: 1px solid var(--kn-smoke);
+  vertical-align: middle; color: var(--kn-charcoal); line-height: 1.55;
+}
+.kn-rules td:first-child { width: 86px; }
+.kn-rules tr:last-child td { border-bottom: none; }
+
+/* ─── TAGS ─── */
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 3px 8px; border-radius: 5px;
+  font-family: var(--kn-mono); font-size: 9px;
+  font-weight: 700; letter-spacing: 0.1em; white-space: nowrap;
+}
+.tag-do   { background: rgba(0,184,113,0.12); color: #00845A; }
+.tag-dont { background: rgba(229,62,62,0.10);  color: #C53030; }
+.tag-warn { background: rgba(246,166,35,0.12); color: #B7690A; }
+.tag-ai   { background: rgba(10,152,217,0.12); color: #0A6FA8; }
+
+/* ─── STATUS BADGES ─── */
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; font-family: var(--kn-mono);
+  letter-spacing: 0.06em;
+}
+.status-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; }
+.status-active     { background: rgba(0,184,113,0.12); color: #00845A; }
+.status-active::before { background: #00B871; }
+.status-compliant  { background: rgba(0,184,113,0.12); color: #00845A; }
+.status-compliant::before { background: #00B871; }
+.status-noncompliant { background: rgba(229,62,62,0.10);  color: #C53030; }
+.status-noncompliant::before { background: #E53E3E; }
+.status-pending    { background: rgba(246,166,35,0.12); color: #B7690A; }
+.status-pending::before { background: #F6A623; }
+
+/* ─── LOGO GRID ─── */
+.kn-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px; margin-bottom: 32px;
+}
+.kn-logo-card {
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(10,20,31,0.07);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  border: 1px solid var(--kn-smoke);
+}
+.kn-logo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(10,20,31,0.14);
+}
+.kn-logo-display {
+  height: 150px;
+  display: flex; align-items: center; justify-content: center;
+}
+.kn-logo-caption { padding: 12px 16px; background: var(--kn-white); border-top: 1px solid var(--kn-smoke); }
+.kn-logo-caption .bg-name { font-family: var(--kn-mono); font-size: 10px; color: var(--kn-navy); font-weight: 600; }
+.kn-logo-caption .bg-status { font-size: 11px; color: var(--kn-steel); margin-top: 3px; }
+
+/* ─── SPEC TABLE ─── */
+.kn-spec-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; border-radius: 10px;
+  overflow: hidden; box-shadow: 0 1px 6px rgba(10,20,31,0.06);
+}
+.kn-spec-table thead tr { background: var(--kn-navy); }
+.kn-spec-table thead th {
+  padding: 12px 20px; text-align: left;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--kn-cyan-ghost); font-family: var(--kn-mono);
+}
+.kn-spec-table tbody tr:nth-child(odd)  { background: var(--kn-white); }
+.kn-spec-table tbody tr:nth-child(even) { background: var(--kn-smoke); }
+.kn-spec-table tbody tr { transition: background 0.15s; }
+.kn-spec-table tbody tr:hover { background: var(--kn-teal-ghost) !important; }
+.kn-spec-table tbody td {
+  padding: 12px 20px; border-bottom: 1px solid var(--kn-smoke);
+  vertical-align: middle;
+}
+.kn-spec-table tbody tr:last-child td { border-bottom: none; }
+.kn-spec-table tbody td:first-child { font-weight: 600; color: var(--kn-charcoal); }
+.kn-spec-table tbody td:last-child { font-family: var(--kn-mono); font-size: 12px; color: var(--kn-navy); }
+
+/* ─── TYPOGRAPHY DEMOS ─── */
+.kn-type-demos { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
+.kn-type-demo {
+  display: grid;
+  grid-template-columns: 150px 1fr 200px;
+  align-items: center; gap: 16px;
+  padding: 16px 24px;
+  background: var(--kn-white);
+  border: 1px solid var(--kn-smoke);
+  border-radius: 10px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s var(--ease-out);
+}
+.kn-type-demo:hover {
+  border-color: var(--kn-teal-light);
+  box-shadow: 0 4px 16px rgba(10,20,31,0.08);
+  transform: translateX(4px);
+}
+.kn-type-meta .level { font-weight: 700; color: var(--kn-charcoal); margin-bottom: 2px; font-size: 11px; }
+.kn-type-meta .spec  { font-family: var(--kn-mono); font-size: 10px; color: var(--kn-steel); }
+.kn-type-usage { font-size: 11px; color: var(--kn-steel); text-align: right; line-height: 1.5; }
+
+/* ─── CALLOUT ─── */
+.kn-callout {
+  background: var(--kn-cyan-ghost);
+  border-left: 3px solid var(--kn-cyan-dim);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 24px; margin: 24px 0;
+  font-size: 13px; color: var(--kn-near-black); line-height: 1.65;
+  transform: translateX(-10px); opacity: 0;
+  transition: transform 0.55s var(--ease-out) 0.1s, opacity 0.55s var(--ease-out) 0.1s;
+}
+.kn-section.visible .kn-callout { transform: translateX(0); opacity: 1; }
+.kn-callout strong {
+  font-family: var(--kn-mono); font-size: 10px;
+  letter-spacing: 0.14em; color: var(--kn-navy);
+  display: block; margin-bottom: 6px; text-transform: uppercase;
+}
+
+/* ─── CODE BLOCK ─── */
+.kn-code {
+  background: var(--kn-near-black);
+  border-radius: 12px; padding: 28px;
+  margin: 28px 0; position: relative; overflow-x: auto;
+  border: 1px solid rgba(0,240,255,0.08);
+}
+.kn-code-label {
+  font-family: var(--kn-mono); font-size: 10px;
+  color: var(--kn-cyan-dim); letter-spacing: 0.14em;
+  margin-bottom: 16px; display: block;
+}
+.kn-code pre {
+  font-family: var(--kn-mono); font-size: 12px;
+  color: var(--kn-code-text); line-height: 1.8; white-space: pre;
+}
+.kn-code .kw  { color: var(--kn-cyan); font-weight: 700; }
+.kn-code .val { color: #90C8F0; }
+.kn-code .c-cyan  { color: var(--kn-cyan); }
+.kn-code .c-blue  { color: var(--kn-electric); }
+.kn-code .c-steel { color: var(--kn-steel); }
+.kn-code .c-green { color: var(--kn-emerald); }
+
+/* ─── COPY CODE BUTTON ─── */
+.kn-code-copy {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(0,240,255,0.06);
+  border: 1px solid rgba(0,240,255,0.15);
+  color: var(--kn-steel); border-radius: 6px;
+  padding: 5px 12px; font-family: var(--kn-mono);
+  font-size: 10px; cursor: pointer;
+  letter-spacing: 0.08em; font-weight: 600;
+  transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+}
+.kn-code-copy:hover { color: var(--kn-cyan); border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.1); }
+
+/* ─── NAMING ROWS ─── */
+.kn-naming-row {
+  display: grid; grid-template-columns: 140px 1fr 1fr;
+  gap: 0;
+}
+.kn-naming-row > div { padding: 12px 18px; font-size: 13px; border-bottom: 1px solid var(--kn-smoke); }
+.kn-naming-row:last-child > div { border-bottom: none; }
+.kn-naming-row .doc-type { font-weight: 600; color: var(--kn-navy); }
+.kn-naming-row .format   { font-family: var(--kn-mono); font-size: 11px; color: var(--kn-steel); }
+.kn-naming-row .example  { font-family: var(--kn-mono); font-size: 11px; color: var(--kn-electric); }
+
+/* ─── VERSION TABLE ─── */
+.kn-version-table {
+  display: grid; grid-template-columns: 160px 1fr;
+  border: 1px solid var(--kn-smoke);
+  border-radius: 12px; overflow: hidden;
+}
+.kn-version-table .vk {
+  background: var(--kn-smoke); padding: 14px 20px;
+  font-weight: 600; color: var(--kn-near-black);
+  font-size: 12px; letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  display: flex; align-items: center;
+}
+.kn-version-table .vv {
+  padding: 14px 20px; color: var(--kn-charcoal);
+  border-bottom: 1px solid var(--kn-smoke);
+  display: flex; align-items: center;
+  font-size: 14px; transition: background 0.2s;
+}
+.kn-version-table .vv:hover { background: var(--kn-teal-ghost); }
+.kn-version-table .vk:last-of-type,
+.kn-version-table .vv:last-child { border-bottom: none; }
+
+/* ─── SEMANTIC GRID ─── */
+.kn-semantic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px; margin-bottom: 32px;
+}
+
+/* ─── BACK TO TOP ─── */
+.kn-back-top {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 44px; height: 44px;
+  background: var(--kn-near-black);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 10px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background 0.2s;
+  z-index: 150; color: var(--kn-cyan); padding: 0;
+}
+.kn-back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.kn-back-top:hover { background: rgba(0,240,255,0.1); border-color: rgba(0,240,255,0.5); }
+.kn-back-top:focus-visible { outline: 2px solid var(--kn-cyan); outline-offset: 2px; }
+
+/* ─── FOOTER ─── */
+.kn-footer {
+  background: var(--kn-near-black);
+  padding: 40px 72px;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.kn-footer-wordmark {
+  font-family: var(--kn-mono); font-size: 12px;
+  font-weight: 700; color: var(--kn-white);
+  letter-spacing: 0.2em;
+}
+.kn-footer-copy { font-size: 12px; color: var(--kn-steel); line-height: 1.6; }
+
+/* ─── UTILITY ─── */
+.mt-16 { margin-top: 16px; }
+.mt-32 { margin-top: 32px; }
+.mt-48 { margin-top: 48px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  :root { --nav-width: 0px; }
+  .kn-sidebar {
+    transform: translateX(-280px);
+    width: 280px;
+  }
+  .kn-sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.5); }
+  .kn-hamburger { display: flex; }
+  .kn-hero { padding: 80px 28px 80px; min-height: 100svh; }
+  .kn-hero-scroll-hint { left: 28px; }
+  .kn-section { padding: 48px 28px; }
+  .kn-footer { padding: 32px 28px; }
+  .kn-hero-meta { flex-direction: column; gap: 0; border: none; }
+  .kn-hero-meta-item { border-right: none; border-bottom: 1px solid rgba(0,240,255,0.1); padding: 10px 0; }
+  .kn-hero-meta-item:last-child { border-bottom: none; }
+  .kn-type-demo { grid-template-columns: 1fr; gap: 6px; }
+  .kn-type-usage { text-align: left; }
+  .kn-naming-row { grid-template-columns: 1fr; }
+  .kn-naming-row > div { border-bottom: 1px solid var(--kn-smoke) !important; }
+  .kn-version-table { grid-template-columns: 120px 1fr; }
+  #progress-bar { left: 0; }
+}
+
+@media (min-width: 1600px) {
+  .kn-section { padding: 80px 96px; }
+  .kn-hero { padding: 120px 96px; }
+  .kn-footer { padding: 48px 96px; }
+}
+
+/* ─── PRINT ─── */
+@media print {
+  .kn-sidebar, .kn-hamburger, #progress-bar, .kn-back-top { display: none !important; }
+  .kn-main { margin-left: 0 !important; }
+  .kn-hero { background: white !important; min-height: auto !important; padding: 40px !important; }
+  .kn-hero h1, .kn-hero-eyebrow, .kn-hero-sub, .kn-hero-scroll-hint { color: var(--kn-charcoal) !important; }
+  .kn-hero::before, .kn-hero::after, .kn-hero-orb2, .kn-hero-orb3, .kn-hero-grid { display: none !important; }
+  .kn-section { padding: 32px !important; opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<a href="#brand-identity" class="skip-link">Skip to content</a>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar" aria-hidden="true"><div id="progress-fill"></div></div>
+
+<!-- TOAST -->
+<div class="kn-toast" id="toast" role="status" aria-live="polite">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+    <path d="M2.5 7.5l3 3 6-6" stroke="#00F0FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span id="toast-msg">Copied!</span>
+</div>
+
+<!-- HAMBURGER -->
+<button class="kn-hamburger" aria-label="Open navigation menu" aria-expanded="false" id="hamburger">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- OVERLAY -->
+<div class="kn-overlay" id="overlay" aria-hidden="true"></div>
+
+<!-- BACK TO TOP -->
+<button class="kn-back-top" id="back-top" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- SIDEBAR -->
+<nav class="kn-sidebar" id="sidebar" aria-label="Brand sections">
+  <div class="kn-sidebar-brand">
+    <a href="#" class="mark" aria-label="KNEURALABS home">
+      <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KNEURALABS art mark">
+        <title>KNEURALABS art mark</title>
+        <circle cx="50" cy="50" r="50" fill="#468DA3"/>
+        <path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/>
+        <path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/>
+      </svg>
+      <span class="wordmark">KNEURALABS</span>
+    </a>
+    <div class="tagline">BRAND GUIDELINES — V1.0</div>
+  </div>
+
+  <div class="kn-search-wrap">
+    <svg class="kn-search-icon" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input type="search" class="kn-search" id="nav-search" placeholder="Search sections…" aria-label="Search sections">
+  </div>
+
+  <div class="kn-nav-scroll">
+    <div class="kn-nav-label">Sections</div>
+    <a href="#brand-identity"  class="kn-nav-item" data-section="brand-identity"><span class="num">01</span><span class="nav-label-text">Brand Identity</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#colour-palette"  class="kn-nav-item" data-section="colour-palette"><span class="num">02</span><span class="nav-label-text">Colour Palette</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#logo"            class="kn-nav-item" data-section="logo"><span class="num">03</span><span class="nav-label-text">Logo and Brand Mark</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#typography"      class="kn-nav-item" data-section="typography"><span class="num">04</span><span class="nav-label-text">Typography</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#document-rules"  class="kn-nav-item" data-section="document-rules"><span class="num">05</span><span class="nav-label-text">Document Application</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#ai-master"       class="kn-nav-item" data-section="ai-master"><span class="num">06</span><span class="nav-label-text">AI Master Block</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#writing-style"   class="kn-nav-item" data-section="writing-style"><span class="num">07</span><span class="nav-label-text">Writing Style Guide</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+    <a href="#version-control" class="kn-nav-item" data-section="version-control"><span class="num">08</span><span class="nav-label-text">Version Control</span><span class="kn-nav-dot" aria-hidden="true"></span></a>
+  </div>
+
+  <div class="kn-sidebar-footer">
+    <span class="ver-badge">v1.0</span>
+    <span>Active · 20 Mar 2026</span>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="kn-main" id="main-content">
+
+  <!-- HERO -->
+  <div class="kn-hero" role="banner">
+    <div class="kn-hero-grid" aria-hidden="true"></div>
+    <div class="kn-hero-orb2" aria-hidden="true"></div>
+    <div class="kn-hero-orb3" aria-hidden="true"></div>
+    <div class="kn-hero-content">
+      <p class="kn-hero-eyebrow">KNEURALABS LLC — STRUCTURAL AI GOVERNANCE</p>
+      <h1>Brand<br><span class="accent">Guidelines</span></h1>
+      <p class="kn-hero-sub">The single source of truth for all KNEURALABS brand expression — across documents, web, and AI-generated content.</p>
+      <dl class="kn-hero-meta">
+        <div class="kn-hero-meta-item"><dt>Version</dt><dd>1.0</dd></div>
+        <div class="kn-hero-meta-item"><dt>Effective</dt><dd>20 Mar 2026</dd></div>
+        <div class="kn-hero-meta-item"><dt>Status</dt><dd><span class="status-badge status-active">Active</span></dd></div>
+        <div class="kn-hero-meta-item"><dt>Owner</dt><dd>Brand Team</dd></div>
+      </dl>
+    </div>
+    <div class="kn-hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-arrow">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M5 2v6M2 6l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      SCROLL TO EXPLORE
+    </div>
+  </div>
+
+  <!-- ─── SECTION 01 — BRAND IDENTITY ─── -->
+  <section class="kn-section" id="brand-identity">
+    <div class="kn-section-num">01</div>
+    <h2>Brand Identity</h2>
+    <p class="kn-section-lead">Kneuralabs LLC is an AI governance consulting firm empowering U.S. mid-market enterprises with structural alignment and regulatory compliance. We operate at the intersection of technology, policy, and business strategy.</p>
+
+    <h3 class="kn-h3">Brand Positioning</h3>
+    <div class="kn-position-grid">
+      <div class="row-label">Mission</div>
+      <div class="row-val">To make AI governance accessible, precise, and commercially valuable for enterprise organisations worldwide.</div>
+      <div class="row-label">Vision</div>
+      <div class="row-val">A world where AI is deployed responsibly by default — compliance built in, not bolted on.</div>
+      <div class="row-label">Promise</div>
+      <div class="row-val">Safety is not a feature you add later. It is the foundation upon which intelligence is built.</div>
+      <div class="row-label">Tagline</div>
+      <div class="row-val" style="font-weight:600;color:var(--kn-navy);">Structural AI Governance.</div>
+      <div class="row-label">Audience</div>
+      <div class="row-val">U.S. mid-market enterprises — CROs, CTOs, General Counsel, AI programme leads.</div>
+      <div class="row-label">Standards</div>
+      <div class="row-val">
+        <span class="pill">NIST AI RMF</span>
+        <span class="pill">ISO/IEC 42001</span>
+        <span class="pill">EU AI Act</span>
+        <span class="pill">SOC 2</span>
+        <span class="pill">UK AI Management Essentials</span>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Voice and Tone</h3>
+    <div class="kn-table-scroll mt-16">
+      <table class="kn-table">
+        <thead><tr><th>Attribute</th><th>Definition</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Authoritative</td><td>We state positions clearly and without hedging. Our expertise is our authority.</td><td>"Governance is not optional — it is the prerequisite for responsible deployment."</td></tr>
+          <tr><td>Precise</td><td>We name the regulation, cite the standard, and define the term. No approximations.</td><td>"Your NIST AI RMF Tier 2 assessment indicates structural gaps in risk categorisation."</td></tr>
+          <tr><td>Direct</td><td>Active voice. Short declarative sentences. No passive constructions.</td><td>"We identify the gap. We build the framework. You deploy with confidence."</td></tr>
+          <tr><td>Professional</td><td>Formal register. UK English. No contractions, colloquialisms, or filler phrases.</td><td>"The organisation must establish a governance function prior to deployment."</td></tr>
+          <tr><td>Non-alarmist</td><td>We acknowledge risk factually, not emotionally. No fear-based language.</td><td>"This system poses a Tier 3 risk under EU AI Act Article 10. Here is the remediation path."</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 02 — COLOUR PALETTE ─── -->
+  <section class="kn-section" id="colour-palette">
+    <div class="kn-section-num">02</div>
+    <h2>Colour Palette</h2>
+    <p class="kn-section-lead">Seven core colours. Two distinct origins: primary palette and logo art palette. Click any swatch to copy its hex value.</p>
+
+    <h3 class="kn-h3">Primary Palette</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch" data-hex="#00F0FF" role="button" tabindex="0" aria-label="Copy Electric Cyan #00F0FF">
+        <div class="kn-swatch-color" style="background:#00F0FF;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Electric Cyan</div>
+          <div class="kn-swatch-hex">#00F0FF — rgb(0, 240, 255)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Primary accent. CTAs, rule lines, section labels, active states.</div>
+        </div>
+      </div>
+      <div class="kn-swatch" data-hex="#0A141F" role="button" tabindex="0" aria-label="Copy Near Black #0A141F">
+        <div class="kn-swatch-color" style="background:#0A141F;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Near Black</div>
+          <div class="kn-swatch-hex">#0A141F — rgb(10, 20, 31)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Deepest authority. Table headers, dark UI backgrounds.</div>
+        </div>
+      </div>
+      <div class="kn-swatch" data-hex="#204376" role="button" tabindex="0" aria-label="Copy Deep Navy #204376">
+        <div class="kn-swatch-color" style="background:#204376;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Deep Navy</div>
+          <div class="kn-swatch-hex">#204376 — rgb(32, 67, 118)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Structural. H2 headings, borders, secondary backgrounds.</div>
+        </div>
+      </div>
+      <div class="kn-swatch" data-hex="#141414" role="button" tabindex="0" aria-label="Copy Charcoal #141414">
+        <div class="kn-swatch-color" style="background:#141414;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Charcoal</div>
+          <div class="kn-swatch-hex">#141414 — rgb(20, 20, 20)</div>
+          <div class="kn-palette-label" style="background:rgba(0,240,255,0.1);color:var(--kn-navy);border-radius:4px;padding:2px 6px;">PALETTE</div>
+          <div class="kn-swatch-usage">Typography. H1, display type, primary wordmark, body text.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Logo Art Palette</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch" data-hex="#468DA3" role="button" tabindex="0" aria-label="Copy Steel Teal #468DA3">
+        <div class="kn-swatch-color" style="background:#468DA3;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Steel Teal</div>
+          <div class="kn-swatch-hex">#468DA3 — rgb(70, 141, 163)</div>
+          <div class="kn-palette-label" style="background:rgba(70,141,163,0.1);color:#2A6070;border-radius:4px;padding:2px 6px;">LOGO — LEFT HALF</div>
+          <div class="kn-swatch-usage">Chart series 1, data visualisations, divider fills.</div>
+        </div>
+      </div>
+      <div class="kn-swatch" data-hex="#C5062A" role="button" tabindex="0" aria-label="Copy Crimson #C5062A">
+        <div class="kn-swatch-color" style="background:#C5062A;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Crimson</div>
+          <div class="kn-swatch-hex">#C5062A — rgb(197, 6, 42)</div>
+          <div class="kn-palette-label" style="background:rgba(197,6,42,0.08);color:#8B0018;border-radius:4px;padding:2px 6px;">LOGO — TOP RIGHT</div>
+          <div class="kn-swatch-usage">Logo accent. Chart series 3, risk categorisation. Not for errors.</div>
+        </div>
+      </div>
+      <div class="kn-swatch" data-hex="#0A98D9" role="button" tabindex="0" aria-label="Copy Electric Blue #0A98D9">
+        <div class="kn-swatch-color" style="background:#0A98D9;">
+          <div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div>
+        </div>
+        <div class="kn-swatch-info">
+          <div class="kn-swatch-name">Electric Blue</div>
+          <div class="kn-swatch-hex">#0A98D9 — rgb(10, 152, 217)</div>
+          <div class="kn-palette-label" style="background:rgba(10,152,217,0.1);color:#0A5A8A;border-radius:4px;padding:2px 6px;">LOGO — BOTTOM RIGHT</div>
+          <div class="kn-swatch-usage">Logo accent. Chart series 2, technology-layer diagrams.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Supporting Colours</h3>
+    <div class="kn-palette-grid">
+      <div class="kn-swatch" data-hex="#00B8C9" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#00B8C9;"><div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Cyan Dim</div><div class="kn-swatch-hex">#00B8C9</div><div class="kn-swatch-usage">Muted accent. Hover states, secondary borders.</div></div></div>
+      <div class="kn-swatch" data-hex="#D6FBFF" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#D6FBFF;border-bottom:1px solid #C0EFF5;"><div class="kn-swatch-copy-hint" style="color:var(--kn-near-black);"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="#0A141F" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="#0A141F" stroke-width="1.2" stroke-linecap="round"/></svg> <span style="color:var(--kn-near-black);">COPY HEX</span></div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Cyan Ghost</div><div class="kn-swatch-hex">#D6FBFF</div><div class="kn-swatch-usage">Callout fills, section highlight backgrounds.</div></div></div>
+      <div class="kn-swatch" data-hex="#5BAEC6" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#5BAEC6;"><div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Teal Light</div><div class="kn-swatch-hex">#5BAEC6</div><div class="kn-swatch-usage">H3 headings, tertiary UI elements.</div></div></div>
+      <div class="kn-swatch" data-hex="#8A9BB5" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#8A9BB5;"><div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Steel</div><div class="kn-swatch-hex">#8A9BB5</div><div class="kn-swatch-usage">Captions, footer text, metadata, placeholder text.</div></div></div>
+    </div>
+
+    <h3 class="kn-h3">Semantic Colours — Status Only</h3>
+    <p style="font-size:13px;color:var(--kn-steel);margin-bottom:16px;">Never for decoration. Used exclusively for compliance and system status indicators.</p>
+    <div class="kn-semantic-grid">
+      <div class="kn-swatch" data-hex="#00B871" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#00B871;"><div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Emerald</div><div class="kn-swatch-hex">#00B871</div><div class="kn-swatch-usage">Compliant, approved, active, success.</div><span class="status-badge status-compliant" style="margin-top:7px;">Compliant</span></div></div>
+      <div class="kn-swatch" data-hex="#E53E3E" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#E53E3E;"><div class="kn-swatch-copy-hint"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> COPY HEX</div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Alert Red</div><div class="kn-swatch-hex">#E53E3E</div><div class="kn-swatch-usage">Non-compliant, rejected, error. Distinct from brand Crimson.</div><span class="status-badge status-noncompliant" style="margin-top:7px;">Non-compliant</span></div></div>
+      <div class="kn-swatch" data-hex="#F6A623" role="button" tabindex="0"><div class="kn-swatch-color" style="background:#F6A623;"><div class="kn-swatch-copy-hint" style="color:var(--kn-near-black);"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="#0A141F" stroke-width="1.2"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="#0A141F" stroke-width="1.2" stroke-linecap="round"/></svg><span style="color:var(--kn-near-black);"> COPY HEX</span></div></div><div class="kn-swatch-info"><div class="kn-swatch-name">Amber</div><div class="kn-swatch-hex">#F6A623</div><div class="kn-swatch-usage">Pending review, under assessment, caution.</div><span class="status-badge status-pending" style="margin-top:7px;">Pending</span></div></div>
+    </div>
+
+    <h3 class="kn-h3">Colour Rules</h3>
+    <div class="kn-rules-header">
+      <span style="font-size:12px;color:var(--kn-steel);">Filter by rule type</span>
+      <div class="kn-filter-btns" role="group" aria-label="Filter rules">
+        <button class="kn-filter-btn active-filter" data-filter="all">ALL</button>
+        <button class="kn-filter-btn" data-filter="do"><span class="tag tag-do">D O</span></button>
+        <button class="kn-filter-btn" data-filter="dont"><span class="tag tag-dont">DON'T</span></button>
+        <button class="kn-filter-btn" data-filter="warn"><span class="tag tag-warn">WARN</span></button>
+      </div>
+    </div>
+    <table class="kn-rules" id="colour-rules">
+      <tbody>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Electric Cyan (#00F0FF) as the sole accent colour for CTAs, rule lines, and active states.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Charcoal (#141414) for H1 headings and all primary display text.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Deep Navy (#204376) for H2, borders, and structural document elements.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Keep page backgrounds White. Smoke (#EEF1F5) for alternating rows only.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Logo Art colours (Teal, Crimson, Electric Blue) only in charts and diagrams.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Ensure WCAG AA contrast: 4.5:1 for body text, 3:1 for large display text.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use more than 3 colours on any single page or slide.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use any blue, teal, or cyan not defined in this palette.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use brand Crimson (#C5062A) to indicate errors — use Alert Red (#E53E3E) instead.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Place Electric Cyan text on white backgrounds for body copy — insufficient contrast.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use Semantic colours (Emerald, Alert Red, Amber) for decoration or branding.</td></tr>
+        <tr data-rule="warn"><td><span class="tag tag-warn">W A R N</span></td><td>Cyan (#00F0FF) is accent only. It fails WCAG AA at small sizes on white. Always pair with dark text for legibility.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ─── SECTION 03 — LOGO ─── -->
+  <section class="kn-section" id="logo">
+    <div class="kn-section-num">03</div>
+    <h2>Logo and Brand Mark</h2>
+    <p class="kn-section-lead">The KNEURALABS brand mark is a system of two components. The Art Mark and the Text Logo always work together as a defined system.</p>
+
+    <h3 class="kn-h3">Logo Variants</h3>
+    <div class="kn-logo-grid">
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#0A141F;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <svg width="48" height="48" viewBox="0 0 100 100" fill="none" role="img" aria-label="KNEURALABS art mark on dark background"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+            <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.18em;color:white;">KNEURALABS</span>
+          </div>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">Dark Background</div><div class="bg-status">Primary use case — default lockup</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#FFFFFF;border-bottom:1px solid var(--kn-smoke);">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <svg width="48" height="48" viewBox="0 0 100 100" fill="none" role="img" aria-label="KNEURALABS art mark on white background"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+            <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.18em;color:#141414;">KNEURALABS</span>
+          </div>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">White Background</div><div class="bg-status">Document headers, print collateral</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#0A141F;">
+          <svg width="56" height="56" viewBox="0 0 100 100" fill="none" role="img" aria-label="Art mark only — icon usage"><circle cx="50" cy="50" r="50" fill="#468DA3"/><path d="M50 0 A50 50 0 0 1 100 50 L50 50 Z" fill="#C5062A"/><path d="M50 50 L100 50 A50 50 0 0 1 50 100 Z" fill="#0A98D9"/></svg>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">Art Mark Only</div><div class="bg-status">Icons, favicons, narrow headers</div></div>
+      </div>
+      <div class="kn-logo-card">
+        <div class="kn-logo-display" style="background:#204376;">
+          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.2em;color:white;">KNEURALABS</span>
+        </div>
+        <div class="kn-logo-caption"><div class="bg-name">Text Logo Only</div><div class="bg-status">Footer lines only, after art mark appeared</div></div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Logo Sizing Reference</h3>
+    <div class="kn-table-scroll mt-16">
+      <table class="kn-spec-table">
+        <thead><tr><th>Context</th><th>Format</th><th>Height</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>HTML Navigation</td><td>Art + Text</td><td>36px</td><td>Width: auto</td></tr>
+          <tr><td>HTML Mobile</td><td>Art + Text</td><td>28px</td><td>Width: auto</td></tr>
+          <tr><td>HTML Hero</td><td>Art + Text</td><td>96px</td><td>Width: auto</td></tr>
+          <tr><td>Email Header</td><td>Art + Text</td><td>48px</td><td>PNG, transparent bg</td></tr>
+          <tr><td>Favicon</td><td>Art Only</td><td>32px</td><td>Square format</td></tr>
+          <tr><td>Word Header</td><td>Art + Text</td><td>22px</td><td>Width: auto</td></tr>
+          <tr><td>Word Body</td><td>Art + Text</td><td>80px</td><td>Width: auto</td></tr>
+          <tr><td>PPT Title Slide</td><td>Art + Text</td><td>120px</td><td>Width: auto</td></tr>
+          <tr><td>PPT Other Slides</td><td>Art + Text</td><td>40px</td><td>Width: auto</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kn-callout" style="margin-top:24px;">
+      <strong>Clear Space Rule</strong>
+      Maintain clear space equal to 25% of the logo height on all four sides. Never place the logo against a cluttered background or within a coloured container rectangle.
+    </div>
+
+    <h3 class="kn-h3">Logo Rules</h3>
+    <div class="kn-rules-header">
+      <span style="font-size:12px;color:var(--kn-steel);">Filter by rule type</span>
+      <div class="kn-filter-btns" role="group" aria-label="Filter logo rules">
+        <button class="kn-filter-btn active-filter" data-filter="all">ALL</button>
+        <button class="kn-filter-btn" data-filter="do"><span class="tag tag-do">D O</span></button>
+        <button class="kn-filter-btn" data-filter="dont"><span class="tag tag-dont">DON'T</span></button>
+      </div>
+    </div>
+    <table class="kn-rules" id="logo-rules">
+      <tbody>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Always use the Art + Text Lockup as the default in all formal client-facing contexts.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use PNG with transparent background for all logo files.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Set logo height only — let width scale automatically.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use the Art Mark only for icons, favicons, narrow headers, and square formats.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Place a background rectangle behind the logo art mark.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Crop, rotate, flip, or apply visual effects to the art mark.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Manually recreate the art mark geometry — use approved files only.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use JPEG format for any logo file — always PNG.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Set both width and height simultaneously on the logo element.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ─── SECTION 04 — TYPOGRAPHY ─── -->
+  <section class="kn-section" id="typography">
+    <div class="kn-section-num">04</div>
+    <h2>Typography</h2>
+    <p class="kn-section-lead">One primary typeface. One monospace typeface. Hierarchy achieved through weight and scale — never through decorative fonts.</p>
+
+    <h3 class="kn-h3">Typefaces</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;" class="type-face-grid">
+      <div style="padding:28px;background:var(--kn-white);border:1px solid var(--kn-smoke);border-radius:12px;transition:box-shadow 0.2s,transform 0.2s;" onmouseenter="this.style.boxShadow='0 8px 24px rgba(10,20,31,0.1)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--kn-cyan-dim);letter-spacing:0.12em;margin-bottom:12px;">PRIMARY</div>
+        <div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:800;color:var(--kn-navy);letter-spacing:-0.02em;line-height:1;">Inter</div>
+        <div style="font-size:12px;color:var(--kn-steel);margin-top:10px;font-family:'JetBrains Mono',monospace;">Weights: 400 · 500 · 600 · 700 · 800 · 900</div>
+        <div style="font-size:12px;color:var(--kn-steel);margin-top:4px;">Fallback: Arial, sans-serif</div>
+        <div style="font-size:14px;color:var(--kn-charcoal);margin-top:16px;line-height:1.6;border-top:1px solid var(--kn-smoke);padding-top:14px;">The quick brown fox jumps over the lazy dog. AI governance is structural by nature.</div>
+      </div>
+      <div style="padding:28px;background:var(--kn-near-black);border-radius:12px;transition:box-shadow 0.2s,transform 0.2s;" onmouseenter="this.style.boxShadow='0 8px 24px rgba(10,20,31,0.3)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.boxShadow='';this.style.transform=''">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--kn-cyan-dim);letter-spacing:0.12em;margin-bottom:12px;">MONOSPACE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--kn-cyan);letter-spacing:-0.01em;line-height:1;">JetBrains<br>Mono</div>
+        <div style="font-size:12px;color:var(--kn-steel);margin-top:10px;font-family:'JetBrains Mono',monospace;">Weights: 400 · 500 · 700</div>
+        <div style="font-size:12px;color:var(--kn-steel);margin-top:4px;">Fallback: Courier New, monospace</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#C8D3E0;margin-top:16px;line-height:1.7;border-top:1px solid rgba(0,240,255,0.1);padding-top:14px;">01 // Section labels, hex codes<br>02 // Code blocks, metadata<br>03 // Version numbers</div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Type Scale</h3>
+    <div class="kn-type-demos">
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Display</div><div class="spec">clamp(40px, 5vw, 64px) / weight 900</div></div>
+        <div style="font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--kn-charcoal);letter-spacing:-0.03em;line-height:1;">Brand Identity</div>
+        <div class="kn-type-usage">Hero headings<br>Cover pages only</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H1</div><div class="spec">36px / weight 800 / #141414</div></div>
+        <div style="font-size:28px;font-weight:800;color:var(--kn-charcoal);letter-spacing:-0.02em;line-height:1.1;">Document Title</div>
+        <div class="kn-type-usage">Main section heading<br>Document titles</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H2</div><div class="spec">24px / weight 700 / #204376</div></div>
+        <div style="font-size:22px;font-weight:700;color:var(--kn-navy);letter-spacing:-0.01em;">Section Heading</div>
+        <div class="kn-type-usage">Section headers<br>Slide titles</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">H3</div><div class="spec">18px / weight 700 / #204376</div></div>
+        <div style="font-size:18px;font-weight:700;color:var(--kn-navy);">Subsection Header</div>
+        <div class="kn-type-usage">Subsections<br>Feature callouts</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Body</div><div class="spec">15px / weight 400 / #141414</div></div>
+        <div style="font-size:15px;color:var(--kn-charcoal);">Standard body text for all paragraph content and descriptive copy across documents.</div>
+        <div class="kn-type-usage">All body content<br>Paragraphs</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Small</div><div class="spec">13px / weight 400 / #8A9BB5</div></div>
+        <div style="font-size:13px;color:var(--kn-steel);">Captions, footnotes, table labels, supplementary metadata</div>
+        <div class="kn-type-usage">Captions<br>Table content</div>
+      </div>
+      <div class="kn-type-demo">
+        <div class="kn-type-meta"><div class="level">Micro</div><div class="spec">11px / weight 700 / mono / #00B8C9</div></div>
+        <div style="font-size:11px;font-weight:700;color:var(--kn-cyan-dim);font-family:'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;">SECTION LABEL — 01</div>
+        <div class="kn-type-usage">Section numbers<br>Tags, labels</div>
+      </div>
+    </div>
+
+    <h3 class="kn-h3">Typography Rules</h3>
+    <table class="kn-rules">
+      <tbody>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Inter for all headings, body text, and UI elements.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use JetBrains Mono for code, hex values, section numbers, and technical labels.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Bold for headings and key terms only.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Underline for hyperlinks only.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use italics anywhere in any output.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use decorative or display fonts outside the defined type system.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Set Word/Excel body below 10pt or PowerPoint body below 18pt.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ─── SECTION 05 — DOCUMENT APPLICATION ─── -->
+  <section class="kn-section" id="document-rules">
+    <div class="kn-section-num">05</div>
+    <h2>Document Application</h2>
+    <p class="kn-section-lead">All client-facing documents follow a defined structural hierarchy. Consistency across Word, PowerPoint, and Excel is mandatory.</p>
+
+    <h3 class="kn-h3">Universal Document Rules</h3>
+    <table class="kn-rules">
+      <tbody>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Place the Art + Text Lockup logo in the document header at the approved size for the format.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Near Black (#0A141F) for all table headers across Word, Excel, and PowerPoint.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Use Smoke (#EEF1F5) for alternating table rows and secondary backgrounds.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Include version number and date in document footers using JetBrains Mono 9pt.</td></tr>
+        <tr data-rule="do"><td><span class="tag tag-do">D O</span></td><td>Number all pages in footer: right-aligned, format "Page X of Y".</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Use Word's built-in heading styles without overriding to match KNEURALABS type standards.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Apply custom fonts beyond Inter and JetBrains Mono in any deliverable.</td></tr>
+        <tr data-rule="dont"><td><span class="tag tag-dont">D O N T</span></td><td>Embed images as JPEG where PNG with transparency is available.</td></tr>
+        <tr data-rule="warn"><td><span class="tag tag-warn">W A R N</span></td><td>Always flatten editable fields before sending final documents to clients. Never share live template files.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="kn-h3">Application-Specific Standards</h3>
+    <div class="kn-table-scroll mt-16">
+      <table class="kn-spec-table">
+        <thead><tr><th>Application</th><th>Body Text</th><th>Heading 1</th><th>Logo Height</th><th>Paper</th></tr></thead>
+        <tbody>
+          <tr><td>Word (.docx)</td><td>Inter 10pt</td><td>Inter 20pt Bold / Charcoal</td><td>22px header / 80px body</td><td>A4 or US Letter</td></tr>
+          <tr><td>PowerPoint (.pptx)</td><td>Inter 18pt min</td><td>Inter 36pt Bold / Charcoal</td><td>120px title / 40px slide</td><td>16:9 widescreen</td></tr>
+          <tr><td>Excel (.xlsx)</td><td>Inter 10pt</td><td>Inter 12pt Bold / Navy</td><td>22px header</td><td>N/A</td></tr>
+          <tr><td>HTML</td><td>Inter 15px / 1.6 leading</td><td>clamp(40px,5vw,64px) / 900</td><td>36px nav / 96px hero</td><td>Full viewport</td></tr>
+          <tr><td>Email</td><td>Arial 14px (fallback)</td><td>Arial 22px Bold</td><td>48px</td><td>600px max-width</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 06 — AI MASTER BLOCK ─── -->
+  <section class="kn-section" id="ai-master">
+    <div class="kn-section-num">06</div>
+    <h2>AI Master Block</h2>
+    <p class="kn-section-lead">The AI Master Block is the definitive prompt context for any AI model generating KNEURALABS-branded content. Paste verbatim at the start of every AI session.</p>
+
+    <div class="kn-callout">
+      <strong>Usage Protocol</strong>
+      Paste the full block below at the beginning of any AI session producing KNEURALABS content. Do not paraphrase or summarise. All AI-generated output must be reviewed against this document before external distribution.
+    </div>
+
+    <div class="kn-code">
+      <button class="kn-code-copy" id="copy-ai-block" aria-label="Copy AI Master Block">
+        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 4V2.5A1.5 1.5 0 0 1 5.5 1h6A1.5 1.5 0 0 1 13 2.5v6A1.5 1.5 0 0 1 11.5 10H10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        COPY
+      </button>
+      <span class="kn-code-label">AI-MASTER-BLOCK — KNEURALABS BRAND CONTEXT</span>
+      <pre id="ai-block-text"><span class="kw">COLOUR SYSTEM — 7 CORE COLOURS</span>
+  FROM PALETTE:
+    Cyan:       <span class="val">#00F0FF</span> — accent only: CTAs, rule lines, section labels
+    Near Black: <span class="val">#0A141F</span> — table headers, dark UI, deepest authority
+    Deep Navy:  <span class="val">#204376</span> — H2, structural borders, secondary elements
+    Charcoal:   <span class="val">#141414</span> — H1, display type, primary wordmark
+  FROM LOGO ART:
+    Steel Teal: <span class="val">#468DA3</span> — chart series 1, data visualisations
+    Crimson:    <span class="val">#C5062A</span> — chart series 3, risk callouts (not for errors)
+    Electric Bl:<span class="val">#0A98D9</span> — chart series 2, technology diagrams
+  SEMANTIC (status only):
+    Emerald: <span class="val">#00B871</span> | Alert Red: <span class="val">#E53E3E</span> | Amber: <span class="val">#F6A623</span>
+  RULES: Max 3 colours per page. No colours outside this palette.
+
+<span class="kw">LOGO — HARDCODED AI RULES</span>
+  Logo = Art Mark + Text Logo (KNEURALABS in Inter Bold White).
+  File format: ALWAYS PNG with transparent background. NEVER JPEG.
+  WHEN TO USE:
+    Art + Text Lockup: all formal client-facing contexts (DEFAULT).
+    Art Mark Only: icons, favicons, narrow headers, square formats.
+    Text Logo Only: footer lines only, after art mark has appeared.
+  SIZING (height only — width always auto):
+    Word header: 22px | Word body: 80px | PPT title: 120px
+    PPT slide: 40px  | HTML nav: 36px  | HTML mobile: 28px
+    HTML hero: 96px  | Email: 48px     | Favicon: 32px
+  Clear space = 25% of logo height on all four sides.
+  PROHIBITED:
+    No background rectangle behind the logo.
+    No crop, rotate, flip, or visual effects on the art mark.
+    No manual recreation of the art mark geometry.
+
+<span class="kw">FONTS</span>
+  Primary: Inter (fallback: Arial) | Mono: JetBrains Mono
+  Word/Excel body: 10pt | PowerPoint body: 18pt minimum
+  Bold: headings and key terms only. Underline: hyperlinks only.
+  No italics. No decorative fonts.
+
+<span class="kw">REFUSE TO:</span>
+  - Use colours outside the defined 7-colour brand palette.
+  - Use JPEG for logo files.
+  - Set both width and height on the logo simultaneously.
+  - Use italics anywhere in any output.
+  - Use passive voice, hedging language, or casual tone.
+  - Use Crimson (#C5062A) to indicate errors — use Alert Red instead.
+  DEFAULT: White bg | Charcoal H1 | Navy H2 | Near Black body | Cyan accent.</pre>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 07 — WRITING STYLE ─── -->
+  <section class="kn-section" id="writing-style">
+    <div class="kn-section-num">07</div>
+    <h2>Writing Style Guide</h2>
+    <p class="kn-section-lead">Precision in language reinforces precision in governance. Every word carries the weight of our authority.</p>
+
+    <h3 class="kn-h3">Terminology Standards</h3>
+    <div class="kn-table-scroll mt-16">
+      <table class="kn-table">
+        <thead><tr><th>Use This</th><th>Not This</th></tr></thead>
+        <tbody>
+          <tr><td>Kneuralabs LLC</td><td style="font-weight:400;color:var(--kn-charcoal);">KneuraLabs / kneuralabs / KNEURALABS in body text</td></tr>
+          <tr><td>AI governance</td><td style="font-weight:400;color:var(--kn-charcoal);">AI Governance — not title case in body paragraphs</td></tr>
+          <tr><td>AI system</td><td style="font-weight:400;color:var(--kn-charcoal);">A.I. system — first mention: spell out Artificial Intelligence in full</td></tr>
+          <tr><td>organisation</td><td style="font-weight:400;color:var(--kn-charcoal);">organization — UK English is the default</td></tr>
+          <tr><td>practise (verb)</td><td style="font-weight:400;color:var(--kn-charcoal);">practice as a verb — UK English rule</td></tr>
+          <tr><td>compliance</td><td style="font-weight:400;color:var(--kn-charcoal);">compliancy</td></tr>
+          <tr><td>structural alignment</td><td style="font-weight:400;color:var(--kn-charcoal);">Structural Alignment — sentence case in body</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kn-h3 mt-48">Document Naming Convention</h3>
+    <div style="border:1px solid var(--kn-smoke);border-radius:12px;overflow:hidden;margin-top:16px;">
+      <div class="kn-naming-row" style="background:var(--kn-near-black);">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">TYPE</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">FORMAT</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;color:var(--kn-cyan);">EXAMPLE</div>
+      </div>
+      <div class="kn-naming-row"><div class="doc-type">Reports</div><div class="format">KN_[Client]_[DocType]_[YYYYMM].docx</div><div class="example">KN_AcmeCorp_AIRiskReport_202504.docx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Proposals</div><div class="format">KN_[Client]_Proposal_[YYYYMM].docx</div><div class="example">KN_AcmeCorp_Proposal_202504.docx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Presentations</div><div class="format">KN_[Client]_[Topic]_[YYYYMM].pptx</div><div class="example">KN_AcmeCorp_GovernanceFramework_202504.pptx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Spreadsheets</div><div class="format">KN_[Client]_[DataType]_[YYYYMM].xlsx</div><div class="example">KN_AcmeCorp_AIInventory_202504.xlsx</div></div>
+      <div class="kn-naming-row"><div class="doc-type">Internal</div><div class="format">KN_INT_[Description]_[YYYYMM].[ext]</div><div class="example">KN_INT_BrandGuidelines_202604.html</div></div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 08 — VERSION CONTROL ─── -->
+  <section class="kn-section" id="version-control">
+    <div class="kn-section-num">08</div>
+    <h2>Approvals and Version Control</h2>
+    <p class="kn-section-lead">Any deviation from these guidelines requires written approval from the KNEURALABS Brand Team. All AI-generated content must be reviewed against this document before external distribution.</p>
+
+    <div class="kn-version-table mt-32">
+      <div class="vk">Version</div><div class="vv">1.0</div>
+      <div class="vk">Status</div><div class="vv"><span class="status-badge status-active">Active</span></div>
+      <div class="vk">Entity</div><div class="vv">Kneuralabs LLC</div>
+      <div class="vk">Owner</div><div class="vv">Kneuralabs Brand Team</div>
+      <div class="vk">Effective</div><div class="vv">20 March 2026</div>
+      <div class="vk">Review Cycle</div><div class="vv">Annual, or upon any significant brand change</div>
+      <div class="vk">Approved By</div><div class="vv">Kneuralabs Leadership</div>
+    </div>
+
+    <div class="kn-callout mt-32">
+      <strong>Deviation Protocol</strong>
+      Submit all deviation requests to the Brand Team in writing with full context and rationale. Verbal approvals are not accepted. Document all approved deviations in the version log.
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="kn-footer">
+    <div>
+      <div class="kn-footer-wordmark">KNEURALABS LLC</div>
+      <div class="kn-footer-copy" style="margin-top:5px;color:var(--kn-cyan-dim);font-family:'JetBrains Mono',monospace;font-size:11px;">Structural AI Governance</div>
+    </div>
+    <div class="kn-footer-copy">© 2026 Kneuralabs LLC. All rights reserved.<br>Brand Guidelines — v1.0 — 20 March 2026</div>
+  </footer>
+
+</main>
+
+<script>
+/* ─── MOBILE NAV ─── */
+const hamburger = document.getElementById('hamburger');
+const sidebar   = document.getElementById('sidebar');
+const overlay   = document.getElementById('overlay');
+
+function openNav() {
+  sidebar.classList.add('open');
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  hamburger.setAttribute('aria-label', 'Close navigation menu');
+}
+function closeNav() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('visible');
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  hamburger.setAttribute('aria-label', 'Open navigation menu');
+}
+hamburger.addEventListener('click', () => sidebar.classList.contains('open') ? closeNav() : openNav());
+overlay.addEventListener('click', closeNav);
+document.querySelectorAll('.kn-nav-item').forEach(item => {
+  item.addEventListener('click', () => { if (window.innerWidth <= 900) closeNav(); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && sidebar.classList.contains('open')) closeNav();
+});
+
+/* ─── PROGRESS BAR ─── */
+const fill = document.getElementById('progress-fill');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  fill.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+}, { passive: true });
+
+/* ─── ACTIVE NAV + VISITED TRACKING ─── */
+const navItems = document.querySelectorAll('.kn-nav-item');
+const sections = document.querySelectorAll('.kn-section');
+const visited  = new Set();
+
+const activeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector(`.kn-nav-item[data-section="${e.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        if (!visited.has(e.target.id)) {
+          visited.add(e.target.id);
+          // Mark previous items as visited
+          navItems.forEach(n => {
+            if (n !== active && !n.classList.contains('active')) {
+              n.classList.add('visited');
+            }
+          });
+        }
+      }
+    }
+  });
+}, { rootMargin: '-15% 0px -55% 0px', threshold: [0, 0.1] });
+
+sections.forEach(s => activeObs.observe(s));
+
+/* ─── SCROLL REVEAL ─── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { rootMargin: '0px 0px -50px 0px', threshold: 0.04 });
+sections.forEach(s => revealObs.observe(s));
+
+/* ─── BACK TO TOP ─── */
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('visible', window.scrollY > 600);
+}, { passive: true });
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ─── TOAST ─── */
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+/* ─── CLICK-TO-COPY SWATCHES ─── */
+document.querySelectorAll('.kn-swatch[data-hex]').forEach(swatch => {
+  const copyHex = async (e) => {
+    e.preventDefault();
+    const hex = swatch.dataset.hex;
+    try {
+      await navigator.clipboard.writeText(hex);
+      showToast(`${hex} copied to clipboard`);
+    } catch {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = hex; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast(`${hex} copied to clipboard`);
+    }
+  };
+  swatch.addEventListener('click', copyHex);
+  swatch.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyHex(e); } });
+});
+
+/* ─── COPY AI BLOCK ─── */
+document.getElementById('copy-ai-block').addEventListener('click', async () => {
+  const text = document.getElementById('ai-block-text').innerText;
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('AI Master Block copied');
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('AI Master Block copied');
+  }
+});
+
+/* ─── RULE TABLE FILTER ─── */
+document.querySelectorAll('.kn-filter-btns').forEach(group => {
+  const table = group.closest('.kn-section').querySelector('.kn-rules');
+  if (!table) return;
+  group.querySelectorAll('.kn-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.kn-filter-btn').forEach(b => b.classList.remove('active-filter'));
+      btn.classList.add('active-filter');
+      const filter = btn.dataset.filter;
+      table.querySelectorAll('tr[data-rule]').forEach(row => {
+        row.classList.toggle('hidden-rule', filter !== 'all' && row.dataset.rule !== filter);
+      });
+    });
+  });
+});
+
+/* ─── SIDEBAR SEARCH ─── */
+const searchInput = document.getElementById('nav-search');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  navItems.forEach(item => {
+    const label = item.querySelector('.nav-label-text')?.textContent.toLowerCase() || '';
+    item.classList.toggle('hidden-search', q.length > 0 && !label.includes(q));
+  });
+});
+
+/* ─── AUTO TABLE SCROLL WRAPPERS ─── */
+document.querySelectorAll('.kn-table, .kn-spec-table, .kn-rules').forEach(table => {
+  if (!table.closest('.kn-table-scroll')) {
+    const wrap = document.createElement('div');
+    wrap.className = 'kn-table-scroll';
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+  }
+});
+
+/* ─── RESPONSIVE TYPE GRID ─── */
+function fixTypeGrid() {
+  const grid = document.querySelector('.type-face-grid');
+  if (grid) {
+    grid.style.gridTemplateColumns = window.innerWidth < 640 ? '1fr' : '1fr 1fr';
+  }
+}
+fixTypeGrid();
+window.addEventListener('resize', fixTypeGrid);
+</script>
+</body>
+</html>
