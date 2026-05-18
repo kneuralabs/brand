@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kneuralabs — Brand Identity & Design Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:    #1C5CAA;
+  --red:     #C8281E;
+  --silver:  #D0D2D6;
+  --navy:    #0D2E5A;
+  --sky:     #4A8BC8;
+  --crimson: #8B1A12;
+  --canvas:  #F7F8FA;
+  --charcoal:#1A1D23;
+  --slate:   #6B7280;
+  --frost:   #E0E4EA;
+  --white:   #FFFFFF;
+
+  --ease-out: cubic-bezier(0.0,0.0,0.2,1);
+  --ease-in:  cubic-bezier(0.4,0.0,1,1);
+  --t-micro: 150ms;
+  --t-comp:  300ms;
+  --t-page:  400ms;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'ui-monospace', 'SFMono-Regular', 'Consolas', monospace;
+
+  --max-w: 1200px;
+  --sp1: 8px; --sp2: 16px; --sp3: 24px; --sp4: 32px;
+  --sp6: 48px; --sp8: 64px; --sp12: 96px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--canvas);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0ms !important; transition-duration: 0ms !important; }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity var(--t-page) var(--ease-out), transform var(--t-page) var(--ease-out); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(247,248,250,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--frost);
+  padding: var(--sp2) var(--sp4);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: box-shadow var(--t-comp) var(--ease-out);
+  min-height: 57px;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(13,46,90,.08); }
+.nav-logo { display: flex; align-items: center; gap: var(--sp2); text-decoration: none; }
+.nav-mark { width: 32px; height: 32px; }
+.nav-wordmark { font-family: var(--font-body); font-weight: 600; font-size: 15px; color: var(--navy); letter-spacing: .03em; }
+.nav-links { display: flex; gap: var(--sp4); list-style: none; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--slate); text-decoration: none; letter-spacing: .01em; transition: color var(--t-micro) var(--ease-out); }
+.nav-links a:hover { color: var(--blue); }
+.nav-cta { font-size: 13px; font-weight: 600; color: var(--white); background: var(--blue); padding: 8px 18px; border-radius: 4px; text-decoration: none; letter-spacing: .02em; transition: background var(--t-micro) var(--ease-out); }
+.nav-cta:hover { background: var(--navy); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; border: none; background: none; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform var(--t-comp) var(--ease-out), opacity var(--t-comp) var(--ease-out); }
+.nav-mobile { display: none; position: fixed; top: 57px; left: 0; right: 0; background: var(--canvas); border-bottom: 1px solid var(--frost); padding: var(--sp3) var(--sp4); z-index: 99; }
+.nav-mobile.open { display: block; }
+.nav-mobile a { display: block; padding: 10px 0; font-size: 15px; font-weight: 500; color: var(--charcoal); text-decoration: none; border-bottom: 1px solid var(--frost); }
+.nav-mobile a:last-child { border-bottom: none; }
+
+/* ── HERO ── */
+.hero {
+  padding: 160px var(--sp4) var(--sp12);
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp8); align-items: center;
+}
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); background: rgba(28,92,170,.07); padding: 6px 14px; border-radius: 2px; margin-bottom: var(--sp3); }
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.hero-title { font-family: var(--font-display); font-size: clamp(36px,5vw,64px); font-weight: 900; line-height: 1.06; letter-spacing: -.04em; color: var(--navy); margin-bottom: var(--sp3); }
+.hero-title em { font-style: normal; color: var(--blue); position: relative; }
+.hero-title em::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:3px; background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left; animation: underline-in .6s .8s var(--ease-out) forwards; }
+@keyframes underline-in { to{transform:scaleX(1)} }
+.hero-sub { font-size: 17px; line-height: 1.65; color: var(--slate); max-width: 480px; margin-bottom: var(--sp6); }
+.hero-actions { display: flex; gap: var(--sp2); flex-wrap: wrap; }
+.btn-primary { font-family: var(--font-body); font-weight: 600; font-size: 14px; letter-spacing: .02em; color: var(--white); background: var(--blue); padding: 13px 28px; border-radius: 4px; text-decoration: none; display: inline-block; transition: background var(--t-micro) var(--ease-out), box-shadow var(--t-micro) var(--ease-out), transform var(--t-micro) var(--ease-out); }
+.btn-primary:hover { background: var(--navy); box-shadow: 0 4px 16px rgba(13,46,90,.22); transform: translateY(-2px); }
+.btn-secondary { font-family: var(--font-body); font-weight: 600; font-size: 14px; letter-spacing: .02em; color: var(--blue); background: transparent; border: 1.5px solid var(--blue); padding: 12px 28px; border-radius: 4px; text-decoration: none; display: inline-block; transition: background var(--t-micro) var(--ease-out), color var(--t-micro) var(--ease-out); }
+.btn-secondary:hover { background: var(--blue); color: var(--white); }
+
+/* Hero mark */
+.hero-visual { display: flex; align-items: center; justify-content: center; }
+.hero-mark-wrap { position: relative; width: min(380px,90%); aspect-ratio: 1; }
+.hero-mark-bg { position: absolute; inset: 0; border-radius: 8px; background: linear-gradient(135deg, var(--navy) 0%, #1a4a8a 100%); box-shadow: 0 32px 80px rgba(13,46,90,.18); animation: float 5s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.hero-mark-svg { position: absolute; inset: 0; width: 100%; height: 100%; padding: 15%; }
+.hero-stats { display: flex; gap: var(--sp3); margin-top: var(--sp6); }
+.hero-stat { }
+.hero-stat-num { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--blue); line-height:1; }
+.hero-stat-label { font-size: 12px; color: var(--slate); letter-spacing:.02em; margin-top:4px; }
+.hero-stat-div { width:1px; background: var(--frost); margin: 4px 0; }
+
+/* ── SECTION WRAPPER ── */
+.section { padding: var(--sp12) var(--sp4); max-width: var(--max-w); margin: 0 auto; }
+.section-full { padding: var(--sp12) var(--sp4); background: var(--navy); }
+.section-full .section { padding-top: 0; padding-bottom: 0; }
+.section-alt { background: var(--white); }
+.section-alt .section { }
+
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: var(--sp2); display: flex; align-items: center; gap: 10px; }
+.eyebrow::after { content:''; flex:1; height:1px; background: var(--frost); }
+.section-title { font-family: var(--font-display); font-size: clamp(24px,3.5vw,38px); font-weight: 800; color: var(--navy); margin-bottom: var(--sp2); letter-spacing: -.03em; }
+.section-sub { font-size: 16px; color: var(--slate); line-height: 1.6; max-width: 600px; margin-bottom: var(--sp8); }
+.section-full .eyebrow { color: var(--sky); }
+.section-full .eyebrow::after { background: rgba(255,255,255,.12); }
+.section-full .section-title { color: var(--white); }
+.section-full .section-sub { color: rgba(255,255,255,.65); }
+
+/* ── PILLARS ── */
+.pillars { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp3); }
+.pillar { border: 1px solid var(--frost); border-radius: 6px; padding: var(--sp4); background: var(--white); transition: border-color var(--t-comp) var(--ease-out), box-shadow var(--t-comp) var(--ease-out), transform var(--t-comp) var(--ease-out); }
+.pillar:hover { border-color: var(--blue); box-shadow: 0 4px 24px rgba(28,92,170,.1); transform: translateY(-3px); }
+.pillar-icon { font-size: 22px; margin-bottom: var(--sp2); }
+.pillar-name { font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+.pillar-text { font-size: 14px; color: var(--slate); line-height: 1.6; }
+
+/* ── COLOURS ── */
+.color-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: var(--sp3); }
+.color-card { border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); transition: transform var(--t-comp) var(--ease-out), box-shadow var(--t-comp) var(--ease-out); }
+.color-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+.color-swatch { height: 80px; }
+.color-info { background: var(--white); padding: 12px 14px; border: 1px solid var(--frost); border-top: none; }
+.color-name { font-weight: 600; font-size: 13px; color: var(--charcoal); margin-bottom: 4px; }
+.color-hex { font-family: var(--font-mono); font-size: 12px; color: var(--slate); }
+.color-role { font-size: 11px; color: var(--slate); margin-top: 4px; letter-spacing: .02em; }
+
+/* ── TYPOGRAPHY ── */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table th { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--slate); border-bottom: 2px solid var(--frost); padding: var(--sp2) var(--sp3) var(--sp2) 0; text-align: left; }
+.type-table td { padding: var(--sp3) var(--sp3) var(--sp3) 0; border-bottom: 1px solid var(--frost); vertical-align: middle; }
+.type-sample { font-family: var(--font-display); color: var(--navy); }
+.type-role { font-size: 13px; font-weight: 600; color: var(--charcoal); }
+.type-meta { font-family: var(--font-mono); font-size: 11px; color: var(--slate); }
+.font-chip { display: inline-block; font-size: 11px; font-weight: 600; background: rgba(28,92,170,.08); color: var(--blue); padding: 3px 8px; border-radius: 3px; letter-spacing: .04em; }
+
+/* ── SERVICES ── */
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp4); }
+.svc-card { background: var(--canvas); border: 1px solid var(--frost); border-radius: 8px; padding: var(--sp4); display: flex; flex-direction: column; transition: border-color var(--t-comp) var(--ease-out), box-shadow var(--t-comp) var(--ease-out), transform var(--t-comp) var(--ease-out); }
+.svc-card:hover { border-color: var(--blue); box-shadow: 0 4px 28px rgba(28,92,170,.12); transform: translateY(-4px); }
+.svc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp3); }
+.svc-code { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--blue); background: var(--white); border: 1.5px solid var(--blue); padding: 4px 10px; border-radius: 3px; letter-spacing: .08em; }
+.svc-dur { font-size: 11px; font-weight: 700; color: var(--white); background: var(--navy); padding: 4px 10px; border-radius: 3px; letter-spacing: .04em; }
+.svc-name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: var(--sp2); letter-spacing: -.02em; }
+.svc-features { list-style: none; flex: 1; }
+.svc-features li { font-size: 14px; color: var(--slate); line-height: 1.55; padding: 6px 0; border-bottom: 1px solid var(--frost); display: flex; gap: 8px; }
+.svc-features li::before { content: '–'; color: var(--blue); flex-shrink: 0; }
+.svc-link { margin-top: var(--sp3); font-size: 13px; font-weight: 600; color: var(--blue); text-decoration: none; letter-spacing: .02em; display: inline-flex; align-items: center; gap: 6px; transition: gap var(--t-micro) var(--ease-out), color var(--t-micro) var(--ease-out); }
+.svc-link:hover { color: var(--navy); gap: 10px; }
+
+/* ── MOTION ── */
+.motion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp4); }
+.motion-card { background: var(--white); border: 1px solid var(--frost); border-radius: 6px; padding: var(--sp4); }
+.motion-card h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: var(--sp2); }
+.motion-card p { font-size: 14px; color: var(--slate); line-height: 1.6; margin-bottom: var(--sp3); }
+.motion-demo { display: flex; gap: var(--sp2); flex-wrap: wrap; }
+.demo-btn { font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 4px; cursor: pointer; border: none; }
+.demo-primary { background: var(--blue); color: var(--white); transition: background var(--t-micro) var(--ease-out), box-shadow var(--t-micro) var(--ease-out), transform var(--t-micro) var(--ease-out); }
+.demo-primary:hover { background: var(--navy); box-shadow: 0 4px 14px rgba(13,46,90,.2); transform: translateY(-2px); }
+.demo-secondary { background: transparent; color: var(--blue); border: 1.5px solid var(--blue) !important; transition: background var(--t-micro) var(--ease-out), color var(--t-micro) var(--ease-out); }
+.demo-secondary:hover { background: var(--blue); color: var(--white); }
+.easing-row { display: flex; gap: var(--sp2); align-items: center; margin-bottom: 10px; }
+.easing-label { font-family: var(--font-mono); font-size: 11px; color: var(--slate); width: 80px; flex-shrink: 0; }
+.easing-bar { height: 6px; background: var(--frost); border-radius: 3px; flex: 1; overflow: hidden; }
+.easing-fill { height: 100%; background: var(--blue); border-radius: 3px; width: 0; transition: width 0ms; }
+.easing-duration { font-family: var(--font-mono); font-size: 11px; color: var(--blue); width: 48px; text-align: right; }
+
+/* ── LOGO RULES TABLE ── */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--frost); border-radius: 8px; overflow: hidden; }
+.rules-col { }
+.rules-head { padding: var(--sp3) var(--sp4); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.rules-head.do { background: rgba(28,92,170,.06); color: var(--blue); }
+.rules-head.dont { background: rgba(200,40,30,.05); color: var(--red); }
+.rules-item { padding: 12px var(--sp4); font-size: 14px; line-height: 1.5; border-top: 1px solid var(--frost); display: flex; gap: 10px; align-items: flex-start; color: var(--charcoal); }
+.rules-item .icon { flex-shrink: 0; margin-top: 2px; }
+.rules-item.do .icon { color: var(--blue); }
+.rules-item.dont .icon { color: var(--red); }
+
+/* ── REGULATORY ── */
+.reg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp3); }
+.reg-card { border-radius: 8px; padding: var(--sp4); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); transition: background var(--t-comp) var(--ease-out), border-color var(--t-comp) var(--ease-out); }
+.reg-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+.reg-abbr { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--sky); letter-spacing: .06em; margin-bottom: var(--sp2); }
+.reg-name { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: var(--sp2); line-height: 1.35; }
+.reg-scope { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: var(--sp3); }
+.reg-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; }
+.reg-tag.mandatory { background: rgba(200,40,30,.25); color: #ff8a82; }
+.reg-tag.voluntary { background: rgba(74,139,200,.25); color: var(--sky); }
+.reg-tag.global { background: rgba(208,210,214,.15); color: var(--silver); }
+
+/* ── VOICE ── */
+.voice-table { width: 100%; border-collapse: collapse; }
+.voice-table th { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: var(--sp2) var(--sp3) var(--sp2) 0; border-bottom: 2px solid var(--frost); color: var(--slate); text-align: left; }
+.voice-table td { padding: 12px var(--sp3) 12px 0; border-bottom: 1px solid var(--frost); font-size: 14px; line-height: 1.5; vertical-align: top; }
+.voice-say { color: var(--charcoal); }
+.voice-avoid { color: var(--slate); text-decoration: line-through; }
+.tick { color: var(--blue); margin-right: 6px; }
+.cross { color: var(--red); margin-right: 6px; }
+
+/* ── SPACING TOKENS ── */
+.token-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp3); }
+.token-card { background: var(--white); border: 1px solid var(--frost); border-radius: 6px; padding: var(--sp3); }
+.token-bar-wrap { background: var(--frost); border-radius: 3px; height: 6px; margin-bottom: var(--sp2); overflow: hidden; }
+.token-bar { height: 100%; background: var(--blue); border-radius: 3px; }
+.token-name { font-family: var(--font-mono); font-size: 12px; color: var(--blue); margin-bottom: 4px; }
+.token-val { font-size: 18px; font-weight: 700; color: var(--navy); }
+.token-use { font-size: 12px; color: var(--slate); margin-top: 4px; }
+
+/* ── FOOTER ── */
+footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp8) var(--sp4); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--sp8); }
+.footer-brand p { font-size: 14px; line-height: 1.7; margin-top: var(--sp2); max-width: 320px; }
+.footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--white); margin-bottom: var(--sp2); }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; margin-bottom: 8px; transition: color var(--t-micro) var(--ease-out); }
+.footer-col a:hover { color: var(--white); }
+.footer-bottom { max-width: var(--max-w); margin: var(--sp6) auto 0; padding-top: var(--sp4); border-top: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.35); flex-wrap: wrap; gap: var(--sp2); }
+.footer-wordmark { font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--white); letter-spacing: .04em; }
+
+/* ── RESPONSIVE ── */
+
+/* Large desktop ≥1280px */
+@media (min-width: 1280px) {
+  .color-grid { grid-template-columns: repeat(5,1fr); }
+  .token-grid { grid-template-columns: repeat(4,1fr); }
+}
+
+/* Desktop/wide tablet landscape 1024–1279px */
+@media (max-width: 1279px) {
+  .color-grid { grid-template-columns: repeat(4,1fr); }
+  .token-grid { grid-template-columns: repeat(3,1fr); }
+  .pillars { grid-template-columns: repeat(4,1fr); }
+}
+
+/* Tablet portrait + landscape & small desktop 768–1023px */
+@media (max-width: 1023px) {
+  :root { --sp12: 72px; --sp8: 56px; }
+  .hero { grid-template-columns: 1fr; padding-top: 120px; gap: var(--sp6); }
+  .hero-visual { display: none; }
+  .hero-title { font-size: clamp(32px,5.5vw,52px); }
+  .pillars { grid-template-columns: repeat(2,1fr); }
+  .services-grid { grid-template-columns: repeat(2,1fr); }
+  .color-grid { grid-template-columns: repeat(3,1fr); }
+  .motion-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: var(--sp6); }
+  .reg-grid { grid-template-columns: repeat(2,1fr); }
+  .token-grid { grid-template-columns: repeat(3,1fr); }
+}
+
+/* Tablet landscape specifically 768–1023px landscape */
+@media (max-width: 1023px) and (orientation: landscape) {
+  .hero { padding-top: 90px; padding-bottom: var(--sp6); }
+  .hero-title { font-size: clamp(28px,4.5vw,44px); }
+  .hero-sub { font-size: 15px; margin-bottom: var(--sp4); }
+  .hero-stats { margin-top: var(--sp4); }
+  .section { padding: var(--sp6) var(--sp4); }
+}
+
+/* Mobile landscape 480–767px landscape */
+@media (max-width: 767px) and (orientation: landscape) {
+  :root { --sp12: 48px; --sp8: 36px; }
+  .hero { padding-top: 72px; padding-bottom: var(--sp6); }
+  .hero-title { font-size: clamp(24px,5vw,36px); }
+  .hero-sub { font-size: 14px; margin-bottom: var(--sp3); }
+  .hero-stats { margin-top: var(--sp3); gap: var(--sp2); }
+  .section { padding: var(--sp6) var(--sp3); }
+  .pillars { grid-template-columns: repeat(2,1fr); }
+  .services-grid { grid-template-columns: repeat(2,1fr); }
+  .color-grid { grid-template-columns: repeat(3,1fr); }
+  .reg-grid { grid-template-columns: repeat(2,1fr); }
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* Mobile portrait ≤767px */
+@media (max-width: 767px) {
+  :root { --sp12: 56px; --sp8: 40px; }
+  nav { padding: var(--sp2) var(--sp3); }
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero { padding: 88px var(--sp3) var(--sp8); gap: var(--sp4); }
+  .hero-title { font-size: clamp(28px,8vw,44px); }
+  .hero-sub { font-size: 15px; }
+  .hero-stats { flex-wrap: wrap; gap: var(--sp2); margin-top: var(--sp4); }
+  .section { padding: var(--sp8) var(--sp3); }
+  .section-full { padding: var(--sp8) var(--sp3); }
+  .pillars { grid-template-columns: 1fr; gap: var(--sp2); }
+  .services-grid { grid-template-columns: 1fr; }
+  .color-grid { grid-template-columns: repeat(2,1fr); }
+  .token-grid { grid-template-columns: repeat(2,1fr); }
+  .rules-grid { grid-template-columns: 1fr; }
+  .reg-grid { grid-template-columns: 1fr; }
+  .motion-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: var(--sp4); }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: var(--sp1); }
+  .type-table { font-size: 13px; }
+  .type-table th, .type-table td { padding: var(--sp2) var(--sp2) var(--sp2) 0; }
+  .voice-table th, .voice-table td { padding: 10px var(--sp2) 10px 0; font-size: 13px; }
+  .hero-actions { flex-direction: column; gap: var(--sp2); }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+  .eyebrow { font-size: 10px; }
+  .section-sub { font-size: 15px; margin-bottom: var(--sp6); }
+}
+
+/* Small mobile ≤479px */
+@media (max-width: 479px) {
+  :root { --sp12: 48px; --sp8: 32px; }
+  .hero { padding: 80px var(--sp2) var(--sp6); }
+  .hero-title { font-size: clamp(26px,9vw,38px); letter-spacing: -.03em; }
+  .section { padding: var(--sp6) var(--sp2); }
+  .section-full { padding: var(--sp6) var(--sp2); }
+  .color-grid { grid-template-columns: 1fr 1fr; }
+  .token-grid { grid-template-columns: 1fr 1fr; }
+  .nav-wordmark { font-size: 13px; }
+  .pillar { padding: var(--sp3); }
+  .svc-card { padding: var(--sp3); }
+  .reg-card { padding: var(--sp3); }
+  .token-card { padding: var(--sp2); }
+  .footer-inner { padding: 0 var(--sp1); }
+}
+
+/* Safe zone: ensure content never clips under nav */
+@supports (padding-top: env(safe-area-inset-top)) {
+  nav { padding-top: calc(var(--sp2) + env(safe-area-inset-top)); }
+  .nav-mobile { top: calc(57px + env(safe-area-inset-top)); }
+}
+
+/* Ensure tables scroll horizontally on small screens */
+.type-table, .voice-table { min-width: 480px; }
+@media (max-width: 767px) {
+  .type-table { min-width: 560px; }
+  .voice-table { min-width: 360px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg class="nav-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="6" fill="#1C5CAA"/>
+      <polygon points="20,15 55,50 20,85 38,85 73,50 38,15" fill="#D0D2D6"/>
+      <polygon points="55,15 73,15 55,50" fill="#C8281E"/>
+      <polygon points="55,50 73,85 55,85" fill="#C8281E"/>
+    </svg>
+    <span class="nav-wordmark">KNEURALABS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#foundation">Foundation</a></li>
+    <li><a href="#colours">Colours</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#motion">Motion</a></li>
+    <li><a href="#regulatory">Regulatory</a></li>
+  </ul>
+  <a href="mailto:hello@kneuralabs.com" class="nav-cta">Contact</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#foundation" onclick="closeMenu()">Brand Foundation</a>
+  <a href="#colours" onclick="closeMenu()">Colour System</a>
+  <a href="#typography" onclick="closeMenu()">Typography</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#motion" onclick="closeMenu()">Motion & Digital</a>
+  <a href="#regulatory" onclick="closeMenu()">Regulatory</a>
+  <a href="mailto:hello@kneuralabs.com" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section style="background:var(--canvas); min-height:100svh; display:flex; align-items:center;">
+  <div class="hero">
+    <div>
+      <div class="hero-badge reveal">
+        <span class="hero-badge-dot"></span>
+        Brand Identity &amp; Design Guidelines · Version 2.0
+      </div>
+      <h1 class="hero-title reveal" style="transition-delay:.1s">
+        Governance<br>built to <em>run</em>,<br>not to archive.
+      </h1>
+      <p class="hero-sub reveal" style="transition-delay:.2s">
+        The complete visual and verbal identity system for Kneuralabs — AI governance consulting grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act.
+      </p>
+      <div class="hero-actions reveal" style="transition-delay:.3s">
+        <a href="#foundation" class="btn-primary">Explore Guidelines →</a>
+        <a href="mailto:hello@kneuralabs.com" class="btn-secondary">hello@kneuralabs.com</a>
+      </div>
+      <div class="hero-stats reveal" style="transition-delay:.4s">
+        <div class="hero-stat">
+          <div class="hero-stat-num">10</div>
+          <div class="hero-stat-label">Colour Tokens</div>
+        </div>
+        <div class="hero-stat-div"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">12</div>
+          <div class="hero-stat-label">Sections</div>
+        </div>
+        <div class="hero-stat-div"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Reg. Standards</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal" style="transition-delay:.2s">
+      <div class="hero-mark-wrap">
+        <div class="hero-mark-bg"></div>
+        <svg class="hero-mark-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="12,8 52,50 12,92 30,92 70,50 30,8" fill="#D0D2D6"/>
+          <polygon points="52,8 70,8 52,50" fill="#C8281E"/>
+          <polygon points="52,50 70,92 52,92" fill="#C8281E"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDATION -->
+<div class="section-alt" id="foundation">
+<div class="section">
+  <div class="eyebrow reveal">Section 01</div>
+  <h2 class="section-title reveal">Brand Foundation</h2>
+  <p class="section-sub reveal">Kneuralabs is a structural AI governance advisory firm. The brand feels closer to a premium legal or audit firm than a technology startup — built on authority, precision, resilience, and clarity.</p>
+
+  <div class="pillars">
+    <div class="pillar reveal" style="transition-delay:.05s">
+      <div class="pillar-icon">⚖️</div>
+      <div class="pillar-name">Authority</div>
+      <div class="pillar-text">Grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act. We cite the standard, not the trend.</div>
+    </div>
+    <div class="pillar reveal" style="transition-delay:.1s">
+      <div class="pillar-icon">🎯</div>
+      <div class="pillar-name">Precision</div>
+      <div class="pillar-text">Three scoped services. Transparent timelines. Deliverables that can be audited.</div>
+    </div>
+    <div class="pillar reveal" style="transition-delay:.15s">
+      <div class="pillar-icon">🏛️</div>
+      <div class="pillar-name">Resilience</div>
+      <div class="pillar-text">Governance that survives an audit, a leadership change, and a regulator.</div>
+    </div>
+    <div class="pillar reveal" style="transition-delay:.2s">
+      <div class="pillar-icon">📄</div>
+      <div class="pillar-name">Clarity</div>
+      <div class="pillar-text">Plain language. No jargon. If a board member cannot read it, we rewrite it.</div>
+    </div>
+  </div>
+
+  <!-- Positioning -->
+  <div class="reveal" style="margin-top:var(--sp8); background:var(--navy); border-radius:8px; padding:var(--sp6); position:relative; overflow:hidden;">
+    <div style="position:absolute;top:-30px;right:-30px;width:180px;height:180px;border-radius:50%;background:rgba(28,92,170,.3);pointer-events:none;"></div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sky);margin-bottom:var(--sp2);">Brand Positioning</div>
+    <blockquote style="font-family:var(--font-display);font-size:clamp(17px,2.5vw,24px);font-weight:700;color:var(--white);line-height:1.45;font-style:italic;max-width:700px;">"For U.S. mid-market companies navigating AI risk, Kneuralabs provides the only governance advisory service built to operate inside the organisation — not to file on its behalf."</blockquote>
+  </div>
+</div>
+</div>
+
+<!-- LOGO -->
+<div id="logo">
+<div class="section">
+  <div class="eyebrow reveal">Section 02</div>
+  <h2 class="section-title reveal">Logo &amp; Symbol</h2>
+  <p class="section-sub reveal">The Kneuralabs mark is a geometric chevron/arrow constructed from three planes: Royal Authority Blue (field), Precision Red (direction), and Structural Silver (path). The ™ designation KneuraLens™ must appear on first use in every document.</p>
+
+  <div class="rules-grid reveal">
+    <div class="rules-col">
+      <div class="rules-head do">✓ DO</div>
+      <div class="rules-item do"><span class="icon">✓</span> Use on white, Canvas White, or Deep Navy backgrounds only</div>
+      <div class="rules-item do"><span class="icon">✓</span> Maintain clear space equal to the mark's full height on all 4 sides</div>
+      <div class="rules-item do"><span class="icon">✓</span> Use the full-colour version as the default in all communications</div>
+      <div class="rules-item do"><span class="icon">✓</span> Use the white version on Dark Navy or solid blue backgrounds</div>
+      <div class="rules-item do"><span class="icon">✓</span> Include alt text: 'Kneuralabs logo' in all digital uses</div>
+    </div>
+    <div class="rules-col">
+      <div class="rules-head dont">✗ DO NOT</div>
+      <div class="rules-item dont"><span class="icon">✗</span> Place on photographic backgrounds without a colour block behind it</div>
+      <div class="rules-item dont"><span class="icon">✗</span> Scale below 48px (digital) or 15mm (print)</div>
+      <div class="rules-item dont"><span class="icon">✗</span> Recolour any element of the mark independently</div>
+      <div class="rules-item dont"><span class="icon">✗</span> Rotate, skew, or apply drop shadows to the mark</div>
+      <div class="rules-item dont"><span class="icon">✗</span> Use the mark as a decorative pattern or texture tile</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- COLOURS -->
+<div class="section-alt" id="colours">
+<div class="section">
+  <div class="eyebrow reveal">Section 03</div>
+  <h2 class="section-title reveal">Colour System</h2>
+  <p class="section-sub reveal">The palette is derived directly from the logo mark. No colour outside this system may be introduced without written brand approval. Always use hex codes for digital; CMYK for print.</p>
+
+  <div class="color-grid">
+    <div class="color-card reveal" style="transition-delay:.05s"><div class="color-swatch" style="background:#1C5CAA"></div><div class="color-info"><div class="color-name">Royal Authority Blue</div><div class="color-hex">#1C5CAA</div><div class="color-role">Primary Brand</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.08s"><div class="color-swatch" style="background:#C8281E"></div><div class="color-info"><div class="color-name">Precision Red</div><div class="color-hex">#C8281E</div><div class="color-role">Accent &amp; Alert</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.11s"><div class="color-swatch" style="background:#D0D2D6;border:1px solid #eee"></div><div class="color-info"><div class="color-name">Structural Silver</div><div class="color-hex">#D0D2D6</div><div class="color-role">Logo Shape / Neutral</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.14s"><div class="color-swatch" style="background:#0D2E5A"></div><div class="color-info"><div class="color-name">Deep Navy</div><div class="color-hex">#0D2E5A</div><div class="color-role">Dark BG / Headers</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.17s"><div class="color-swatch" style="background:#4A8BC8"></div><div class="color-info"><div class="color-name">Sky Blue</div><div class="color-hex">#4A8BC8</div><div class="color-role">Tint / Hover States</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.05s"><div class="color-swatch" style="background:#8B1A12"></div><div class="color-info"><div class="color-name">Crimson Depth</div><div class="color-hex">#8B1A12</div><div class="color-role">Dark Red Variant</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.08s"><div class="color-swatch" style="background:#F7F8FA;border:1px solid #eee"></div><div class="color-info"><div class="color-name">Canvas White</div><div class="color-hex">#F7F8FA</div><div class="color-role">Page Background</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.11s"><div class="color-swatch" style="background:#1A1D23"></div><div class="color-info"><div class="color-name">Ink Charcoal</div><div class="color-hex">#1A1D23</div><div class="color-role">Primary Text</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.14s"><div class="color-swatch" style="background:#6B7280"></div><div class="color-info"><div class="color-name">Slate Gray</div><div class="color-hex">#6B7280</div><div class="color-role">Secondary Text</div></div></div>
+    <div class="color-card reveal" style="transition-delay:.17s"><div class="color-swatch" style="background:#E0E4EA;border:1px solid #ddd"></div><div class="color-info"><div class="color-name">Frost Gray</div><div class="color-hex">#E0E4EA</div><div class="color-role">Borders / Dividers</div></div></div>
+  </div>
+
+  <!-- Contrast badges -->
+  <div class="reveal" style="margin-top:var(--sp6); display:flex; flex-wrap:wrap; gap:var(--sp2);">
+    <div style="background:var(--white);border:1px solid var(--frost);border-radius:6px;padding:12px 18px;font-size:13px;"><span style="font-weight:700;color:var(--blue);">Royal Blue / Canvas</span><span style="color:var(--slate);margin-left:8px;">6.8:1 · WCAG AA &amp; AAA</span></div>
+    <div style="background:var(--white);border:1px solid var(--frost);border-radius:6px;padding:12px 18px;font-size:13px;"><span style="font-weight:700;color:var(--red);">Precision Red / Canvas</span><span style="color:var(--slate);margin-left:8px;">5.1:1 · WCAG AA large</span></div>
+    <div style="background:var(--white);border:1px solid var(--frost);border-radius:6px;padding:12px 18px;font-size:13px;"><span style="font-weight:700;color:var(--charcoal);">Ink Charcoal / Canvas</span><span style="color:var(--slate);margin-left:8px;">18.4:1 · All WCAG levels</span></div>
+  </div>
+</div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div id="typography">
+<div class="section">
+  <div class="eyebrow reveal">Section 04</div>
+  <h2 class="section-title reveal">Typography System</h2>
+  <p class="section-sub reveal">Inter for all roles — display, UI, and body. Variable weight axis from 300–900 enables full typographic hierarchy from a single typeface. All sizes are fluid and responsive.</p>
+
+  <div class="reveal" style="margin-bottom:var(--sp4);display:flex;gap:var(--sp2);flex-wrap:wrap;">
+    <span class="font-chip">Inter 800–900 — Display &amp; Headings</span>
+    <span class="font-chip">Inter 400–600 — UI &amp; Body</span>
+    <span class="font-chip" style="font-family:var(--font-mono);">Monospace — Code &amp; Metadata</span>
+  </div>
+
+  <div class="reveal" style="overflow-x:auto;">
+  <table class="type-table">
+    <thead>
+      <tr>
+        <th>Sample</th>
+        <th>Role</th>
+        <th>Size</th>
+        <th>Weight</th>
+        <th>Tracking</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="type-sample" style="font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:-.03em;">Governance</span></td><td><span class="type-role">Display</span></td><td class="type-meta">48–64pt</td><td class="type-meta">700</td><td class="type-meta">−0.03em</td></tr>
+      <tr><td><span class="type-sample" style="font-size:clamp(22px,4vw,40px);font-weight:700;letter-spacing:-.02em;">AI Risk Assessment</span></td><td><span class="type-role">H1 Section</span></td><td class="type-meta">36–44pt</td><td class="type-meta">700</td><td class="type-meta">−0.02em</td></tr>
+      <tr><td><span class="type-sample" style="font-size:clamp(18px,3vw,28px);font-weight:600;letter-spacing:-.01em;">Governance Framework</span></td><td><span class="type-role">H2 Sub</span></td><td class="type-meta">26–32pt</td><td class="type-meta">600</td><td class="type-meta">−0.01em</td></tr>
+      <tr><td><span class="type-sample" style="font-size:20px;font-weight:500;">Board-ready executive summary</span></td><td><span class="type-role">H3 Card</span></td><td class="type-meta">20–24pt</td><td class="type-meta">500</td><td class="type-meta">0em</td></tr>
+      <tr><td><span style="font-size:17px;line-height:1.65;color:var(--charcoal);">When AI makes a wrong call, who is responsible? Lead with consequence — always before any feature description.</span></td><td><span class="type-role">Body Large</span></td><td class="type-meta">17–19pt</td><td class="type-meta">400</td><td class="type-meta">0em</td></tr>
+      <tr><td><span style="font-size:15px;line-height:1.6;color:var(--slate);">Standard body copy for all client-facing documents, proposals, and web pages. Maximum 75 characters per line.</span></td><td><span class="type-role">Body</span></td><td class="type-meta">15–17pt</td><td class="type-meta">400</td><td class="type-meta">0em</td></tr>
+      <tr><td><span style="font-size:12px;color:var(--slate);letter-spacing:.01em;">Image captions, footnotes, document metadata</span></td><td><span class="type-role">Caption</span></td><td class="type-meta">12–14pt</td><td class="type-meta">400</td><td class="type-meta">+0.01em</td></tr>
+      <tr><td><span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);">S1 · S2 · S3</span></td><td><span class="type-role">Label/Tag</span></td><td class="type-meta">11–13pt</td><td class="type-meta">700</td><td class="type-meta">+0.08em</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<div class="section-alt" id="services">
+<div class="section">
+  <div class="eyebrow reveal">Section 06</div>
+  <h2 class="section-title reveal">Service Identity</h2>
+  <p class="section-sub reveal">Three services. One interlocking programme. Always presented in sequence S1 → S2 → S3 with identical structural layout. Never remove the 'Explore →' link from any service card.</p>
+
+  <div class="services-grid">
+    <div class="svc-card reveal" style="transition-delay:.05s">
+      <div class="svc-header">
+        <span class="svc-code">S1</span>
+        <span class="svc-dur">2–4 weeks</span>
+      </div>
+      <div class="svc-name">AI Risk Assessment</div>
+      <ul class="svc-features">
+        <li>Full AI system inventory across all business units</li>
+        <li>Risk register ranked by likelihood and severity</li>
+        <li>NIST AI RMF mapping</li>
+        <li>Board-ready executive summary</li>
+        <li>Prioritised remediation roadmap</li>
+      </ul>
+      <a href="#" class="svc-link">Explore →</a>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.1s">
+      <div class="svc-header">
+        <span class="svc-code">S2</span>
+        <span class="svc-dur">4–8 weeks</span>
+      </div>
+      <div class="svc-name">Governance Framework Setup</div>
+      <ul class="svc-features">
+        <li>Sector-specific AI governance policy suite</li>
+        <li>RACI matrix and escalation paths</li>
+        <li>AI lifecycle controls and monitoring cadence</li>
+        <li>Dual alignment to NIST AI RMF and ISO/IEC 42001:2023</li>
+      </ul>
+      <a href="#" class="svc-link">Explore →</a>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.15s">
+      <div class="svc-header">
+        <span class="svc-code">S3</span>
+        <span class="svc-dur">4–10 weeks</span>
+      </div>
+      <div class="svc-name">AI Standards Readiness</div>
+      <ul class="svc-features">
+        <li>KneuraLens™ readiness assessment</li>
+        <li>Complete gap register and closure roadmap</li>
+        <li>Audit-ready policies and evidence packs</li>
+        <li>ISO/IEC 42001:2023 and NIST AI RMF alignment</li>
+      </ul>
+      <a href="#" class="svc-link">Explore →</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SPACING -->
+<div id="spacing">
+<div class="section">
+  <div class="eyebrow reveal">Section 07</div>
+  <h2 class="section-title reveal">Layout &amp; Spacing</h2>
+  <p class="section-sub reveal">8pt base unit. 12-column grid. White space is authority — density is earned. Every element must justify its presence relative to the hierarchy.</p>
+  <div class="token-grid">
+    <div class="token-card reveal"><div class="token-bar-wrap"><div class="token-bar" style="width:5%"></div></div><div class="token-name">space-1</div><div class="token-val">8px</div><div class="token-use">Icon-to-label gap</div></div>
+    <div class="token-card reveal" style="transition-delay:.05s"><div class="token-bar-wrap"><div class="token-bar" style="width:10%"></div></div><div class="token-name">space-2</div><div class="token-val">16px</div><div class="token-use">Input field padding</div></div>
+    <div class="token-card reveal" style="transition-delay:.1s"><div class="token-bar-wrap"><div class="token-bar" style="width:15%"></div></div><div class="token-name">space-3</div><div class="token-val">24px</div><div class="token-use">Card padding (mobile)</div></div>
+    <div class="token-card reveal" style="transition-delay:.15s"><div class="token-bar-wrap"><div class="token-bar" style="width:20%"></div></div><div class="token-name">space-4</div><div class="token-val">32px</div><div class="token-use">Card padding (desktop)</div></div>
+    <div class="token-card reveal"><div class="token-bar-wrap"><div class="token-bar" style="width:30%"></div></div><div class="token-name">space-6</div><div class="token-val">48px</div><div class="token-use">Between content blocks</div></div>
+    <div class="token-card reveal" style="transition-delay:.05s"><div class="token-bar-wrap"><div class="token-bar" style="width:40%"></div></div><div class="token-name">space-8</div><div class="token-val">64px</div><div class="token-use">Section padding (mobile)</div></div>
+    <div class="token-card reveal" style="transition-delay:.1s"><div class="token-bar-wrap"><div class="token-bar" style="width:60%"></div></div><div class="token-name">space-12</div><div class="token-val">96px</div><div class="token-use">Section padding (desktop)</div></div>
+    <div class="token-card reveal" style="transition-delay:.15s"><div class="token-bar-wrap"><div class="token-bar" style="width:100%"></div></div><div class="token-name">space-20</div><div class="token-val">160px</div><div class="token-use">Hero vertical padding</div></div>
+  </div>
+</div>
+</div>
+
+<!-- MOTION -->
+<div class="section-alt" id="motion">
+<div class="section">
+  <div class="eyebrow reveal">Section 08</div>
+  <h2 class="section-title reveal">Digital &amp; Motion</h2>
+  <p class="section-sub reveal">Animation is functional. It confirms state changes, guides attention, and signals transitions. Every motion decision must pass: if removed, does the user lose information?</p>
+
+  <div class="motion-grid">
+    <div class="motion-card reveal">
+      <h3>Interactive Element States</h3>
+      <p>All interactive elements transition at 150ms (micro) or 300ms (component). Hover states use Deep Navy fill with a 2px lift shadow.</p>
+      <div class="motion-demo">
+        <button class="demo-btn demo-primary">Primary CTA</button>
+        <button class="demo-btn demo-secondary">Secondary</button>
+      </div>
+    </div>
+    <div class="motion-card reveal" style="transition-delay:.1s">
+      <h3>Duration Scale</h3>
+      <p>Three tiers of timing. Micro for feedback, component for reveals, page for transitions. Stagger list items at 50ms intervals.</p>
+      <div id="easingDemo">
+        <div class="easing-row"><span class="easing-label">micro</span><div class="easing-bar"><div class="easing-fill" id="e1"></div></div><span class="easing-duration">150ms</span></div>
+        <div class="easing-row"><span class="easing-label">component</span><div class="easing-bar"><div class="easing-fill" id="e2"></div></div><span class="easing-duration">300ms</span></div>
+        <div class="easing-row"><span class="easing-label">page</span><div class="easing-bar"><div class="easing-fill" id="e3"></div></div><span class="easing-duration">400ms</span></div>
+        <div class="easing-row"><span class="easing-label">colour</span><div class="easing-bar"><div class="easing-fill" id="e4"></div></div><span class="easing-duration">200ms</span></div>
+      </div>
+      <button onclick="runEasingDemo()" style="margin-top:var(--sp2);font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;letter-spacing:.04em;padding:0;">▶ Run demo</button>
+    </div>
+  </div>
+
+  <!-- Easing values -->
+  <div class="reveal" style="margin-top:var(--sp4);background:var(--charcoal);border-radius:8px;padding:var(--sp4);overflow-x:auto;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin-bottom:var(--sp3);">CSS Easing Reference</div>
+    <pre style="font-family:var(--font-mono);font-size:13px;color:#c8d8f0;line-height:1.8; white-space:pre-wrap;">/* Entrance */
+ease-out: cubic-bezier(0.0, 0.0, 0.2, 1)
+/* Exit */
+ease-in:  cubic-bezier(0.4, 0.0, 1, 1)
+
+/* Duration Scale */
+--t-micro:  150ms   /* micro-interactions */
+--t-comp:   300ms   /* component transitions */
+--t-page:   400ms   /* page-level fades */
+--t-colour: 200ms   /* interactive colour changes */
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0ms !important; }
+}</pre>
+  </div>
+</div>
+</div>
+
+<!-- VOICE -->
+<div id="voice">
+<div class="section">
+  <div class="eyebrow reveal">Section 05</div>
+  <h2 class="section-title reveal">Voice &amp; Tone</h2>
+  <p class="section-sub reveal">Kneuralabs communicates as a senior partner at a specialised advisory firm — calm, evidence-based, and direct. Four registers: Advisory, Instructive, Reassuring, Urgent.</p>
+
+  <div style="overflow-x:auto;" class="reveal">
+  <table class="voice-table">
+    <thead>
+      <tr><th>✓ Say This</th><th>✗ Avoid This</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="voice-say"><span class="tick">✓</span>Governance built to run</td><td class="voice-avoid">End-to-end AI compliance platform</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>When AI makes a wrong call — who is responsible?</td><td class="voice-avoid">AI risk management challenges</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>2–4 weeks. Standalone. Transparent.</td><td class="voice-avoid">Quick turnaround, flexible engagement</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>We give you an honest assessment.</td><td class="voice-avoid">Our experts will provide tailored advice</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>Regulators are arriving. The gap is structural.</td><td class="voice-avoid">In today's fast-evolving AI landscape</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>Board-ready executive summary</td><td class="voice-avoid">C-suite aligned deliverable</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>You cannot win the contract without it.</td><td class="voice-avoid">Potential competitive disadvantage</td></tr>
+      <tr><td class="voice-say"><span class="tick">✓</span>KneuraLens™ readiness assessment</td><td class="voice-avoid">Our proprietary AI scoring tool</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+<!-- REGULATORY -->
+<div class="section-full" id="regulatory">
+<div class="section">
+  <div class="eyebrow reveal">Section 09</div>
+  <h2 class="section-title reveal">Regulatory Standards</h2>
+  <p class="section-sub reveal">These three frameworks form the technical and regulatory foundation of all Kneuralabs service delivery. Incorrect citation damages credibility — cite with precision, always.</p>
+
+  <div class="reg-grid">
+    <div class="reg-card reveal">
+      <div class="reg-abbr">NIST AI RMF</div>
+      <div class="reg-name">NIST AI Risk Management Framework</div>
+      <div class="reg-scope">U.S. federal voluntary standard; de facto audit and procurement benchmark for all sectors. Growing commercial requirement in enterprise RFPs and federal contracting.</div>
+      <span class="reg-tag voluntary">Voluntary · U.S. Standard</span>
+    </div>
+    <div class="reg-card reveal" style="transition-delay:.1s">
+      <div class="reg-abbr">ISO/IEC 42001:2023</div>
+      <div class="reg-name">ISO/IEC 42001:2023 — AI Management System</div>
+      <div class="reg-scope">International certification standard for AI management systems; audited by accredited third parties. Increasingly written into vendor qualification requirements globally.</div>
+      <span class="reg-tag global">International Certification</span>
+    </div>
+    <div class="reg-card reveal" style="transition-delay:.2s">
+      <div class="reg-abbr">EU AI Act</div>
+      <div class="reg-name">Regulation (EU) 2024/1689</div>
+      <div class="reg-scope">Applies to any organisation deploying AI to EU-based users, regardless of incorporation country. Fines up to 3% of global annual turnover for non-compliance.</div>
+      <span class="reg-tag mandatory">Mandatory · EU Regulation</span>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:var(--sp6);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:var(--sp4);">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sky);margin-bottom:var(--sp3);">Citation Rules</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--sp3);">
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;display:flex;gap:10px;"><span style="color:var(--sky);flex-shrink:0;">→</span>First use: spell out the full name followed by the abbreviation in parentheses</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;display:flex;gap:10px;"><span style="color:var(--sky);flex-shrink:0;">→</span>ISO/IEC 42001 always includes the year: 42001:2023 — never '42001' alone</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;display:flex;gap:10px;"><span style="color:var(--sky);flex-shrink:0;">→</span>NIST AI RMF: always a space between NIST and AI — not 'NISTAI RMF'</div>
+      <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;display:flex;gap:10px;"><span style="color:var(--sky);flex-shrink:0;">→</span>Never describe NIST AI RMF as 'mandatory' — it is voluntary; commercial pressure is distinct from legal obligation</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-wordmark">KNEURALABS</div>
+      <p>AI Governance Consulting built to operate inside the organisation. Grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Guidelines</h4>
+      <a href="#foundation">Brand Foundation</a>
+      <a href="#colours">Colour System</a>
+      <a href="#typography">Typography</a>
+      <a href="#services">Services</a>
+      <a href="#motion">Motion &amp; Digital</a>
+      <a href="#regulatory">Regulatory</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@kneuralabs.com">hello@kneuralabs.com</a>
+      <a href="https://kneuralabs.com">kneuralabs.com</a>
+      <a href="mailto:brand@kneuralabs.com">brand@kneuralabs.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Kneuralabs Brand Guidelines · Version 2.0 · 2025 · All Rights Reserved</span>
+    <span>NIST AI RMF · ISO/IEC 42001:2023 · EU AI Act</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll shadow
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+let menuOpen = false;
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  navMobile.classList.toggle('open', menuOpen);
+  const spans = hamburger.querySelectorAll('span');
+  if (menuOpen) {
+    spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  } else {
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+});
+function closeMenu() {
+  menuOpen = false;
+  navMobile.classList.remove('open');
+  const spans = hamburger.querySelectorAll('span');
+  spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => io.observe(el));
+
+// Easing demo
+function runEasingDemo() {
+  const bars = [
+    { id: 'e1', dur: 150 }, { id: 'e2', dur: 300 },
+    { id: 'e3', dur: 400 }, { id: 'e4', dur: 200 }
+  ];
+  bars.forEach(({ id, dur }) => {
+    const el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.style.width = '0';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.transition = `width ${dur}ms cubic-bezier(0.0,0.0,0.2,1)`;
+      el.style.width = '100%';
+      setTimeout(() => {
+        el.style.transition = `width ${dur}ms cubic-bezier(0.4,0.0,1,1)`;
+        el.style.width = '0';
+      }, dur + 400);
+    }));
+  });
+}
+</script>
+</body>
+</html>
