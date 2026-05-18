@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kneuralabs — Brand Identity & Design Guidelines</title>
+<link rel="icon" href="LOGO.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -94,9 +95,10 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(13,46,90,.08); }
 .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
 .hero-title { font-family: var(--font-display); font-size: clamp(36px,5vw,64px); font-weight: 900; line-height: 1.06; letter-spacing: -.04em; color: var(--navy); margin-bottom: var(--sp3); }
-.hero-title em { font-style: normal; color: var(--blue); position: relative; }
-.hero-title em::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:3px; background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left; animation: underline-in .6s .8s var(--ease-out) forwards; }
-@keyframes underline-in { to{transform:scaleX(1)} }
+.hero-title em { font-style: normal; color: var(--blue); position: relative; display: inline-block; }
+.felt-circle { position:absolute; top:-28%; left:-10%; width:120%; height:158%; overflow:visible; pointer-events:none; }
+.felt-path { fill:none; stroke:var(--red); stroke-width:3.2; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:270; stroke-dashoffset:270; animation: drawCircle .85s .9s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes drawCircle { to { stroke-dashoffset:0; } }
 .hero-sub { font-size: 17px; line-height: 1.65; color: var(--slate); max-width: 480px; margin-bottom: var(--sp6); }
 .hero-actions { display: flex; gap: var(--sp2); flex-wrap: wrap; }
 .btn-primary { font-family: var(--font-body); font-weight: 600; font-size: 14px; letter-spacing: .02em; color: var(--white); background: var(--blue); padding: 13px 28px; border-radius: 4px; text-decoration: none; display: inline-block; transition: background var(--t-micro) var(--ease-out), box-shadow var(--t-micro) var(--ease-out), transform var(--t-micro) var(--ease-out); }
@@ -106,10 +108,10 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(13,46,90,.08); }
 
 /* Hero mark */
 .hero-visual { display: flex; align-items: center; justify-content: center; }
-.hero-mark-wrap { position: relative; width: min(380px,90%); aspect-ratio: 1; }
-.hero-mark-bg { position: absolute; inset: 0; border-radius: 8px; background: linear-gradient(135deg, var(--navy) 0%, #1a4a8a 100%); box-shadow: 0 32px 80px rgba(13,46,90,.18); animation: float 5s ease-in-out infinite; }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-.hero-mark-svg { position: absolute; inset: 0; width: 100%; height: 100%; padding: 15%; }
+.hero-mark-wrap { width: min(460px,90%); animation: heroFloat 7s ease-in-out infinite 1.6s; }
+.hero-mark-img { width:100%; height:auto; display:block; filter:drop-shadow(0 32px 64px rgba(13,46,90,.24)) drop-shadow(0 10px 24px rgba(28,92,170,.16)); animation: heroEntrance 1s .3s cubic-bezier(0,0,.2,1) both; }
+@keyframes heroEntrance { from{opacity:0;transform:scale(.8) translateY(32px)} to{opacity:1;transform:scale(1) translateY(0)} }
+@keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 35%{transform:translateY(-20px) rotate(.6deg)} 65%{transform:translateY(-10px) rotate(-.35deg)} }
 .hero-stats { display: flex; gap: var(--sp3); margin-top: var(--sp6); }
 .hero-stat { }
 .hero-stat-num { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--blue); line-height:1; }
@@ -136,7 +138,8 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(13,46,90,.08); }
 .pillars { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp3); }
 .pillar { border: 1px solid var(--frost); border-radius: 6px; padding: var(--sp4); background: var(--white); transition: border-color var(--t-comp) var(--ease-out), box-shadow var(--t-comp) var(--ease-out), transform var(--t-comp) var(--ease-out); }
 .pillar:hover { border-color: var(--blue); box-shadow: 0 4px 24px rgba(28,92,170,.1); transform: translateY(-3px); }
-.pillar-icon { font-size: 22px; margin-bottom: var(--sp2); }
+.pillar-icon { width:30px; height:30px; margin-bottom:var(--sp2); }
+.pillar-icon svg { width:100%; height:100%; display:block; }
 .pillar-name { font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
 .pillar-text { font-size: 14px; color: var(--slate); line-height: 1.6; }
 
@@ -397,10 +400,10 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
         Brand Identity &amp; Design Guidelines · Version 2.0
       </div>
       <h1 class="hero-title reveal" style="transition-delay:.1s">
-        Governance<br>built to <em>run</em>,<br>not to archive.
+        Governance<br>built to <em>run<svg class="felt-circle" viewBox="0 0 110 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="felt-path" d="M8,26 C10,7 32,2 55,3 C78,4 102,9 104,26 C106,43 80,50 55,50 C30,50 6,43 8,26 Z"/></svg></em>,<br>not to archive.
       </h1>
       <p class="hero-sub reveal" style="transition-delay:.2s">
-        The complete visual and verbal identity system for Kneuralabs — AI governance consulting grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act.
+        Visual and verbal identity system for Kneuralabs — AI governance consulting grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act.
       </p>
       <div class="hero-actions reveal" style="transition-delay:.3s">
         <a href="#foundation" class="btn-primary">Explore Guidelines →</a>
@@ -425,8 +428,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
     </div>
     <div class="hero-visual reveal" style="transition-delay:.2s">
       <div class="hero-mark-wrap">
-        <div class="hero-mark-bg"></div>
-        <img class="hero-mark-svg" src="LOGO.png" alt="Kneuralabs logo">
+        <img class="hero-mark-img" src="LOGO.png" alt="Kneuralabs logo">
       </div>
     </div>
   </div>
@@ -437,28 +439,28 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 01</div>
   <h2 class="section-title reveal">Brand Foundation</h2>
-  <p class="section-sub reveal">Kneuralabs is a structural AI governance advisory firm. The brand feels closer to a premium legal or audit firm than a technology startup — built on authority, precision, resilience, and clarity.</p>
+  <p class="section-sub reveal">A structural AI governance advisory firm. Built on authority, precision, resilience, and clarity — closer to a premium audit practice than a tech startup.</p>
 
   <div class="pillars">
     <div class="pillar reveal" style="transition-delay:.05s">
-      <div class="pillar-icon">⚖️</div>
+      <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1C5CAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 20h14"/><path d="M7 10L4 17h6L7 10zM17 10l-3 7h6l-3-7z"/></svg></div>
       <div class="pillar-name">Authority</div>
-      <div class="pillar-text">Grounded in NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act. We cite the standard, not the trend.</div>
+      <div class="pillar-text">We cite the standard, not the trend — NIST AI RMF, ISO/IEC 42001:2023, and the EU AI Act.</div>
     </div>
     <div class="pillar reveal" style="transition-delay:.1s">
-      <div class="pillar-icon">🎯</div>
+      <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0D2E5A" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg></div>
       <div class="pillar-name">Precision</div>
-      <div class="pillar-text">Three scoped services. Transparent timelines. Deliverables that can be audited.</div>
+      <div class="pillar-text">Three scoped services. Fixed timelines. Deliverables built to be audited.</div>
     </div>
     <div class="pillar reveal" style="transition-delay:.15s">
-      <div class="pillar-icon">🏛️</div>
+      <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#4A8BC8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V6L12 2z"/></svg></div>
       <div class="pillar-name">Resilience</div>
       <div class="pillar-text">Governance that survives an audit, a leadership change, and a regulator.</div>
     </div>
     <div class="pillar reveal" style="transition-delay:.2s">
-      <div class="pillar-icon">📄</div>
+      <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2a6fc4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg></div>
       <div class="pillar-name">Clarity</div>
-      <div class="pillar-text">Plain language. No jargon. If a board member cannot read it, we rewrite it.</div>
+      <div class="pillar-text">Plain language. No jargon. If a board member can't read it, we rewrite it.</div>
     </div>
   </div>
 
@@ -476,7 +478,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 02</div>
   <h2 class="section-title reveal">Logo &amp; Symbol</h2>
-  <p class="section-sub reveal">The Kneuralabs mark is a geometric chevron/arrow constructed from three planes: Royal Authority Blue (field), Precision Red (direction), and Structural Silver (path). The ™ designation KneuraLens™ must appear on first use in every document.</p>
+  <p class="section-sub reveal">A geometric chevron from three planes: Royal Authority Blue, Precision Red, and Structural Silver. KneuraLens™ must appear on first use in every document.</p>
 
   <div class="rules-grid reveal">
     <div class="rules-col">
@@ -504,7 +506,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 03</div>
   <h2 class="section-title reveal">Colour System</h2>
-  <p class="section-sub reveal">The palette is derived directly from the logo mark. No colour outside this system may be introduced without written brand approval. Always use hex codes for digital; CMYK for print.</p>
+  <p class="section-sub reveal">Derived directly from the logo mark. No colour outside this system without written approval. Hex for digital; CMYK for print.</p>
 
   <div class="color-grid">
     <div class="color-card reveal" style="transition-delay:.05s"><div class="color-swatch" style="background:#1C5CAA"></div><div class="color-info"><div class="color-name">Royal Authority Blue</div><div class="color-hex">#1C5CAA</div><div class="color-role">Primary Brand</div></div></div>
@@ -533,7 +535,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 04</div>
   <h2 class="section-title reveal">Typography System</h2>
-  <p class="section-sub reveal">Inter for all roles — display, UI, and body. Variable weight axis from 300–900 enables full typographic hierarchy from a single typeface. All sizes are fluid and responsive.</p>
+  <p class="section-sub reveal">Inter across all roles. A single typeface with weights 300–900 delivers the full hierarchy. All sizes are fluid and responsive.</p>
 
   <div class="reveal" style="margin-bottom:var(--sp4);display:flex;gap:var(--sp2);flex-wrap:wrap;">
     <span class="font-chip">Inter 800–900 — Display &amp; Headings</span>
@@ -572,7 +574,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 06</div>
   <h2 class="section-title reveal">Service Identity</h2>
-  <p class="section-sub reveal">Three services. One interlocking programme. Always presented in sequence S1 → S2 → S3 with identical structural layout. Never remove the 'Explore →' link from any service card.</p>
+  <p class="section-sub reveal">Three services. One interlocking programme. Always S1 → S2 → S3. Never remove the 'Explore →' link.</p>
 
   <div class="services-grid">
     <div class="svc-card reveal" style="transition-delay:.05s">
@@ -627,7 +629,7 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
 <div class="section">
   <div class="eyebrow reveal">Section 07</div>
   <h2 class="section-title reveal">Layout &amp; Spacing</h2>
-  <p class="section-sub reveal">8pt base unit. 12-column grid. White space is authority — density is earned. Every element must justify its presence relative to the hierarchy.</p>
+  <p class="section-sub reveal">8pt base unit. 12-column grid. White space is authority — density is earned.</p>
   <div class="token-grid">
     <div class="token-card reveal"><div class="token-bar-wrap"><div class="token-bar" style="width:5%"></div></div><div class="token-name">space-1</div><div class="token-val">8px</div><div class="token-use">Icon-to-label gap</div></div>
     <div class="token-card reveal" style="transition-delay:.05s"><div class="token-bar-wrap"><div class="token-bar" style="width:10%"></div></div><div class="token-name">space-2</div><div class="token-val">16px</div><div class="token-use">Input field padding</div></div>
@@ -697,7 +699,7 @@ ease-in:  cubic-bezier(0.4, 0.0, 1, 1)
 <div class="section">
   <div class="eyebrow reveal">Section 05</div>
   <h2 class="section-title reveal">Voice &amp; Tone</h2>
-  <p class="section-sub reveal">Kneuralabs communicates as a senior partner at a specialised advisory firm — calm, evidence-based, and direct. Four registers: Advisory, Instructive, Reassuring, Urgent.</p>
+  <p class="section-sub reveal">A senior partner at a specialised advisory firm — calm, evidence-based, direct. Four registers: Advisory, Instructive, Reassuring, Urgent.</p>
 
   <div style="overflow-x:auto;" class="reveal">
   <table class="voice-table">
@@ -724,7 +726,7 @@ ease-in:  cubic-bezier(0.4, 0.0, 1, 1)
 <div class="section">
   <div class="eyebrow reveal">Section 09</div>
   <h2 class="section-title reveal">Regulatory Standards</h2>
-  <p class="section-sub reveal">These three frameworks form the technical and regulatory foundation of all Kneuralabs service delivery. Incorrect citation damages credibility — cite with precision, always.</p>
+  <p class="section-sub reveal">Three frameworks. One foundation. Incorrect citation damages credibility — cite with precision, always.</p>
 
   <div class="reg-grid">
     <div class="reg-card reveal">
