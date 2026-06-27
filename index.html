@@ -464,6 +464,97 @@ footer { background: var(--navy); color: rgba(255,255,255,.6); padding: var(--sp
   }
   .btn-primary:hover { transform: none; box-shadow: none; }
 }
+
+/* ─────────────────────────────────────────────
+   SKEUOMORPHIC LAYER — depth, gloss, bevels, texture
+   ───────────────────────────────────────────── */
+:root { --skeu-light: rgba(255,255,255,.85); --skeu-shadow: rgba(13,46,90,.18); }
+
+/* Paper / brushed-canvas texture */
+body {
+  background-color: var(--canvas);
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(255,255,255,.7), transparent 42%),
+    radial-gradient(circle at 84% 0%, rgba(74,139,200,.06), transparent 40%),
+    linear-gradient(180deg, #fbfcfe 0%, var(--canvas) 38%, #eef1f5 100%);
+  background-attachment: fixed;
+}
+
+/* Glossy frosted nav with top sheen + carved bottom edge */
+nav {
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(241,244,248,.9));
+  box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(13,46,90,.06), 0 6px 18px rgba(13,46,90,.07);
+}
+nav.scrolled { box-shadow: inset 0 1px 0 #fff, 0 4px 22px rgba(13,46,90,.14); }
+
+/* Beveled, pill-glossy buttons */
+.btn-primary, .nav-cta, .demo-primary, .svc-dur {
+  background: linear-gradient(180deg, var(--sky), var(--blue) 52%, var(--navy));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 4px rgba(13,46,90,.4), 0 3px 8px rgba(13,46,90,.28);
+  text-shadow: 0 -1px 0 rgba(13,46,90,.35);
+  border: 1px solid rgba(13,46,90,.5);
+}
+.btn-primary:hover, .nav-cta:hover, .demo-primary:hover {
+  background: linear-gradient(180deg, #5e9bd4, var(--blue) 55%, var(--navy));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 5px rgba(13,46,90,.45), 0 6px 16px rgba(13,46,90,.34);
+}
+.btn-primary:active, .nav-cta:active, .demo-primary:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(13,46,90,.5), inset 0 1px 0 rgba(13,46,90,.3);
+}
+.btn-secondary, .demo-secondary {
+  background: linear-gradient(180deg, #fff, #eef1f5);
+  box-shadow: inset 0 1px 0 #fff, 0 2px 5px rgba(13,46,90,.12);
+}
+
+/* Raised, lit cards with carved top highlight + soft drop */
+.pillar, .svc-card, .motion-card, .token-card {
+  background: linear-gradient(180deg, #fff, #f4f6f9);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(13,46,90,.08), 0 8px 22px rgba(13,46,90,.08);
+}
+.pillar:hover, .svc-card:hover, .motion-card:hover {
+  box-shadow: inset 0 1px 0 #fff, 0 2px 4px rgba(13,46,90,.1), 0 14px 34px rgba(28,92,170,.18);
+}
+.color-card { box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 4px 12px rgba(13,46,90,.14); }
+.color-card:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 14px 30px rgba(13,46,90,.22); }
+
+/* Glossy reflective colour swatches */
+.color-swatch { position: relative; }
+.color-swatch::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(170deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.08) 38%, rgba(0,0,0,.12) 100%);
+  pointer-events: none;
+}
+
+/* Embossed pills & chips */
+.hero-badge, .font-chip, .svc-code, .reg-tag {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(13,46,90,.08), 0 1px 2px rgba(13,46,90,.1);
+}
+
+/* Inset carved tracks with glossy fill */
+.token-bar-wrap, .easing-bar {
+  background: linear-gradient(180deg, #dde1e8, #eef1f5);
+  box-shadow: inset 0 1px 3px rgba(13,46,90,.25), inset 0 -1px 0 #fff;
+}
+.token-bar, .easing-fill {
+  background: linear-gradient(180deg, var(--sky), var(--blue));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* Recessed regulatory cards on the dark band */
+.reg-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 6px 16px rgba(0,0,0,.28);
+}
+
+/* Carved logo-rules panel */
+.rules-grid { box-shadow: inset 0 1px 0 #fff, 0 6px 20px rgba(13,46,90,.1); }
+
+@media (hover: none) {
+  .pillar:hover, .svc-card:hover, .motion-card:hover, .color-card:hover {
+    box-shadow: inset 0 1px 0 #fff, 0 6px 18px rgba(13,46,90,.1);
+  }
+}
 </style>
 </head>
 <body>
